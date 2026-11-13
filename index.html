@@ -1362,6 +1362,11 @@ html.dm-open{overflow:hidden}
   var $ = function(s, r){ return (r||document).querySelector(s); };
   var $$ = function(s, r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
   if (CONFIG.checkoutUrl) $$('[data-link="checkout"]').forEach(function(a){ a.href = CONFIG.checkoutUrl; });
+  /* Sem link de pagamento: o botão da oferta abre o WhatsApp com a mensagem de contratação */
+  else $$('#investimento [data-link="checkout"]').forEach(function(a){
+    a.href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent('Olá! Quero contratar meu site profissional no plano anual de R$ 444,00 (R$ 37/mês).');
+    a.target = '_blank'; a.rel = 'noopener';
+  });
   if (CONFIG.agendaUrl) $$('[data-link="agenda"]').forEach(function(a){ a.href = CONFIG.agendaUrl; a.target = '_blank'; });
 
   /* Filtro do portfólio */
