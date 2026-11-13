@@ -2020,6 +2020,16 @@ html.lgm-open .neo-tag{display:none!important}
     else if (a === 'back') mode('modeNone');
   });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !wa.hidden) wa.hidden = true; });
+  /* Cópia de cada formulário por e-mail (FormSubmit) — o WhatsApp continua abrindo normalmente */
+  var FORM_EMAIL = 'sac@andrehuhn.com.br';
+  function mail(tipo, campos){
+    var g = function(k){ return String(f[k] || '').trim(); }, d = { _subject: 'Site Top Brasil — ' + tipo + ' — ' + g('nome'), _template: 'table', _captcha: 'false', Tipo: tipo };
+    campos.forEach(function(c){ d[c[0]] = g(c[1]); });
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(g('email'))) d._replyto = g('email');
+    try { fetch('https://formsubmit.co/ajax/' + FORM_EMAIL, { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(d) }).catch(function(){}); } catch (er) {}
+  }
+  $('#wa-novo').addEventListener('click', function(){ mail('Novo cliente', [['Nome','nome'],['Empresa','empresa'],['Cidade/Estado','cidade'],['Segmento','segmento'],['Já possui site?','temSite'],['Principal dúvida','duvida']]); });
+  $('#wa-cliente').addEventListener('click', function(){ mail('Já sou cliente', [['Nome','nome'],['Empresa','empresa'],['CPF/CNPJ','doc'],['E-mail','email'],['Motivo','motivo'],['Solicitação','desc']]); });
   upd();
 })();
 </script>
