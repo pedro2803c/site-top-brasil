@@ -619,6 +619,11 @@ html.dm-open{overflow:hidden}
 .list.bk-live li.bk-li.on{opacity:1;transform:translateX(4px);font-weight:600}
 @media (max-width:680px){.bk{padding:10px}.bk-scr{height:350px}.bk-s{padding:12px;gap:8px}.bk-f{padding:6px 9px}.bk-clock{font-size:38px}.bk-link{font-size:11.5px}}
 @media (prefers-reduced-motion:reduce){.bk-s,.bk-cur{transition:none}.bk-cur{display:none}}
+.foot-lt .lg-img{height:56px}
+.foot-lt .mut{color:#5E5E59}
+.foot-lt .linkbtn{color:#4A4A46}
+.foot-lt a:hover,.foot-lt .linkbtn:hover{color:#0B0B0B!important}
+@media (max-width:680px){.foot-lt .lg-img{height:48px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -1284,34 +1289,34 @@ html.dm-open{overflow:hidden}
 </section>
 
 <!-- ============ 12 · RODAPÉ ============ -->
-<footer class="dark-sec" style="background: #0F0F0F; color: #FFFFFF; margin: 0 12px; border-radius: 32px; padding: 56px 0 32px">
+<footer class="foot-lt" style="background: linear-gradient(160deg, #FFFFFF 0%, #F1F5F8 45%, #E3EBF1 100%); color: #0B0B0B; margin: 0 12px; border-radius: 32px; padding: 56px 0 32px; border: 1px solid rgba(11,11,11,.08)">
   <div class="wrap">
     <div class="g-foot">
       <div style="display: flex; flex-direction: column; gap: 16px; max-width: 340px">
         <a href="#topo" class="logo" aria-label="Site Pro — voltar ao topo">
-      <img src="logo-branco.svg" alt="Site Pro — sites profissionais" class="lg-img" width="1087" height="309" decoding="async">
+      <img src="logo.svg" alt="Site Pro — sites profissionais" class="lg-img" width="1087" height="309" decoding="async">
         </a>
         <p class="mut" style="margin: 0; font-size: 14px; line-height: 1.6">Sites institucionais profissionais para empreendedores brasileiros, com domínio, hospedagem e suporte em um plano anual</p>
       </div>
       <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px">
-        <p style="margin: 0 0 4px; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #FFFFFF">Contato</p>
+        <p style="margin: 0 0 4px; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #0B0B0B">Contato</p>
         <button type="button" class="linkbtn" data-wa="open" style="font-size: 14px; padding: 0" data-event="Contact">WhatsApp: (11) 94393-5206</button>
         <span class="mut">[E-mail comercial]</span>
       </div>
       <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px">
-        <p style="margin: 0 0 4px; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #FFFFFF">Legal</p>
-        <a href="#" style="color: #A3A39E; text-decoration: none">Política de Privacidade</a>
-        <a href="#" style="color: #A3A39E; text-decoration: none">Termos de Uso</a>
-        <a href="#" style="color: #A3A39E; text-decoration: none">Condições de Contratação</a>
+        <p style="margin: 0 0 4px; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #0B0B0B">Legal</p>
+        <a href="#" style="color: #4A4A46; text-decoration: none">Política de Privacidade</a>
+        <a href="#" style="color: #4A4A46; text-decoration: none">Termos de Uso</a>
+        <a href="#" style="color: #4A4A46; text-decoration: none">Condições de Contratação</a>
       </div>
       <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px">
-        <p style="margin: 0 0 4px; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #FFFFFF">Empresa</p>
+        <p style="margin: 0 0 4px; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #0B0B0B">Empresa</p>
         <span class="mut">[Razão social]</span>
         <span class="mut">CNPJ: [inserir CNPJ]</span>
         <span class="mut">[Endereço, se aplicável]</span>
       </div>
     </div>
-    <div style="margin-top: 44px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12px; color: #8A8A85">
+    <div style="margin-top: 44px; padding-top: 22px; border-top: 1px solid rgba(11,11,11,0.1); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12px; color: #6B6B66">
       <span>© 2026 Site Top Brasil — Digital Solutions · Todos os direitos reservados</span>
       <span>Pagamento seguro · Contrato · Nota fiscal</span>
     </div>
