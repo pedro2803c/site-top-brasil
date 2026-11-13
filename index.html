@@ -773,6 +773,14 @@ html.cv-off .lp>.sec,html.cv-off .lp>footer{content-visibility:visible}
 .pd-hl .pd-ic{background:#0B0B0B}
 .pd-hl h3{color:rgba(11,11,11,.75)}.pd-hl h3 b{color:#0B0B0B}
 @media (max-width:860px){.pd{grid-template-columns:1fr}.pd-i:not(:last-child)::after{right:50%;top:auto;bottom:-13px;margin:0 -9px 0 0;transform:rotate(90deg)}.pd-i{padding:20px 22px;row-gap:12px}.pd-n{font-size:36px}}
+.pd-i{transition:transform .35s cubic-bezier(.2,.8,.2,1),background-color .35s,box-shadow .35s}
+.pd-n,.pd-ic{transition:transform .35s cubic-bezier(.2,.8,.2,1),color .35s,-webkit-text-stroke-color .35s}
+@media (hover:hover){.pd-i:hover{transform:translateY(-4px);box-shadow:0 14px 30px -14px rgba(212,242,90,.45)}
+.pd-i:not(.pd-hl):hover{background:#202020}
+.pd-i:not(.pd-hl):hover .pd-n{color:rgba(212,242,90,.18);-webkit-text-stroke-color:#D4F25A}
+.pd-i:hover .pd-ic{transform:rotate(-12deg) scale(1.1)}
+.pd-hl:hover .pd-n{color:rgba(11,11,11,.12)}}
+@media (prefers-reduced-motion:reduce){.pd-i,.pd-n,.pd-ic{transition:none}.pd-i:hover{transform:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
