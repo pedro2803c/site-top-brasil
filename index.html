@@ -1833,7 +1833,7 @@ window.__lpMain=function(){
       }
     }
     if (fine) {
-      document.addEventListener('mousemove', function(e){ mx = e.clientX; my = e.clientY; tag.classList.remove('off'); if (!raf) raf = requestAnimationFrame(place); }, { passive: true });
+      document.addEventListener('mousemove', function(e){ mx = e.clientX; my = e.clientY; tag.classList.toggle('off', !!(e.target.closest && e.target.closest('a,button,[role=button],input,textarea,select,label'))); if (!raf) raf = requestAnimationFrame(place); }, { passive: true });
       document.addEventListener('mouseleave', function(){ tag.classList.add('off'); });
       document.addEventListener('mouseout', function(e){ if (!e.relatedTarget) tag.classList.add('off'); });
     }
