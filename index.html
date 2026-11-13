@@ -546,6 +546,8 @@ html.neo-on .neo-tag{display:inline-flex}
 .dm-x{display:none;position:absolute;top:12px;right:12px;z-index:2;width:40px;height:40px;border-radius:50%;border:0;background:#fff;color:#0B0B0B;font-size:24px;line-height:1;cursor:pointer;box-shadow:0 6px 18px -6px rgba(0,0,0,.6)}
 .dm-x:hover{background:#D4F25A}
 html.dm-open{overflow:hidden}
+html.dm-open .neo-tag,html.dm-open .neo-toast,html.dm-open .neo-invite{display:none!important}
+html.dm-open.neo-on .dm,html.dm-open.neo-on .dm *{cursor:auto!important}
 @keyframes dm-f{from{opacity:0}}
 @keyframes dm-in{from{opacity:0;transform:translateY(24px) scale(.97)}}
 @media (max-width:680px){.dm{padding:0}.dm-box{border-radius:0}.dm-x{top:auto;bottom:76px;right:12px}}
