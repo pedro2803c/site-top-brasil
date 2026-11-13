@@ -675,6 +675,36 @@ html.dm-open.neo-on .dm,html.dm-open.neo-on .dm *{cursor:auto!important}
 @media (max-width:680px){.lgm{padding:0;place-items:end center}.lgm-box{max-height:92vh;border-radius:24px 24px 0 0}.lgm-body{padding:18px 20px 28px}}
 html.lgm-open{overflow:hidden}
 html.lgm-open .neo-tag{display:none!important}
+.tc-head{text-align:center;margin-bottom:32px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.tc-wrap{position:relative}
+.tc-track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:6px 2px 10px}
+.tc-track::-webkit-scrollbar{display:none}
+.tc-card{flex:0 0 calc((100% - 40px)/3);min-width:0;scroll-snap-align:start;margin:0;display:flex;flex-direction:column;gap:18px;padding:26px;border-radius:22px;background:linear-gradient(160deg,#1a1a1a,#121212);border:1px solid rgba(255,255,255,.08);position:relative}
+.tc-card::before{content:"";position:absolute;top:-1px;left:50%;width:40px;height:3px;margin-left:-20px;border-radius:3px;background:#D4F25A}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.tc-st{color:#D4F25A;letter-spacing:3px;font-size:20px}
+.tc-ok{color:#D4F25A;font-size:12px;font-weight:600}
+.tc-card blockquote{margin:0;font-style:italic;color:#C9C9C4;line-height:1.65;font-size:15px;flex:1}
+.tc-card figcaption{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08)}
+.tc-av{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:rgba(212,242,90,.12);border:1px solid rgba(212,242,90,.35);color:#D4F25A;font-weight:700;font-size:14px}
+.tc-card figcaption b{display:block;font-size:15px;color:#fff}
+.tc-card figcaption small{color:#8A8A85;font-size:13px}
+.tc-nav{position:absolute;top:50%;z-index:2;width:46px;height:46px;margin-top:-23px;border-radius:50%;border:1px solid rgba(212,242,90,.35);background:#0F0F0F;color:#D4F25A;font-size:26px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:opacity .2s}
+.tc-prev{left:-22px}.tc-next{right:-22px}
+.tc-nav:disabled{opacity:.3;cursor:default}
+.tc-dots{display:flex;justify-content:center;gap:8px;margin-top:22px}
+.tc-dots i{width:8px;height:8px;border-radius:8px;background:rgba(255,255,255,.2);transition:all .3s}
+.tc-dots i.on{width:28px;background:#D4F25A}
+@media (max-width:900px){.tc-card{flex-basis:calc((100% - 20px)/2)}}
+@media (max-width:640px){.tc-card{flex-basis:86%;padding:22px}.tc-nav{display:none}}
+.tc-g{margin-top:14px;width:100%;max-width:620px;padding:26px 24px;border-radius:22px;background:linear-gradient(160deg,#1a1a1a,#121212);border:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+.tc-g-row{display:flex;align-items:center;gap:14px;text-align:left}
+.tc-g-ic{width:52px;height:52px;border-radius:14px;background:#222;border:1px solid rgba(255,255,255,.1);display:grid;place-items:center}
+.tc-g-ic svg{width:30px;height:30px}
+.tc-g-row b{display:block;font-size:26px;line-height:1;color:#fff}
+.tc-g-st{color:#D4F25A;letter-spacing:2px;font-size:14px}
+.tc-g p{margin:0;color:#C9C9C4;font-size:15px;line-height:1.6;max-width:440px}
+.tc-g-pill{font-size:13px;font-weight:600;color:#D4F25A;padding:9px 16px;border-radius:999px;background:rgba(212,242,90,.08);border:1px solid rgba(212,242,90,.3)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -1257,6 +1287,23 @@ html.lgm-open .neo-tag{display:none!important}
           <figcaption><b>Cinthia Melo</b><small>Nutricionista · Macaé, RJ</small><a href="https://cinthiamelonutri.com.br" target="_blank" rel="noopener nofollow">cinthiamelonutri.com.br</a></figcaption>
         </figure>
     </div>
+  </div>
+</section>
+
+<!-- ============ 08c · AVALIAÇÕES ============ -->
+<section class="sec dark-sec tc-sec" id="avaliacoes" style="background: #0F0F0F; overflow: hidden; padding-top: 0">
+  <div class="wrap">
+    <div class="tc-head reveal"><span class="eyebrow">Prova social</span><h2 class="h-sec">Avaliações reais de <span class="hl">clientes</span></h2>
+      <p class="mut" style="margin:0;max-width:620px;font-size:16px;line-height:1.6">Empresas, profissionais e empreendedores que confiaram na André Huhn para fortalecer sua presença digital e acelerar seus resultados.</p>
+      <div class="tc-g"><div class="tc-g-row"><span class="tc-g-ic"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.8-2.1 5.1-4.4 6.7v5.5h7.1c4.2-3.8 6.6-9.5 6.6-16.2z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.6-3.8-12.3-9H4.4v5.7C8 41.1 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.7 28.3c-.4-1.3-.7-2.8-.7-4.3s.3-3 .7-4.3V14H4.4C2.9 17 2 20.4 2 24s.9 7 2.4 10l7.3-5.7z"/><path fill="#EA4335" d="M24 10.7c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.2 29.9 2 24 2 15.4 2 8 6.9 4.4 14l7.3 5.7c1.7-5.2 6.6-9 12.3-9z"/></svg></span><span><b>5.0</b><span class="tc-g-st" aria-label="5 estrelas">★★★★★</span></span></div>
+        <p>A confiança dos nossos clientes é o reflexo da qualidade que entregamos.</p>
+        <span class="tc-g-pill">✓ Avaliações reais de clientes</span></div></div>
+    <div class="tc-wrap">
+      <button type="button" class="tc-nav tc-prev" aria-label="Anterior">‹</button>
+      <div class="tc-track" tabindex="0" aria-label="Depoimentos de clientes"><figure class="tc-card"><div class="tc-top"><span class="tc-st" aria-label="5 estrelas">★★★★★</span><span class="tc-ok">✓ Cliente verificado</span></div><blockquote>“O site desenvolvido superou minhas expectativas. Ficou profissional, moderno e transmitiu perfeitamente a…”</blockquote><figcaption><span class="tc-av" aria-hidden="true">TM</span><span><b>Tatiana Moraes</b><small>Engenheira Civil · Macaé/RJ</small></span></figcaption></figure><figure class="tc-card"><div class="tc-top"><span class="tc-st" aria-label="5 estrelas">★★★★★</span><span class="tc-ok">✓ Cliente verificado</span></div><blockquote>“Recebi a primeira entrega do meu site e fiquei extremamente feliz com o resultado. O projeto ficou acima das…”</blockquote><figcaption><span class="tc-av" aria-hidden="true">AE</span><span><b>AR Estúdio Brasília</b><small>Produtora de Vídeo</small></span></figcaption></figure><figure class="tc-card"><div class="tc-top"><span class="tc-st" aria-label="5 estrelas">★★★★★</span><span class="tc-ok">✓ Cliente verificado</span></div><blockquote>“O André superou minhas expectativas. Transparência, profissionalismo e atenção ao cliente em cada etapa do…”</blockquote><figcaption><span class="tc-av" aria-hidden="true">BS</span><span><b>Brasil Serviços Gerais</b><small>Facilities, Limpeza e Portaria</small></span></figcaption></figure><figure class="tc-card"><div class="tc-top"><span class="tc-st" aria-label="5 estrelas">★★★★★</span><span class="tc-ok">✓ Cliente verificado</span></div><blockquote>“Profissional extremamente dedicado, atento aos detalhes e sempre disponível para esclarecer dúvidas e…”</blockquote><figcaption><span class="tc-av" aria-hidden="true">CM</span><span><b>Cinthia Melo</b><small>Nutri-Infantil</small></span></figcaption></figure><figure class="tc-card"><div class="tc-top"><span class="tc-st" aria-label="5 estrelas">★★★★★</span><span class="tc-ok">✓ Cliente verificado</span></div><blockquote>“Fizemos o site da nossa certificadora e o prazo foi seguido exatamente como combinado. Estamos totalmente…”</blockquote><figcaption><span class="tc-av" aria-hidden="true">SL</span><span><b>Silva Leão</b><small>Contabilidade e Consultoria</small></span></figcaption></figure><figure class="tc-card"><div class="tc-top"><span class="tc-st" aria-label="5 estrelas">★★★★★</span><span class="tc-ok">✓ Cliente verificado</span></div><blockquote>“Meu e-commerce ficou lindo, funcional e muito fácil de usar. Recebi suporte durante todas as etapas e o resultado…”</blockquote><figcaption><span class="tc-av" aria-hidden="true">IR</span><span><b>Ielma Rizzi</b><small>E-commerce</small></span></figcaption></figure><figure class="tc-card"><div class="tc-top"><span class="tc-st" aria-label="5 estrelas">★★★★★</span><span class="tc-ok">✓ Cliente verificado</span></div><blockquote>“O site ficou perfeito e superou todas as minhas expectativas. Obrigada pela dedicação, cuidado e paciência para…”</blockquote><figcaption><span class="tc-av" aria-hidden="true">RG</span><span><b>Romana Guedes</b><small>Empresária</small></span></figcaption></figure><figure class="tc-card"><div class="tc-top"><span class="tc-st" aria-label="5 estrelas">★★★★★</span><span class="tc-ok">✓ Cliente verificado</span></div><blockquote>“Atendimento excelente desde a primeira abordagem até a entrega. O resultado final superou expectativas e…”</blockquote><figcaption><span class="tc-av" aria-hidden="true">OT</span><span><b>Otávio T. Borin</b><small>Empresário</small></span></figcaption></figure><figure class="tc-card"><div class="tc-top"><span class="tc-st" aria-label="5 estrelas">★★★★★</span><span class="tc-ok">✓ Cliente verificado</span></div><blockquote>“Excelente suporte e orientação estratégica. O acompanhamento recebido ampliou nossa visão sobre o…”</blockquote><figcaption><span class="tc-av" aria-hidden="true">CC</span><span><b>Centro de Capacitação Jhon-Wender</b><small>Educação e Capacitação</small></span></figcaption></figure></div>
+      <button type="button" class="tc-nav tc-next" aria-label="Próximo">›</button>
+    </div>
+    <div class="tc-dots" aria-hidden="true"></div>
   </div>
 </section>
 
@@ -1897,6 +1944,21 @@ html.lgm-open .neo-tag{display:none!important}
     });
     function close(){ m.hidden = true; document.documentElement.classList.remove('lgm-open'); if (last && last.focus) last.focus(); }
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !m.hidden) close(); });
+  })();
+
+  /* Carrossel de avaliações */
+  (function(){
+    var tr=document.querySelector('.tc-track'); if(!tr) return;
+    var cs=tr.children, dots=document.querySelector('.tc-dots'), pv=document.querySelector('.tc-prev'), nx=document.querySelector('.tc-next');
+    function per(){ return Math.max(1, Math.round(tr.clientWidth / cs[0].offsetWidth)); }
+    function pages(){ return cs.length - per() + 1; }
+    function idx(){ return Math.round(tr.scrollLeft / (cs[1].offsetLeft - cs[0].offsetLeft)); }
+    function draw(){ var n=pages(), i=Math.min(idx(), n-1); if(dots.children.length!==n){ dots.innerHTML=new Array(n+1).join('<i></i>'); }
+      for(var j=0;j<n;j++) dots.children[j].className = j===i?'on':''; pv.disabled = i<=0; nx.disabled = i>=n-1; }
+    function go(d){ var s=cs[1].offsetLeft - cs[0].offsetLeft; tr.scrollBy({left:d*s}); }
+    pv.addEventListener('click',function(){go(-1)}); nx.addEventListener('click',function(){go(1)});
+    tr.addEventListener('scroll',function(){ requestAnimationFrame(draw); },{passive:true});
+    window.addEventListener('resize',draw); draw();
   })();
 
   /* Triagem WhatsApp */
