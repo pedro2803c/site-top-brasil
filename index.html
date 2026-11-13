@@ -512,15 +512,6 @@ html.neo-on .neo-tag{display:inline-flex}
 .exp-shots .es1{width:100%;height:auto;transform:rotate(-6deg)}
 .exp-shots .es2{position:absolute;left:-14%;top:42%;width:34%;height:auto;border:3px solid #0B0B0B;border-radius:14px;transform:rotate(5deg)}
 @media (min-width:1061px){.exp-shots{width:72%;top:22px}}
-.ig-card{margin-top:auto;border-radius:18px;background:#fff;border:1px solid rgba(11,11,11,.12);padding:14px;display:grid;gap:12px}
-.ig-head{display:flex;align-items:center;gap:10px}
-.ig-av{flex:none;width:42px;height:42px;border-radius:50%;padding:2px;background:linear-gradient(45deg,#FEDA75,#FA7E1E,#D62976,#962FBF,#4F5BD5);display:grid;place-items:center}
-.ig-av img{width:38px;height:38px;border-radius:50%;background:#fff;object-fit:contain;padding:4px;box-sizing:border-box}
-.ig-id{display:grid;line-height:1.25;min-width:0}.ig-id b{font-size:14px}.ig-id small{font-size:12px;color:#6B6B66}
-.ig-follow{margin-left:auto;font-size:12px;font-weight:600;color:#fff;background:#0095F6;border-radius:8px;padding:6px 12px}
-.ig-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
-.ig-post{aspect-ratio:1;overflow:hidden;border-radius:6px;background:#f0f0ee}
-.ig-post img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
 .bonus-arts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
 .ba{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:10px;display:flex;flex-direction:column;justify-content:flex-end;padding:7px;box-shadow:0 8px 18px -10px rgba(11,11,11,.5)}
 .ba b{position:relative;font-size:clamp(9px,.85vw,12px);font-weight:700;line-height:1.1;letter-spacing:-.01em}
@@ -558,6 +549,76 @@ html.dm-open{overflow:hidden}
 @keyframes dm-f{from{opacity:0}}
 @keyframes dm-in{from{opacity:0;transform:translateY(24px) scale(.97)}}
 @media (max-width:680px){.dm{padding:0}.dm-box{border-radius:0}.dm-x{top:auto;bottom:76px;right:12px}}
+.bk{margin-top:auto;border-radius:20px;background:#fff;border:1px solid rgba(11,11,11,.1);box-shadow:0 30px 60px -34px rgba(11,11,11,.45);padding:14px;display:flex;flex-direction:column;gap:12px}
+.bk-prog{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.bk-prog i{height:4px;border-radius:4px;background:rgba(11,11,11,.08);overflow:hidden;position:relative}
+.bk-prog i::after{content:"";position:absolute;inset:0;background:#0B0B0B;transform:scaleX(0);transform-origin:left}
+.bk-prog i.done::after{transform:scaleX(1)}
+.bk-prog i.on::after{animation:bk-bar var(--bkd,4s) linear forwards}
+@keyframes bk-bar{to{transform:scaleX(1)}}
+.bk-scr{position:relative;height:300px;overflow:hidden;border-radius:14px;background:#F7F7F4}
+.bk-s{position:absolute;inset:0;padding:16px;display:flex;flex-direction:column;gap:10px;opacity:0;transform:translateX(30px);transition:opacity .45s,transform .55s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.bk-s.on{opacity:1;transform:none}
+.bk-s.out{opacity:0;transform:translateX(-30px)}
+.bk-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.bk-h b{font-size:16px;letter-spacing:-.01em}.bk-h span{font-size:12px;color:#6B6B66}
+.bk-wk,.bk-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;text-align:center}
+.bk-wk span{font-size:10px;font-weight:600;color:#9A9A94}
+.bk-d{font-size:12px;padding:6px 0;border-radius:8px;color:#B5B5AF;transition:.3s}
+.bk-d.av{color:#0B0B0B;background:rgba(212,242,90,.35);font-weight:600}
+.bk-s1.p1 .bk-d.pick{background:#0B0B0B;color:#D4F25A;transform:scale(1.12);box-shadow:0 6px 14px -6px rgba(11,11,11,.6)}
+.bk-times{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;opacity:0;transform:translateY(10px);transition:.4s}
+.bk-s1.p1 .bk-times{opacity:1;transform:none}
+.bk-times span{font-size:12px;font-weight:600;text-align:center;padding:8px 0;border-radius:9px;border:1px solid rgba(11,11,11,.14);background:#fff;transition:.3s}
+.bk-s1.p2 .bk-times .pick{background:#D4F25A;border-color:#0B0B0B;transform:scale(1.06)}
+.bk-f{display:flex;flex-direction:column;gap:3px;padding:7px 10px;border-radius:10px;background:#fff;border:1px solid rgba(11,11,11,.1)}
+.bk-f small{font-size:10px;color:#8A8A84;font-weight:600;letter-spacing:.02em}
+.bk-f span{font-size:13px;min-height:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bk-f.typing{border-color:#0B0B0B;box-shadow:0 0 0 3px rgba(212,242,90,.6)}
+.bk-f.typing span::after{content:"";display:inline-block;width:1.5px;height:13px;background:#0B0B0B;margin-left:1px;vertical-align:-2px;animation:bk-blink .8s steps(2) infinite}
+@keyframes bk-blink{50%{opacity:0}}
+.bk-btn{margin-top:auto;text-align:center;font-size:13px;font-weight:700;padding:11px;border-radius:999px;background:#0B0B0B;color:#D4F25A;transition:.25s}
+.bk-s2.p1 .bk-btn{transform:scale(.96);background:#D4F25A;color:#0B0B0B}
+.bk-s3{align-items:center;justify-content:center;text-align:center;gap:8px}
+.bk-ok{width:66px;height:66px;border-radius:50%;background:#D4F25A;display:grid;place-items:center;transform:scale(0);box-shadow:0 0 0 0 rgba(212,242,90,.7)}
+.bk-ok svg{width:34px;height:34px;fill:none;stroke:#0B0B0B;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:30;stroke-dashoffset:30}
+.bk-s3.on .bk-ok{animation:bk-pop .55s cubic-bezier(.3,1.6,.5,1) forwards,bk-ring 1.6s .5s ease-out}
+.bk-s3.on .bk-ok svg{animation:bk-draw .5s .35s ease forwards}
+@keyframes bk-pop{to{transform:scale(1)}}
+@keyframes bk-ring{to{box-shadow:0 0 0 22px rgba(212,242,90,0)}}
+@keyframes bk-draw{to{stroke-dashoffset:0}}
+.bk-t{font-size:20px;letter-spacing:-.02em;margin-top:4px}
+.bk-sub{font-size:13px;color:#6B6B66}
+.bk-link{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid rgba(11,11,11,.12);margin-top:4px}
+.bk-link svg{width:16px;height:16px;fill:none;stroke:#0B0B0B;stroke-width:2;stroke-linejoin:round}
+.bk-mail{font-size:11.5px;color:#8A8A84}
+.bk-s3 > *:not(.bk-ok){opacity:0;transform:translateY(8px)}
+.bk-s3.on > *:not(.bk-ok){animation:bk-up .4s ease forwards}
+.bk-s3.on .bk-t{animation-delay:.45s!important}.bk-s3.on .bk-sub{animation-delay:.55s!important}.bk-s3.on .bk-link{animation-delay:.7s!important}.bk-s3.on .bk-mail{animation-delay:.85s!important}
+@keyframes bk-up{to{opacity:1;transform:none}}
+.bk-s4{align-items:center;justify-content:center;background:radial-gradient(120% 90% at 50% 0%,#2A2F14,#0B0B0B 70%)}
+.bk-phone{width:100%;max-width:300px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.bk-clock{font-size:46px;font-weight:300;color:#fff;letter-spacing:-.03em;margin-bottom:6px}
+.bk-notif{width:100%;display:flex;gap:10px;align-items:center;padding:11px 12px;border-radius:16px;background:rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;opacity:0;transform:translateY(-24px) scale(.96)}
+.bk-notif b{display:block;font-size:12.5px}.bk-notif small{display:block;font-size:12px;color:#E2E2DC;line-height:1.35}
+.bk-s4.on .bk-notif{animation:bk-drop .6s cubic-bezier(.2,1.3,.4,1) .3s forwards}
+.bk-s4.on .bk-notif.n2{animation-delay:1.3s}
+@keyframes bk-drop{to{opacity:1;transform:none}}
+.bk-bell{flex:none;width:34px;height:34px;border-radius:10px;background:#D4F25A;display:grid;place-items:center}
+.bk-bell svg{width:18px;height:18px;fill:none;stroke:#0B0B0B;stroke-width:2;stroke-linejoin:round}
+.bk-bell.wa{background:#25D366}.bk-bell.wa svg{stroke:#fff}
+.bk-s4.on .bk-notif:first-of-type .bk-bell svg{animation:bk-shake .6s .9s 2}
+@keyframes bk-shake{25%{transform:rotate(16deg)}75%{transform:rotate(-16deg)}}
+.bk-cur{position:absolute;left:0;top:0;z-index:3;width:22px;height:22px;pointer-events:none;opacity:0;transition:transform .8s cubic-bezier(.45,.05,.3,1),opacity .3s}
+.bk-cur.show{opacity:1}
+.bk-cur svg{width:22px;height:22px;fill:#B8FF1F;stroke:#0B0B0B;stroke-width:1.6;stroke-linejoin:round;filter:drop-shadow(0 3px 4px rgba(0,0,0,.3))}
+.bk-cur.tap svg{animation:bk-tap .3s ease}
+@keyframes bk-tap{50%{transform:scale(.78)}}
+.list li.bk-li{transition:opacity .3s,transform .3s}
+.list.bk-live li.bk-li{opacity:.45}
+.list.bk-live li.bk-li.on{opacity:1;transform:translateX(4px);font-weight:600}
+@media (max-width:680px){.bk{padding:10px}.bk-scr{height:350px}.bk-s{padding:12px;gap:8px}.bk-f{padding:6px 9px}.bk-clock{font-size:38px}.bk-link{font-size:11.5px}}
+@media (prefers-reduced-motion:reduce){.bk-s,.bk-cur{transition:none}.bk-cur{display:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -1135,14 +1196,47 @@ html.dm-open{overflow:hidden}
           <h3 class="h3">Como funciona o agendamento</h3>
           <span class="pill" style="background: #FFFFFF; color: #0B0B0B; border: 1px solid rgba(11,11,11,.1)">Agenda integrada</span>
         </div>
-        <ol class="list" style="counter-reset: none">
-          <li class="chk"><span class="num" style="width: 24px; height: 24px; font-size: 11px; background: #D4F25A; color: #0B0B0B">1</span>Escolha a data e um horário disponível</li>
-          <li class="chk"><span class="num" style="width: 24px; height: 24px; font-size: 11px; background: #D4F25A; color: #0B0B0B">2</span>Informe nome, empresa, e-mail, WhatsApp e sua principal dúvida</li>
-          <li class="chk"><span class="num" style="width: 24px; height: 24px; font-size: 11px; background: #D4F25A; color: #0B0B0B">3</span>Receba a confirmação com o link da reunião</li>
-          <li class="chk"><span class="num" style="width: 24px; height: 24px; font-size: 11px; background: #D4F25A; color: #0B0B0B">4</span>Um lembrete é enviado antes do horário</li>
+        <ol class="list bk-list" style="counter-reset: none">
+          <li class="chk bk-li"><span class="num" style="width: 24px; height: 24px; font-size: 11px; background: #D4F25A; color: #0B0B0B">1</span>Escolha a data e um horário disponível</li>
+          <li class="chk bk-li"><span class="num" style="width: 24px; height: 24px; font-size: 11px; background: #D4F25A; color: #0B0B0B">2</span>Informe nome, empresa, e-mail, WhatsApp e sua principal dúvida</li>
+          <li class="chk bk-li"><span class="num" style="width: 24px; height: 24px; font-size: 11px; background: #D4F25A; color: #0B0B0B">3</span>Receba a confirmação com o link da reunião</li>
+          <li class="chk bk-li"><span class="num" style="width: 24px; height: 24px; font-size: 11px; background: #D4F25A; color: #0B0B0B">4</span>Um lembrete é enviado antes do horário</li>
         </ol>
-        <div class="ig-card" aria-hidden="true"><div class="ig-head"><span class="ig-av"><img src="logo.svg" alt="" width="1087" height="309"></span><span class="ig-id"><b>sitepro.oficial</b><small>6 publicações · sites de clientes</small></span><span class="ig-follow">Seguir</span></div><div class="ig-grid"><span class="ig-post"><img src="modelos/hero/dentora-m.webp" alt="" width="240" height="520" loading="lazy" decoding="async"></span><span class="ig-post"><img src="modelos/hero/vellura-m.webp" alt="" width="240" height="520" loading="lazy" decoding="async"></span><span class="ig-post"><img src="modelos/hero/sushi-m.webp" alt="" width="240" height="520" loading="lazy" decoding="async"></span><span class="ig-post"><img src="modelos/hero/advocacia-m.webp" alt="" width="240" height="520" loading="lazy" decoding="async"></span><span class="ig-post"><img src="modelos/hero/saborearte-m.webp" alt="" width="240" height="520" loading="lazy" decoding="async"></span><span class="ig-post"><img src="modelos/hero/nutrisavvy-m.webp" alt="" width="240" height="520" loading="lazy" decoding="async"></span></div></div>
-        <p class="mut" style="margin: 0; font-size: 12px; line-height: 1.5">Ilustração<br>Alguns dos sites que criamos, prontos para divulgar no Instagram da sua empresa</p>
+        <div class="bk" aria-hidden="true">
+  <div class="bk-prog"><i></i><i></i><i></i><i></i></div>
+  <div class="bk-scr">
+    <div class="bk-s bk-s1">
+      <div class="bk-h"><b>Novembro</b><span>Escolha uma data</span></div>
+      <div class="bk-wk"><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div>
+      <div class="bk-cal"><span class="bk-d">1</span><span class="bk-d">2</span><span class="bk-d">3</span><span class="bk-d av">4</span><span class="bk-d av">5</span><span class="bk-d av">6</span><span class="bk-d av">7</span><span class="bk-d">8</span><span class="bk-d">9</span><span class="bk-d">10</span><span class="bk-d av">11</span><span class="bk-d av">12</span><span class="bk-d av pick">13</span><span class="bk-d av">14</span><span class="bk-d">15</span><span class="bk-d">16</span><span class="bk-d">17</span><span class="bk-d av">18</span><span class="bk-d av">19</span><span class="bk-d av">20</span><span class="bk-d av">21</span></div>
+      <div class="bk-times"><span>09:00</span><span>10:30</span><span class="pick">14:00</span><span>16:30</span></div>
+    </div>
+    <div class="bk-s bk-s2">
+      <div class="bk-h"><b>Seus dados</b><span>Qua, 13 nov · 14:00</span></div>
+      <label class="bk-f"><small>Nome</small><span data-type="Ana Souza"></span></label>
+      <label class="bk-f"><small>Empresa</small><span data-type="Clínica Sorriso"></span></label>
+      <label class="bk-f"><small>WhatsApp</small><span data-type="(11) 98765-4321"></span></label>
+      <label class="bk-f"><small>Principal dúvida</small><span data-type="Quanto tempo leva para o site ficar pronto?"></span></label>
+      <span class="bk-btn">Confirmar agendamento</span>
+    </div>
+    <div class="bk-s bk-s3">
+      <span class="bk-ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+      <b class="bk-t">Reunião confirmada!</b>
+      <span class="bk-sub">Qua, 13 de novembro · 14:00 · 30 min</span>
+      <span class="bk-link"><svg viewBox="0 0 24 24"><path d="M3 7h12v10H3zM15 10l6-3v10l-6-3"/></svg>meet.google.com/sit-epro-reu</span>
+      <span class="bk-mail">Link enviado para seu e-mail e WhatsApp</span>
+    </div>
+    <div class="bk-s bk-s4">
+      <div class="bk-phone">
+        <span class="bk-clock">13:30</span>
+        <div class="bk-notif"><span class="bk-bell"><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/></svg></span><span><b>Lembrete · SitePro</b><small>Sua reunião começa em 30 minutos. Toque para entrar.</small></span></div>
+        <div class="bk-notif n2"><span class="bk-bell wa"><svg viewBox="0 0 24 24"><path d="M5 19l1.2-3.6A7.5 7.5 0 1 1 9 18.4z"/></svg></span><span><b>WhatsApp</b><small>Oi, Ana! Te esperamos às 14:00 😉</small></span></div>
+      </div>
+    </div>
+    <span class="bk-cur"><svg viewBox="0 0 24 24"><path d="M4 3l16 7.4-6.9 1.9L10 19.4z"/></svg></span>
+  </div>
+</div>
+        <p class="mut" style="margin: 0; font-size: 12px; line-height: 1.5">Ilustração<br>A agenda real mostra somente horários disponíveis e bloqueia horários já reservados</p>
       </div>
     </div>
   </div>
@@ -1551,6 +1645,56 @@ html.dm-open{overflow:hidden}
       if (e.data === 'demo:close') close();
       if (e.data === 'demo:offer') { close(); var o = document.getElementById('investimento'); if (o) window.scrollTo({ top: o.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); }
     });
+  })();
+
+  /* Animação do processo de agendamento */
+  (function(){
+    var root = document.querySelector('.bk'); if (!root) return;
+    var scr = root.querySelector('.bk-scr'), cur = root.querySelector('.bk-cur');
+    var S = root.querySelectorAll('.bk-s'), bars = root.querySelectorAll('.bk-prog i');
+    var lis = document.querySelectorAll('.bk-list .bk-li'), list = document.querySelector('.bk-list');
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var DUR = [4600, 6200, 3600, 4200], step = -1, timers = [], running = false;
+    function later(fn, ms){ timers.push(setTimeout(fn, ms)); }
+    function clear(){ timers.forEach(clearTimeout); timers = []; }
+    function moveTo(el, cb){
+      if (reduce) { if (cb) cb(); return; }
+      var r = el.getBoundingClientRect(), b = scr.getBoundingClientRect();
+      cur.classList.add('show');
+      cur.style.transform = 'translate(' + (r.left - b.left + r.width / 2 - 4) + 'px,' + (r.top - b.top + r.height / 2 - 3) + 'px)';
+      later(function(){ cur.classList.remove('tap'); void cur.offsetWidth; cur.classList.add('tap'); if (cb) cb(); }, 850);
+    }
+    function type(f, txt, done){
+      var sp = f.querySelector('span'), k = 0; f.classList.add('typing');
+      (function tick(){ sp.textContent = txt.slice(0, ++k); if (k < txt.length) later(tick, reduce ? 0 : 28); else { f.classList.remove('typing'); later(done, 120); } })();
+    }
+    function show(n){
+      clear(); step = n;
+      [].forEach.call(S, function(s, k){ s.classList.remove('p1', 'p2'); s.classList.toggle('on', k === n); s.classList.toggle('out', k === (n + 3) % 4 && k !== n); });
+      [].forEach.call(bars, function(b, k){ b.classList.remove('on'); b.classList.toggle('done', k < n); });
+      var bar = bars[n]; bar.style.setProperty('--bkd', DUR[n] + 'ms'); void bar.offsetWidth; bar.classList.add('on');
+      if (list) list.classList.add('bk-live');
+      [].forEach.call(lis, function(li, k){ li.classList.toggle('on', k === n); });
+      var s = S[n];
+      if (n === 0) {
+        cur.style.transition = 'none'; cur.style.transform = 'translate(70%,240px)'; void cur.offsetWidth; cur.style.transition = '';
+        later(function(){ moveTo(s.querySelector('.bk-d.pick'), function(){ s.classList.add('p1');
+          later(function(){ moveTo(s.querySelector('.bk-times .pick'), function(){ s.classList.add('p2'); }); }, 500); }); }, 450);
+      } else if (n === 1) {
+        var fs = s.querySelectorAll('.bk-f'); [].forEach.call(fs, function(f){ f.querySelector('span').textContent = ''; });
+        cur.classList.remove('show');
+        var i = 0;
+        (function next(){ if (i < fs.length) { var f = fs[i++]; type(f, f.querySelector('span').getAttribute('data-type'), next); }
+          else later(function(){ moveTo(s.querySelector('.bk-btn'), function(){ s.classList.add('p1'); }); }, 150); })();
+      } else { cur.classList.remove('show'); }
+      later(function(){ if (running) show((n + 1) % 4); }, DUR[n]);
+    }
+    function start(){ if (running) return; running = true; show(step < 0 ? 0 : step); }
+    function stop(){ running = false; clear(); }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function(es){ es.forEach(function(e){ e.isIntersecting ? start() : stop(); }); }, { threshold: .25 }).observe(root);
+    } else start();
+    document.addEventListener('visibilitychange', function(){ if (document.hidden) stop(); });
   })();
 
   /* Triagem WhatsApp */
