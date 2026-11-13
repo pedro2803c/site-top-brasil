@@ -1894,7 +1894,7 @@ html.cv-off .lp>.sec,html.cv-off .lp>footer{content-visibility:visible}
     window.addEventListener('message', function(e){
       if (e.origin !== location.origin) return;
       if (e.data === 'demo:close') close();
-      if (e.data === 'demo:offer') { close(); var o = document.getElementById('investimento'); if (o) window.scrollTo({ top: o.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); }
+      if (e.data === 'demo:offer') { close(); if (window.cvFull) { cvFull(); void document.documentElement.offsetHeight; } var o = document.getElementById('investimento'); if (o) window.scrollTo({ top: o.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); }
     });
   })();
 
@@ -2058,8 +2058,8 @@ html.cv-off .lp>.sec,html.cv-off .lp>footer{content-visibility:visible}
 function full(){d.classList.add('cv-off')}
 function go(id){var el=id&&document.getElementById(id);if(!el)return;void d.offsetHeight;el.scrollIntoView({behavior:'smooth',block:'start'});var k=0,t=setInterval(function(){var y=el.getBoundingClientRect().top,m=parseFloat(getComputedStyle(el).scrollMarginTop)||0;if(++k>12||(Math.abs(y-m)<3&&k>3)){clearInterval(t);if(Math.abs(y-m)>=3)el.scrollIntoView({behavior:'instant',block:'start'})}},150)}
 if(location.hash.length>1){full();addEventListener('load',function(){go(location.hash.slice(1))})}
-document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||e.defaultPrevented)return;var id=a.getAttribute('href').slice(1);if(d.classList.contains('cv-off')||!id)return;full();e.preventDefault();history.pushState(null,'','#'+id);go(id)});
-addEventListener('load',function(){setTimeout(function(){(window.requestIdleCallback||setTimeout)(full)},4000)});})();
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;var id=a.getAttribute('href').slice(1),el=id&&document.getElementById(id);if(!el||d.classList.contains('cv-off'))return;full();void d.offsetHeight;var k=0,t=setInterval(function(){var y=el.getBoundingClientRect().top,m=parseFloat(getComputedStyle(el).scrollMarginTop)||0;if(++k>14){clearInterval(t);if(Math.abs(y-m)>=3)el.scrollIntoView({behavior:'instant',block:'start'})}},150)},true);
+window.cvFull=full;})();
 </script>
 </body>
 </html>
