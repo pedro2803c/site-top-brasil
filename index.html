@@ -828,6 +828,62 @@ html.cv-off .lp>.sec,html.cv-off .lp>footer{content-visibility:visible}
 .faq-sec .faq[open]{background:rgba(255,255,255,.08);border-color:rgba(212,242,90,.35);box-shadow:none}
 .faq-sec .faq p a,.faq-sec .faq p b{color:#D4F25A}
 .faq-v2{grid-template-columns:1fr!important;gap:28px}.faq-head{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}.faq-head .h-sec{color:#fff}.faq-head .hl{color:#0B0B0B}.faq-head .faq-eb{align-self:center}
+.bkm{position:fixed;inset:0;z-index:10000;font-family:'Inter',system-ui,-apple-system,sans-serif;display:grid;place-items:center;padding:16px}
+.bkm[hidden]{display:none}
+.bkm-bg{position:absolute;inset:0;background:rgba(11,11,11,.55);backdrop-filter:blur(4px)}
+.bkm-box{position:relative;width:min(460px,100%);max-height:calc(100dvh - 32px);overflow:auto;background:#fff;color:#0B0B0B;border-radius:28px;padding:24px;box-shadow:0 40px 80px -30px rgba(0,0,0,.5);animation:bkm-in .35s cubic-bezier(.16,1,.3,1)}
+@keyframes bkm-in{from{opacity:0;transform:translateY(16px) scale(.98)}}
+.bkm-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.bkm-hd h3{margin:8px 0 0;font-size:24px;letter-spacing:-.03em;font-weight:600}
+.bkm-eb{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:500;padding:5px 11px;border-radius:999px;background:#F2F2EC}
+.bkm-eb i{width:7px;height:7px;border-radius:50%;background:#9BD600}
+.bkm-x{width:36px;height:36px;border-radius:50%;border:0;background:#F2F2EC;display:grid;place-items:center;cursor:pointer;flex:none}
+.bkm-x .ic{width:16px;height:16px}
+.bkm-steps{list-style:none;margin:18px 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.bkm-steps li{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:500;color:#8A8A84;padding:8px 9px;border-radius:12px;background:#F7F7F2}
+.bkm-steps b{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:11px;background:#E6E6DF;color:#0B0B0B;flex:none}
+.bkm-steps li.on{color:#0B0B0B;background:#F0FAD0}.bkm-steps li.on b{background:#D4F25A}
+.bkm-steps li.ok b{background:#0B0B0B;color:#D4F25A}
+.bkm-pane{display:flex;flex-direction:column;gap:12px}
+.bkm-pane[hidden]{display:none}
+.bkm-pane label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:500}
+.bkm-pane small{color:#8A8A84;font-weight:400}
+.bkm-pane input{font:inherit;font-size:15px;padding:13px 14px;border-radius:14px;border:1px solid rgba(11,11,11,.12);background:#FAFAF7;color:#0B0B0B;outline:0;transition:border-color .2s,box-shadow .2s}
+.bkm-pane input:focus{border-color:#9BD600;box-shadow:0 0 0 4px rgba(212,242,90,.35);background:#fff}
+.bkm-go{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 20px;border:0;border-radius:999px;background:#D4F25A;color:#0B0B0B;font:inherit;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .2s,opacity .2s}
+.bkm-go .ic{width:17px;height:17px}
+.bkm-go:hover:not([disabled]){transform:translateY(-1px);box-shadow:0 12px 26px -12px rgba(155,214,0,.9)}
+.bkm-go[disabled]{opacity:.45;cursor:not-allowed}
+.bkm-wa,.bkm-wa:hover{background:#25D366;color:#fff}
+.bkm-nav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:4px}
+.bkm-bk{border:0;background:none;font:inherit;font-size:14px;color:#55554F;cursor:pointer;padding:8px 4px}
+.bkm-cal{border:1px solid rgba(11,11,11,.08);border-radius:20px;padding:14px;background:#FAFAF7}
+.bkm-mh{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.bkm-mh b{font-size:15px;text-transform:capitalize}
+.bkm-mh button{width:32px;height:32px;border-radius:50%;border:0;background:#fff;box-shadow:0 0 0 1px rgba(11,11,11,.08);font-size:18px;cursor:pointer;color:#0B0B0B}
+.bkm-mh button[disabled]{opacity:.3;cursor:default}
+.bkm-wd,.bkm-days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.bkm-wd span{font-size:11px;color:#8A8A84;padding:4px 0}
+.bkm-days button,.bkm-days i{height:36px;border-radius:10px;font:inherit;font-size:13px;display:grid;place-items:center}
+.bkm-days button{border:0;background:#EEF9C6;color:#0B0B0B;font-weight:600;cursor:pointer;transition:background .15s}
+.bkm-days button:hover{background:#D4F25A}
+.bkm-days button.sel{background:#0B0B0B;color:#D4F25A}
+.bkm-days i{font-style:normal;color:#C4C4BD}
+.bkm-lb{margin:2px 0 0;font-size:13px;font-weight:600}.bkm-lb span{font-weight:400;color:#6A6A64}
+.bkm-times{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.bkm-times em{grid-column:1/-1;font-size:13px;color:#8A8A84;font-style:normal;padding:10px;border:1px dashed rgba(11,11,11,.15);border-radius:12px;text-align:center}
+.bkm-times button{border:1px solid rgba(11,11,11,.12);background:#fff;color:#0B0B0B;border-radius:12px;padding:10px 0;font:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
+.bkm-times button:hover{border-color:#9BD600}
+.bkm-times button.sel{background:#D4F25A;border-color:#D4F25A}
+.bkm-sum{display:flex;flex-direction:column;border-radius:20px;background:#0F0F0F;color:#fff;padding:8px 18px}
+.bkm-sum div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:14px}
+.bkm-sum div:last-child{border:0}
+.bkm-sum span{color:rgba(255,255,255,.6)}.bkm-sum b{text-align:right;font-weight:600}
+.bkm-sum .hi b{color:#D4F25A}
+.bkm-note{margin:0;font-size:13px;line-height:1.5;color:#6A6A64}
+html.bkm-open{overflow:hidden}
+html.bkm-open .neo-tag{display:none!important}
+@media (max-width:420px){.bkm-box{padding:20px 16px}.bkm-steps li{font-size:11px;padding:7px}.bkm-times{grid-template-columns:repeat(3,1fr)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -1635,7 +1691,39 @@ html.cv-off .lp>.sec,html.cv-off .lp>footer{content-visibility:visible}
 <div class="neo-toast" aria-live="polite"><span class="neo-dot"></span><span class="neo-txt"></span></div>
 <div class="neo-invite" role="region" aria-label="Atalho para a oferta"><button type="button" class="neo-go" data-event="ViewContent"><span class="neo-dot"></span>Quer ver a oferta?<span class="neo-ar">Ver ↓</span></button><button type="button" class="neo-x" aria-label="Fechar">×</button></div>
 <div class="dm" id="dm" hidden role="dialog" aria-modal="true" aria-label="Demonstração do modelo"><div class="dm-bd" data-close></div><div class="dm-box"><button type="button" class="dm-x" data-close aria-label="Fechar demonstração">×</button><iframe id="dm-fr" title="Demonstração do modelo"></iframe></div></div>
-<template id="lp-modals"><div class="lgm" id="lgm" hidden role="dialog" aria-modal="true" aria-labelledby="lgm-t">
+<template id="lp-modals"><div class="bkm" id="bkm" hidden role="dialog" aria-modal="true" aria-labelledby="bkm-t">
+  <div class="bkm-bg" data-bk="close"></div>
+  <div class="bkm-box">
+    <div class="bkm-hd">
+      <div><span class="bkm-eb"><i></i>Reunião gratuita · até 30 min</span><h3 id="bkm-t">Agende sua reunião</h3></div>
+      <button type="button" class="bkm-x" data-bk="close" aria-label="Fechar"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+    </div>
+    <ol class="bkm-steps"><li class="on" data-st="1"><b>1</b>Seus dados</li><li data-st="2"><b>2</b>Data e horário</li><li data-st="3"><b>3</b>Confirmar</li></ol>
+    <div class="bkm-pane" data-pane="1">
+      <label>Nome<input data-bkk="nome" autocomplete="name" placeholder="Seu nome"></label>
+      <label>Empresa<input data-bkk="empresa" autocomplete="organization" placeholder="Nome da empresa"></label>
+      <label>WhatsApp<input data-bkk="whats" type="tel" autocomplete="tel" inputmode="tel" placeholder="(11) 90000-0000"></label>
+      <label>E-mail <small>(opcional)</small><input data-bkk="email" type="email" autocomplete="email" placeholder="voce@empresa.com.br"></label>
+      <button type="button" class="bkm-go" data-bk="next" disabled>Escolher data e horário <svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+    </div>
+    <div class="bkm-pane" data-pane="2" hidden>
+      <div class="bkm-cal">
+        <div class="bkm-mh"><button type="button" data-bk="prev" aria-label="Mês anterior">‹</button><b id="bkm-mes"></b><button type="button" data-bk="nextm" aria-label="Próximo mês">›</button></div>
+        <div class="bkm-wd"><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div>
+        <div class="bkm-days" id="bkm-days"></div>
+      </div>
+      <p class="bkm-lb">Horários disponíveis <span id="bkm-dsel"></span></p>
+      <div class="bkm-times" id="bkm-times"><em>Escolha uma data no calendário</em></div>
+      <div class="bkm-nav"><button type="button" class="bkm-bk" data-bk="back">← Voltar</button><button type="button" class="bkm-go" data-bk="next" disabled>Continuar <svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button></div>
+    </div>
+    <div class="bkm-pane" data-pane="3" hidden>
+      <div class="bkm-sum" id="bkm-sum"></div>
+      <p class="bkm-note">Ao confirmar, abrimos o WhatsApp com o pedido de agendamento pronto. Nossa equipe confirma o horário por lá.</p>
+      <div class="bkm-nav"><button type="button" class="bkm-bk" data-bk="back">← Voltar</button><a class="bkm-go bkm-wa" id="bkm-send" href="#" target="_blank" rel="noopener" data-event="Schedule"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 12l4 4L19 6"></path></svg>Confirmar no WhatsApp</a></div>
+    </div>
+  </div>
+</div>
+<div class="lgm" id="lgm" hidden role="dialog" aria-modal="true" aria-labelledby="lgm-t">
   <div class="lgm-bd" data-lgm-close></div>
   <div class="lgm-box">
     <div class="lgm-top">
@@ -1772,9 +1860,95 @@ window.__lpMain=function(){
   if (CONFIG.agendaUrl) $$('[data-link="agenda"]').forEach(function(a){ a.href = CONFIG.agendaUrl; a.target = '_blank'; });
   /* Sem link de agenda: o botão abre a mesma janela do WhatsApp do botão flutuante */
   else $$('[data-link="agenda"]').forEach(function(a){
-    a.setAttribute('data-wa', 'open'); a.removeAttribute('target');
+    a.removeAttribute('data-wa'); a.setAttribute('data-bk', 'open'); a.removeAttribute('target');
     a.addEventListener('click', function(e){ e.preventDefault(); });
   });
+
+  /* Agendamento: dados -> data/horário -> confirma no WhatsApp (e envia cópia por e-mail) */
+  (function(){
+    var m = document.getElementById('bkm'); if (!m) return;
+    var st = 1, d = {}, sel = null, hora = '', view = new Date(); view.setDate(1);
+    var HORAS = ['09:00','10:00','11:00','14:00','15:00','16:00','17:00'];
+    var MES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+    var SEM = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
+    var hoje = new Date(); hoje.setHours(0,0,0,0);
+    var lim = new Date(hoje); lim.setDate(lim.getDate() + 45);
+    function g(k){ return String(d[k] || '').trim(); }
+    function okDados(){ return g('nome').length > 1 && g('empresa').length > 1 && g('whats').replace(/\D/g,'').length >= 10 && (!g('email') || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(g('email'))); }
+    function fmt(x){ return SEM[x.getDay()] + ', ' + x.getDate() + ' de ' + MES[x.getMonth()]; }
+    function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+    function btns(){
+      $('.bkm-pane[data-pane="1"] .bkm-go', m).disabled = !okDados();
+      $('.bkm-pane[data-pane="2"] .bkm-go', m).disabled = !(sel && hora);
+    }
+    function go(n){
+      st = n;
+      $$('.bkm-pane', m).forEach(function(p){ p.hidden = +p.getAttribute('data-pane') !== n; });
+      $$('.bkm-steps li', m).forEach(function(l){ var s = +l.getAttribute('data-st'); l.className = s === n ? 'on' : (s < n ? 'ok' : ''); });
+      if (n === 2) cal();
+      if (n === 3) resumo();
+      btns();
+    }
+    function cal(){
+      var y = view.getFullYear(), mo = view.getMonth();
+      $('#bkm-mes').textContent = MES[mo] + ' ' + y;
+      $('[data-bk="prev"]', m).disabled = y === hoje.getFullYear() && mo === hoje.getMonth();
+      $('[data-bk="nextm"]', m).disabled = new Date(y, mo + 1, 1) > lim;
+      var first = new Date(y, mo, 1).getDay(), n = new Date(y, mo + 1, 0).getDate(), h = '';
+      for (var i = 0; i < first; i++) h += '<i></i>';
+      for (var dd = 1; dd <= n; dd++) {
+        var x = new Date(y, mo, dd), wd = x.getDay(), on = x > hoje && x <= lim && wd > 0 && wd < 6;
+        var s = sel && x.getTime() === sel.getTime();
+        h += on ? '<button type="button" data-day="' + dd + '"' + (s ? ' class="sel" aria-pressed="true"' : '') + ' aria-label="' + fmt(x) + '">' + dd + '</button>' : '<i>' + dd + '</i>';
+      }
+      $('#bkm-days').innerHTML = h;
+      horas();
+    }
+    function horas(){
+      var b = $('#bkm-times');
+      if (!sel) { b.innerHTML = '<em>Escolha uma data no calendário</em>'; $('#bkm-dsel').textContent = ''; btns(); return; }
+      $('#bkm-dsel').textContent = '· ' + fmt(sel);
+      b.innerHTML = HORAS.map(function(t){ return '<button type="button" data-hr="' + t + '"' + (t === hora ? ' class="sel"' : '') + '>' + t + '</button>'; }).join('');
+      btns();
+    }
+    function msg(){
+      return 'Olá! Vim pelo site Site Top Brasil e quero agendar uma reunião gratuita (até 30 min).\n\n' +
+        'Nome: ' + g('nome') + '\nEmpresa: ' + g('empresa') + '\nWhatsApp: ' + g('whats') + (g('email') ? '\nE-mail: ' + g('email') : '') +
+        '\n\nData desejada: ' + fmt(sel) + '\nHorário: ' + hora + '\n\nPodem confirmar?';
+    }
+    function resumo(){
+      var rows = [['Nome', g('nome')], ['Empresa', g('empresa')], ['WhatsApp', g('whats')]];
+      if (g('email')) rows.push(['E-mail', g('email')]);
+      $('#bkm-sum').innerHTML = rows.map(function(r){ return '<div><span>' + r[0] + '</span><b>' + esc(r[1]) + '</b></div>'; }).join('') +
+        '<div class="hi"><span>Data</span><b>' + fmt(sel) + '</b></div><div class="hi"><span>Horário</span><b>' + hora + ' · online</b></div>';
+      $('#bkm-send').href = 'https://wa.me/' + String(CONFIG.whatsapp).replace(/\D/g,'') + '?text=' + encodeURIComponent(msg());
+    }
+    function open(){ m.hidden = false; document.documentElement.classList.add('bkm-open'); go(1); var f = $('[data-bkk="nome"]', m); if (f) setTimeout(function(){ f.focus(); }, 50); }
+    function close(){ m.hidden = true; document.documentElement.classList.remove('bkm-open'); }
+    $$('[data-bkk]', m).forEach(function(el){ el.addEventListener('input', function(){
+      if (el.getAttribute('data-bkk') === 'whats') { var v = el.value.replace(/\D/g,'').slice(0,11); el.value = v.length > 6 ? '(' + v.slice(0,2) + ') ' + v.slice(2, v.length - 4) + '-' + v.slice(-4) : v.length > 2 ? '(' + v.slice(0,2) + ') ' + v.slice(2) : v; }
+      d[el.getAttribute('data-bkk')] = el.value; btns();
+    }); });
+    document.addEventListener('click', function(e){
+      var b = e.target.closest && e.target.closest('[data-bk],[data-day],[data-hr]'); if (!b) return;
+      if (b.hasAttribute('data-day')) { sel = new Date(view.getFullYear(), view.getMonth(), +b.getAttribute('data-day')); hora = ''; cal(); return; }
+      if (b.hasAttribute('data-hr')) { hora = b.getAttribute('data-hr'); horas(); return; }
+      var a = b.getAttribute('data-bk');
+      if (a === 'open') { e.preventDefault(); open(); }
+      else if (a === 'close') close();
+      else if (a === 'next') { if (!b.disabled) go(st + 1); }
+      else if (a === 'back') go(st - 1);
+      else if (a === 'prev') { view.setMonth(view.getMonth() - 1); cal(); }
+      else if (a === 'nextm') { view.setMonth(view.getMonth() + 1); cal(); }
+    });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !m.hidden) close(); });
+    $('#bkm-send').addEventListener('click', function(){
+      var data = { _subject: 'Site Top Brasil — Agendamento — ' + g('nome'), _template: 'table', _captcha: 'false', Tipo: 'Agendamento de reunião', Nome: g('nome'), Empresa: g('empresa'), WhatsApp: g('whats'), 'E-mail': g('email'), Data: fmt(sel), 'Horário': hora };
+      if (g('email')) data._replyto = g('email');
+      try { fetch('https://formsubmit.co/ajax/sac@andrehuhn.com.br', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) }).catch(function(){}); } catch (er) {}
+      setTimeout(close, 400);
+    });
+  })();
 
   /* Filtro do portfólio */
   $$('.chip[data-grp]').forEach(function(btn){
