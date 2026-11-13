@@ -626,6 +626,55 @@ html.dm-open.neo-on .dm,html.dm-open.neo-on .dm *{cursor:auto!important}
 .foot-lt .linkbtn{color:#4A4A46}
 .foot-lt a:hover,.foot-lt .linkbtn:hover{color:#0B0B0B!important}
 @media (max-width:680px){.foot-lt .lg-img{height:48px}}
+.g-dp{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,5vw,64px);align-items:center}
+.dp-copy{display:flex;flex-direction:column;gap:18px}
+.dp-rate{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.dp-rate b{font-size:40px;letter-spacing:-.04em;line-height:1}
+.dp-rate span{color:#D4F25A;letter-spacing:2px;font-size:18px}
+.dp-rate small{color:#A3A39E;font-size:13px}
+.dp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.dp-card{margin:0;display:flex;flex-direction:column;gap:12px}
+.dp-card:nth-child(2){margin-top:48px}
+.dp-vid{position:relative;display:block;width:100%;aspect-ratio:9/16;padding:0;border:0;border-radius:24px;overflow:hidden;cursor:pointer;background:#1a1a1a;box-shadow:0 30px 60px -28px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.1)}
+.dp-vid img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.dp-vid::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.55))}
+.dp-vid:hover img{transform:scale(1.04)}
+.dp-play{position:absolute;left:50%;top:50%;z-index:2;width:68px;height:68px;margin:-34px 0 0 -34px;border-radius:50%;background:#D4F25A;display:grid;place-items:center;box-shadow:0 0 0 0 rgba(212,242,90,.6);animation:dp-pulse 2.2s ease-out infinite}
+.dp-play svg{width:28px;height:28px;fill:#0B0B0B;margin-left:3px}
+@keyframes dp-pulse{to{box-shadow:0 0 0 22px rgba(212,242,90,0)}}
+.dp-tag{position:absolute;left:12px;bottom:12px;z-index:2;font-size:12px;font-weight:600;color:#fff;background:rgba(11,11,11,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:6px 10px;border-radius:999px}
+.dp-vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:3}
+.dp-card figcaption{display:flex;flex-direction:column;gap:2px;font-size:14px}
+.dp-stars{color:#D4F25A;letter-spacing:2px;font-size:13px}
+.dp-card figcaption b{font-size:16px}
+.dp-card figcaption small{color:#A3A39E}
+.dp-card figcaption a{color:#D4F25A;font-size:13px;text-decoration:none}
+.dp-card figcaption a:hover{text-decoration:underline}
+@media (max-width:900px){.g-dp{grid-template-columns:1fr}}
+@media (max-width:560px){.dp-grid{gap:12px}.dp-card:nth-child(2){margin-top:28px}.dp-play{width:54px;height:54px;margin:-27px 0 0 -27px}.dp-play svg{width:22px;height:22px}.dp-vid{border-radius:18px}}
+@media (prefers-reduced-motion:reduce){.dp-play{animation:none}}
+.lgm{position:fixed;inset:0;z-index:210;display:grid;place-items:center;padding:3vh 16px}
+.lgm[hidden]{display:none}
+.lgm-bd{position:absolute;inset:0;background:rgba(11,11,11,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:dm-f .3s ease}
+.lgm-box{position:relative;width:100%;max-width:780px;max-height:94vh;display:flex;flex-direction:column;border-radius:28px;overflow:hidden;background:linear-gradient(160deg,#FFFFFF 0%,#F1F5F8 50%,#E3EBF1 100%);box-shadow:0 40px 120px -20px rgba(0,0,0,.6);animation:dm-in .45s cubic-bezier(.2,.8,.2,1)}
+.lgm-top{display:flex;align-items:center;justify-content:space-between;padding:20px 24px 12px}
+.lgm-top b{font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+.lgm-x{width:40px;height:40px;border-radius:50%;border:1px solid rgba(11,11,11,.12);background:#fff;font-size:24px;line-height:1;cursor:pointer}
+.lgm-x:hover{background:#D4F25A}
+.lgm-tabs{display:flex;gap:6px;padding:0 24px 14px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid rgba(11,11,11,.08)}
+.lgm-tabs::-webkit-scrollbar{display:none}
+.lgm-tabs button{flex:none;border:1px solid rgba(11,11,11,.12);background:#fff;border-radius:999px;padding:9px 16px;font:600 13px Inter,system-ui,sans-serif;cursor:pointer;color:#0B0B0B}
+.lgm-tabs button.on{background:#0B0B0B;color:#D4F25A;border-color:#0B0B0B}
+.lgm-body{overflow-y:auto;padding:22px 28px 30px;overscroll-behavior:contain}
+.lgm-body h2{margin:0 0 4px;font-size:clamp(24px,3vw,30px);letter-spacing:-.03em}
+.lgm-upd{display:block;font-size:13px;color:#6B6B66;margin-bottom:16px}
+.lgm-body h3{margin:20px 0 6px;font-size:16px}
+.lgm-body p,.lgm-body li{font-size:14.5px;line-height:1.65;color:#2E2E2B}
+.lgm-body p{margin:0 0 10px}.lgm-body ul{margin:0 0 10px;padding-left:20px}.lgm-body li{margin:4px 0}
+.lgm-body a{color:#0B0B0B;font-weight:600}
+@media (max-width:680px){.lgm{padding:0;place-items:end center}.lgm-box{max-height:92vh;border-radius:24px 24px 0 0}.lgm-body{padding:18px 20px 28px}}
+html.lgm-open{overflow:hidden}
+html.lgm-open .neo-tag{display:none!important}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -1180,6 +1229,37 @@ html.dm-open.neo-on .dm,html.dm-open.neo-on .dm *{cursor:auto!important}
   </div>
 </section>
 
+<!-- ============ 08b · DEPOIMENTOS ============ -->
+<section class="sec dark-sec dp-sec" id="depoimentos" style="background: #0F0F0F; overflow: hidden">
+  <div class="wrap g-dp">
+    <div class="dp-copy reveal">
+      <span class="eyebrow">Depoimentos</span>
+      <h2 class="h-sec">Quem já tem site com a gente <span class="hl">recomenda</span></h2>
+      <p class="mut" style="margin: 0; font-size: 16px; line-height: 1.6">Clientes reais contando como foi ter um site profissional para apresentar o próprio negócio. Dê o play e ouça direto deles</p>
+      <div class="dp-rate"><span>▶</span><small>Vídeos gravados pelos próprios clientes</small></div>
+      <a href="#investimento" data-link="checkout" class="btn btn-p" data-event="InitiateCheckout" style="align-self: flex-start">Quero meu site também<svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+    </div>
+    <div class="dp-grid">
+        <figure class="dp-card reveal">
+          <button type="button" class="dp-vid" data-yt="HWajiuvWeXw" aria-label="Assistir ao depoimento de Valéria">
+            <img src="modelos/depo/valeria.webp" alt="Valéria gravando depoimento sobre o site" width="360" height="640" loading="lazy" decoding="async">
+            <span class="dp-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+            <span class="dp-tag">▶ Depoimento real</span>
+          </button>
+          <figcaption><b>Valéria</b><small>Lavínia Imóveis · Imobiliária</small><a href="https://laviniaimoveis.com.br" target="_blank" rel="noopener nofollow">laviniaimoveis.com.br</a></figcaption>
+        </figure>
+        <figure class="dp-card reveal">
+          <button type="button" class="dp-vid" data-yt="TOCJ3Y4Sl4Q" aria-label="Assistir ao depoimento de Cinthia Melo">
+            <img src="modelos/depo/cinthia.webp" alt="Cinthia Melo gravando depoimento sobre o site" width="360" height="640" loading="lazy" decoding="async">
+            <span class="dp-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+            <span class="dp-tag">▶ Depoimento real</span>
+          </button>
+          <figcaption><b>Cinthia Melo</b><small>Nutricionista · Macaé, RJ</small><a href="https://cinthiamelonutri.com.br" target="_blank" rel="noopener nofollow">cinthiamelonutri.com.br</a></figcaption>
+        </figure>
+    </div>
+  </div>
+</section>
+
 <!-- ============ 09 · REUNIÃO ============ -->
 <section class="sec" id="reuniao">
   <div class="wrap">
@@ -1302,24 +1382,24 @@ html.dm-open.neo-on .dm,html.dm-open.neo-on .dm *{cursor:auto!important}
       </div>
       <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px">
         <p style="margin: 0 0 4px; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #0B0B0B">Contato</p>
-        <button type="button" class="linkbtn" data-wa="open" style="font-size: 14px; padding: 0" data-event="Contact">WhatsApp: (11) 94393-5206</button>
-        <span class="mut">[E-mail comercial]</span>
+        <a href="https://wa.me/5511930411722" target="_blank" rel="noopener" style="color: #4A4A46; text-decoration: none" data-event="Contact">WhatsApp: (11) 93041-1722</a>
+        <a href="mailto:sac@andrehuhn.com.br" style="color: #4A4A46; text-decoration: none">sac@andrehuhn.com.br</a>
       </div>
       <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px">
         <p style="margin: 0 0 4px; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #0B0B0B">Legal</p>
-        <a href="termos.html#privacidade" style="color: #4A4A46; text-decoration: none">Política de Privacidade</a>
-        <a href="termos.html#termos" style="color: #4A4A46; text-decoration: none">Termos de Uso</a>
-        <a href="termos.html#contratacao" style="color: #4A4A46; text-decoration: none">Condições de Contratação</a>
+        <button type="button" class="linkbtn" data-legal="privacidade" style="font-size: 14px; padding: 0">Política de Privacidade</button>
+        <button type="button" class="linkbtn" data-legal="termos" style="font-size: 14px; padding: 0">Termos de Uso</button>
+        <button type="button" class="linkbtn" data-legal="cookies" style="font-size: 14px; padding: 0">Política de Cookies</button>
+        <button type="button" class="linkbtn" data-legal="contratacao" style="font-size: 14px; padding: 0">Condições de Contratação</button>
       </div>
       <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px">
         <p style="margin: 0 0 4px; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #0B0B0B">Empresa</p>
-        <span class="mut">[Razão social]</span>
-        <span class="mut">CNPJ: [inserir CNPJ]</span>
-        <span class="mut">[Endereço, se aplicável]</span>
+        <span class="mut">André Huhn – Soluções Digitais</span>
+        <span class="mut">Av. Paulista, 1636 — Sala 1105, Conj. 5<br>Bela Vista — São Paulo/SP<br>CEP 01310-200</span>
       </div>
     </div>
     <div style="margin-top: 44px; padding-top: 22px; border-top: 1px solid rgba(11,11,11,0.1); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12px; color: #6B6B66">
-      <span>© 2026 Site Top Brasil — Digital Solutions · Todos os direitos reservados</span>
+      <span>© 2026 André Huhn – Soluções Digitais · Todos os direitos reservados</span>
       <span>Pagamento seguro · Contrato · Nota fiscal</span>
     </div>
   </div>
@@ -1411,6 +1491,81 @@ html.dm-open.neo-on .dm,html.dm-open.neo-on .dm *{cursor:auto!important}
 <div class="neo-toast" aria-live="polite"><span class="neo-dot"></span><span class="neo-txt"></span></div>
 <div class="neo-invite" role="region" aria-label="Atalho para a oferta"><button type="button" class="neo-go" data-event="ViewContent"><span class="neo-dot"></span>Quer ver a oferta?<span class="neo-ar">Ver ↓</span></button><button type="button" class="neo-x" aria-label="Fechar">×</button></div>
 <div class="dm" id="dm" hidden role="dialog" aria-modal="true" aria-label="Demonstração do modelo"><div class="dm-bd" data-close></div><div class="dm-box"><button type="button" class="dm-x" data-close aria-label="Fechar demonstração">×</button><iframe id="dm-fr" title="Demonstração do modelo"></iframe></div></div>
+<div class="lgm" id="lgm" hidden role="dialog" aria-modal="true" aria-labelledby="lgm-t">
+  <div class="lgm-bd" data-lgm-close></div>
+  <div class="lgm-box">
+    <div class="lgm-top">
+      <b id="lgm-t">Informações legais</b>
+      <button type="button" class="lgm-x" data-lgm-close aria-label="Fechar">×</button>
+    </div>
+    <div class="lgm-tabs" role="tablist">
+      <button type="button" role="tab" data-legal="privacidade">Privacidade</button>
+      <button type="button" role="tab" data-legal="termos">Termos de Uso</button>
+      <button type="button" role="tab" data-legal="cookies">Cookies</button>
+      <button type="button" role="tab" data-legal="contratacao">Contratação</button>
+    </div>
+    <div class="lgm-body">
+      <article data-doc="privacidade"><h2>Política de Privacidade</h2><span class="lgm-upd">Última atualização: Junho de 2026</span>
+<p>A presente Política de Privacidade regula como a André Huhn – Soluções Digitais coleta, processa, utiliza e protege os dados pessoais de seus usuários em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018 - LGPD).</p>
+<h3>1. Dados que Coletamos</h3><p>Coletamos dados necessários para a prestação de serviços comerciais e de marketing digital:</p>
+<ul><li><b>Formulários de Atendimento e Diagnóstico:</b> Nome completo, cargo, e-mail, número de telefone/WhatsApp, nome da empresa, faturamento estimado e segmento.</li><li><b>WhatsApp Comercial:</b> Dados fornecidos diretamente na conversa de qualificação.</li><li><b>Navegação (Cookies &amp; Analytics):</b> Endereço IP, tipo de navegador, páginas visitadas e fontes de tráfego (UTMs).</li></ul>
+<h3>2. Finalidade do Tratamento dos Dados</h3><p>Tratamos seus dados sob as seguintes bases legais:</p>
+<ul><li><b>Consentimento:</b> Para enviar comunicações, materiais de marketing e ofertas comerciais.</li><li><b>Execução de Contrato:</b> Para iniciar processos comerciais de orçamento e prestação de consultoria digital.</li><li><b>Legítimo Interesse:</b> Para melhorar o desempenho técnico do site e segurança cibernética.</li></ul>
+<h3>3. Rastreamento e Anúncios (Cookies)</h3><p>Nosso portal utiliza ferramentas de pixel e tags para análise de conversões e remarketing, incluindo Google Ads, Meta Ads (Facebook Pixel) e Google Analytics. Os cookies de marketing coletam informações anônimas de sua visita para apresentar anúncios direcionados nas redes parceiras.</p>
+<h3>4. Compartilhamento e Segurança de Dados</h3><p>Não vendemos ou transferimos dados para terceiros. O compartilhamento ocorre apenas com provedores de infraestrutura técnica sob contrato (como serviços de hospedagem e CRM de vendas) ou por ordens judiciais.</p>
+<h3>5. Direitos do Titular de Dados</h3><p>Em consonância com a LGPD, o titular poderá requerer a qualquer momento acesso aos dados, correção de dados inexatos, exclusão definitiva de dados coletados por consentimento ou revogação de permissões anteriores.</p>
+<p>Para exercer seus direitos de privacidade, entre em contato diretamente com o Encarregado de Proteção de Dados (DPO) através dos canais oficiais:</p><ul><li><b>Empresa:</b> André Huhn – Soluções Digitais</li><li><b>E-mail:</b> <a href="mailto:sac@andrehuhn.com.br">sac@andrehuhn.com.br</a></li><li><b>WhatsApp Comercial:</b> <a href="https://wa.me/5511930411722" target="_blank" rel="noopener">(11) 93041-1722</a></li></ul></article>
+      <article data-doc="termos" hidden><h2>Termos de Uso</h2><span class="lgm-upd">Última atualização: Junho de 2026</span>
+<p>Seja bem-vindo ao portal institucional da André Huhn – Soluções Digitais. Ao navegar e utilizar as ferramentas deste website, você expressa seu total consentimento e aceitação aos presentes Termos de Uso.</p>
+<h3>1. Utilização Autorizada do Site</h3><p>O portal tem como objetivo divulgar serviços de consultoria estratégica, SEO, tráfego pago e automações. É proibido usar robôs ou crawlers para extrair dados sem consentimento, praticar engenharia reversa ou inserir informações falsas nos formulários de diagnóstico.</p>
+<h3>2. Direitos Autorais e Propriedade Intelectual</h3><p>Toda a estrutura visual, design premium do site, ilustrações, códigos lógicos e textos são de propriedade intelectual exclusiva da André Huhn – Soluções Digitais ou de seus licenciadores oficiais.</p>
+<h3>3. Limitação de Responsabilidade</h3><p>Buscamos manter o site funcionando 24h por dia, mas não nos responsabilizamos por indisponibilidades temporárias de servidores ou por estimativas de melhorias digitais nos diagnósticos, que representam potencial de crescimento e não garantias absolutas.</p>
+<h3>4. Preços e Propostas</h3><p>O preenchimento de formulários no site inicia uma triagem consultiva. Valores e responsabilidades de projetos serão formalizados individualmente em propostas e contratos oficiais.</p>
+<p>Para esclarecer quaisquer termos, entre em contato:</p><ul><li><b>Empresa:</b> André Huhn – Soluções Digitais</li><li><b>E-mail:</b> <a href="mailto:sac@andrehuhn.com.br">sac@andrehuhn.com.br</a></li><li><b>WhatsApp Comercial:</b> <a href="https://wa.me/5511930411722" target="_blank" rel="noopener">(11) 93041-1722</a></li></ul></article>
+      <article data-doc="cookies" hidden><h2>Política de Cookies</h2><span class="lgm-upd">Última atualização: Junho de 2026</span>
+<p>Esta Política de Cookies explica como a André Huhn – Soluções Digitais utiliza cookies e tecnologias similares em seu portal institucional para assegurar o funcionamento do site, coletar dados analíticos e veicular anúncios segmentados.</p>
+<h3>1. O que são Cookies?</h3><p>Cookies são pequenos arquivos de texto salvos em seu navegador para registrar preferências e acompanhar fluxos de tráfego, melhorando a velocidade e oferecendo experiências mais personalizadas.</p>
+<h3>2. Categorias de Cookies</h3><ul><li><b>Cookies Estritamente Necessários:</b> Fundamentais para segurança do site e para salvar suas preferências de privacidade. Não podem ser desabilitados.</li><li><b>Cookies de Análise:</b> Fornecem estatísticas anônimas sobre o uso do site (como Google Analytics).</li><li><b>Cookies de Marketing e Rastreamento:</b> Usados para veicular anúncios e campanhas personalizadas em plataformas parceiras (como Google Ads e Meta Ads).</li></ul>
+<h3>3. Controle do Consentimento</h3><p>Você pode configurar suas escolhas no banner inicial ou redefinir a qualquer momento clicando em Gerenciar Privacidade no rodapé deste site.</p>
+<p>Em caso de dúvidas, utilize os canais abaixo:</p><ul><li><b>Empresa:</b> André Huhn – Soluções Digitais</li><li><b>E-mail:</b> <a href="mailto:sac@andrehuhn.com.br">sac@andrehuhn.com.br</a></li><li><b>WhatsApp Comercial:</b> <a href="https://wa.me/5511930411722" target="_blank" rel="noopener">(11) 93041-1722</a></li></ul></article>
+      <article data-doc="contratacao" hidden><h2>3. Condições de Contratação</h2>
+        <span class="lgm-upd">Plano anual de site institucional profissional.</span>
+        <h3>3.1 O que está incluso</h3>
+        <ul>
+          <li>Site institucional moderno e responsivo (celular, tablet e computador);</li>
+          <li>Domínio .com.br e hospedagem durante a vigência do plano;</li>
+          <li>1 caixa de e-mail profissional e certificado SSL;</li>
+          <li>Configuração inicial de SEO para Google, formulário de contato e integração com WhatsApp e redes sociais;</li>
+          <li>Suporte durante a vigência do plano;</li>
+          <li>Contrato de prestação de serviços e nota fiscal;</li>
+          <li>Bônus: 10 posts para Instagram ou Facebook.</li>
+        </ul>
+        <p>O plano é padronizado. Funcionalidades não previstas acima não fazem parte da contratação.</p>
+        <h3>3.2 Valor e pagamento</h3>
+        <p>O plano custa <b>R$ 444,00 por ano</b>. O valor de R$ 37,00 é apenas o equivalente mensal; não se trata de mensalidade. O pagamento pode ser feito à vista via PIX ou em até 12x no cartão, com acréscimo das taxas da operadora.</p>
+        <h3>3.3 Prazo de entrega</h3>
+        <p>O site é entregue em até <b>72 horas</b>, contadas após a confirmação do pagamento e a aprovação do briefing com todas as informações e materiais completos. Pendências de informações ou arquivos suspendem a contagem até serem resolvidas.</p>
+        <h3>3.4 Responsabilidades do cliente</h3>
+        <ul>
+          <li>Enviar informações verdadeiras e materiais (logotipo, fotos e textos) dos quais tenha o direito de uso;</li>
+          <li>Responder às solicitações da equipe para não atrasar a entrega;</li>
+          <li>Responsabilizar-se pelo conteúdo publicado e pelas informações sobre seus produtos e serviços.</li>
+        </ul>
+        <h3>3.5 Ajustes e suporte</h3>
+        <p>Durante o plano, o suporte é feito pelo WhatsApp, na opção "Já sou cliente". Pedidos fora do escopo do plano podem ser orçados à parte.</p>
+        <h3>3.6 Posicionamento no Google</h3>
+        <p>A configuração inicial de SEO prepara o site para ser encontrado, mas a posição nos resultados depende de fatores externos e não é garantida.</p>
+        <h3>3.7 Direito de arrependimento e cancelamento</h3>
+        <p>Por se tratar de contratação feita pela internet, você pode desistir em até <b>7 dias</b> a partir da contratação, com devolução dos valores pagos, conforme o art. 49 do Código de Defesa do Consumidor. Após esse prazo, as regras de cancelamento e eventual reembolso seguem o contrato de prestação de serviços.</p>
+        <h3>3.8 Renovação</h3>
+        <p>Ao fim de cada ano, o plano pode ser renovado com <b>20% de desconto</b> sobre o valor vigente. Sem renovação, o site, a hospedagem e o e-mail podem ser desativados ao término da vigência, e o domínio deixa de ser mantido por nós.</p>
+        <h3>3.9 Propriedade</h3>
+        <p>Os textos, imagens e a marca enviados pelo cliente continuam sendo do cliente. As regras sobre a estrutura e o código do site e sobre a transferência do domínio são definidas no contrato.</p>
+        <h3>3.10 Foro</h3>
+        <p>Fica eleito o foro do domicílio do consumidor para resolver eventuais questões, conforme a legislação aplicável.</p><p>Dúvidas sobre a contratação:</p><ul><li><b>Empresa:</b> André Huhn – Soluções Digitais</li><li><b>E-mail:</b> <a href="mailto:sac@andrehuhn.com.br">sac@andrehuhn.com.br</a></li><li><b>WhatsApp Comercial:</b> <a href="https://wa.me/5511930411722" target="_blank" rel="noopener">(11) 93041-1722</a></li></ul></article>
+    </div>
+  </div>
+</div>
 <script>
 (function(){
   /* Configuração: preencha para trocar os links dos botões */
@@ -1707,6 +1862,41 @@ html.dm-open.neo-on .dm,html.dm-open.neo-on .dm *{cursor:auto!important}
       new IntersectionObserver(function(es){ es.forEach(function(e){ e.isIntersecting ? start() : stop(); }); }, { threshold: .25 }).observe(root);
     } else start();
     document.addEventListener('visibilitychange', function(){ if (document.hidden) stop(); });
+  })();
+
+  /* Depoimentos em vídeo: o player do YouTube só carrega no clique */
+  document.addEventListener('click', function(e){
+    var b = e.target.closest && e.target.closest('.dp-vid[data-yt]'); if (!b || b.querySelector('iframe')) return;
+    var f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + b.getAttribute('data-yt') + '?autoplay=1&rel=0&playsinline=1';
+    f.title = b.getAttribute('aria-label');
+    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    f.allowFullscreen = true;
+    b.appendChild(f);
+    if (window.fbq) fbq('trackCustom', 'VideoDepoimento');
+    if (window.gtag) gtag('event', 'video_start', { video_title: f.title });
+  });
+
+  /* Textos legais em janela suspensa */
+  (function(){
+    var m = document.getElementById('lgm'); if (!m) return;
+    var last = null;
+    function show(k){
+      [].forEach.call(m.querySelectorAll('[data-doc]'), function(d){ d.hidden = d.getAttribute('data-doc') !== k; });
+      [].forEach.call(m.querySelectorAll('.lgm-tabs [data-legal]'), function(b){ var on = b.getAttribute('data-legal') === k; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); });
+      m.querySelector('.lgm-body').scrollTop = 0;
+    }
+    document.addEventListener('click', function(e){
+      var b = e.target.closest && e.target.closest('[data-legal]');
+      if (b) {
+        e.preventDefault();
+        if (m.hidden) { last = b; m.hidden = false; document.documentElement.classList.add('lgm-open'); m.querySelector('.lgm-x').focus(); }
+        show(b.getAttribute('data-legal')); return;
+      }
+      if (e.target.closest && e.target.closest('[data-lgm-close]')) close();
+    });
+    function close(){ m.hidden = true; document.documentElement.classList.remove('lgm-open'); if (last && last.focus) last.focus(); }
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !m.hidden) close(); });
   })();
 
   /* Triagem WhatsApp */
