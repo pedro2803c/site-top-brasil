@@ -547,6 +547,17 @@ html.neo-on .neo-tag{display:inline-flex}
 .bonus-chips span:last-child{background:#0B0B0B;color:#D4F25A;border-color:#0B0B0B}
 @media (max-width:680px){.bonus-posts{height:300px;gap:8px;margin:0 -8px}.btrack{gap:8px}.bp{border-radius:10px}}
 @media (prefers-reduced-motion:reduce){.btrack{animation:none!important}}
+.dm{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:2.5vh 2vw}
+.dm[hidden]{display:none}
+.dm-bd{position:absolute;inset:0;background:rgba(11,11,11,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:dm-f .3s ease}
+.dm-box{position:relative;width:100%;height:100%;max-width:1500px;border-radius:24px;overflow:hidden;background:#0B0B0B;box-shadow:0 40px 120px -20px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.1);animation:dm-in .45s cubic-bezier(.2,.8,.2,1)}
+.dm-box iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.dm-x{display:none;position:absolute;top:12px;right:12px;z-index:2;width:40px;height:40px;border-radius:50%;border:0;background:#fff;color:#0B0B0B;font-size:24px;line-height:1;cursor:pointer;box-shadow:0 6px 18px -6px rgba(0,0,0,.6)}
+.dm-x:hover{background:#D4F25A}
+html.dm-open{overflow:hidden}
+@keyframes dm-f{from{opacity:0}}
+@keyframes dm-in{from{opacity:0;transform:translateY(24px) scale(.97)}}
+@media (max-width:680px){.dm{padding:0}.dm-box{border-radius:0}.dm-x{top:auto;bottom:76px;right:12px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -1298,6 +1309,7 @@ html.neo-on .neo-tag{display:inline-flex}
 <div class="neo-tag off" aria-hidden="true"><span class="neo-dot"></span><span class="neo-txt">Você</span></div>
 <div class="neo-toast" aria-live="polite"><span class="neo-dot"></span><span class="neo-txt"></span></div>
 <div class="neo-invite" role="region" aria-label="Atalho para a oferta"><button type="button" class="neo-go" data-event="ViewContent"><span class="neo-dot"></span>Quer ver a oferta?<span class="neo-ar">Ver ↓</span></button><button type="button" class="neo-x" aria-label="Fechar">×</button></div>
+<div class="dm" id="dm" hidden role="dialog" aria-modal="true" aria-label="Demonstração do modelo"><div class="dm-bd" data-close></div><div class="dm-box"><button type="button" class="dm-x" data-close aria-label="Fechar demonstração">×</button><iframe id="dm-fr" title="Demonstração do modelo"></iframe></div></div>
 <script>
 (function(){
   /* Configuração: preencha para trocar os links dos botões */
@@ -1505,6 +1517,35 @@ html.neo-on .neo-tag{display:inline-flex}
     inv.querySelector('.neo-x').addEventListener('click', function(){ hideInv(); used = true; });
     document.addEventListener('visibilitychange', function(){ if (!document.hidden) arm(); });
     arm();
+  })();
+
+  /* Demonstração dos modelos em janela suspensa */
+  (function(){
+    var dm = document.getElementById('dm'), fr = document.getElementById('dm-fr'), last = null;
+    if (!dm) return;
+    function open(href){
+      last = document.activeElement;
+      fr.src = href + (href.indexOf('?') > -1 ? '&' : '?') + 'embed=1';
+      dm.hidden = false; document.documentElement.classList.add('dm-open');
+      dm.querySelector('.dm-x').focus();
+    }
+    function close(){
+      dm.hidden = true; document.documentElement.classList.remove('dm-open');
+      fr.src = 'about:blank';
+      if (last && last.focus) last.focus();
+    }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a[href^="demo.html"]');
+      if (!a || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
+      e.preventDefault(); open(a.getAttribute('href'));
+    });
+    [].forEach.call(dm.querySelectorAll('[data-close]'), function(b){ b.addEventListener('click', close); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !dm.hidden) close(); });
+    window.addEventListener('message', function(e){
+      if (e.origin !== location.origin) return;
+      if (e.data === 'demo:close') close();
+      if (e.data === 'demo:offer') { close(); var o = document.getElementById('investimento'); if (o) window.scrollTo({ top: o.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); }
+    });
   })();
 
   /* Triagem WhatsApp */

@@ -88,6 +88,10 @@ iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff
  .tip{top:22px;font-size:12px}
  .dock{bottom:10px;padding:6px;width:calc(100% - 20px)}.thumbs{flex:1}
 }
+.cls{display:none;flex:none;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);font-size:24px;line-height:1;color:#fff}
+.cls:hover{background:#fff;color:#0B0B0B}
+html.embed .cls{display:grid;place-items:center}
+@media (max-width:680px){html.embed .cls{order:2}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -109,7 +113,8 @@ iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff
       <a id="ext" target="_blank" rel="noopener" aria-label="Abrir o site em tela cheia"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-8 8M10 6H5v13h13v-5"/></svg></a>
     </div>
   </div>
-  <a class="cta" href="./#investimento"><span>Quero um site assim</span><i><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+  <a class="cta" id="cta" href="./#investimento"><span>Quero um site assim</span><i><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+  <button type="button" class="cls" id="cls" aria-label="Fechar demonstração">×</button>
 </header>
 <main class="stage">
   <div class="dev desk" id="dev">
@@ -133,6 +138,15 @@ iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff
   var WA = '5511943935206';
   var q = new URLSearchParams(location.search), i = 0;
   M.forEach(function(m, k){ if (m.id === q.get('m')) i = k; });
+  var embed = q.get('embed') === '1' && window.parent !== window;
+  if (embed) {
+    document.documentElement.classList.add('embed');
+    var tell = function(msg){ try { parent.postMessage(msg, location.origin); } catch (e) {} };
+    document.getElementById('cls').onclick = function(){ tell('demo:close'); };
+    document.getElementById('cta').addEventListener('click', function(e){ e.preventDefault(); tell('demo:offer'); });
+    document.querySelector('.lg').addEventListener('click', function(e){ e.preventDefault(); tell('demo:close'); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') tell('demo:close'); });
+  }
   var fr = document.getElementById('fr'), ld = document.getElementById('ld'), dev = document.getElementById('dev'), tip = document.getElementById('tip'), th = document.getElementById('th');
   if (window.matchMedia && matchMedia('(max-width: 680px)').matches) dev.className = 'dev mob';
   M.forEach(function(m, k){ var a = document.createElement('a'); a.href = '?m=' + m.id; a.textContent = m.name.split(' · ')[0]; a.addEventListener('click', function(e){ e.preventDefault(); go(k); }); th.appendChild(a); });
@@ -152,7 +166,7 @@ iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff
     ld.classList.remove('hide');
     fr.src = m.url;
     clearTimeout(loadT); loadT = setTimeout(done, 7000);
-    try { history.replaceState(null, '', '?m=' + m.id); } catch (e) {}
+    try { history.replaceState(null, '', '?m=' + m.id + (embed ? '&embed=1' : '')); } catch (e) {}
     first = false;
   }
   function done(){ clearTimeout(loadT); ld.classList.add('hide'); tip.classList.add('show'); clearTimeout(tipT); tipT = setTimeout(function(){ tip.classList.remove('show'); }, 3800); }
