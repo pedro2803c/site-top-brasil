@@ -781,6 +781,52 @@ html.cv-off .lp>.sec,html.cv-off .lp>footer{content-visibility:visible}
 .pd-i:hover .pd-ic{transform:rotate(-12deg) scale(1.1)}
 .pd-hl:hover .pd-n{color:rgba(11,11,11,.12)}}
 @media (prefers-reduced-motion:reduce){.pd-i,.pd-n,.pd-ic{transition:none}.pd-i:hover{transform:none}}
+.faq-v2{grid-template-columns:340px 1fr;gap:28px}
+.faq-side{position:sticky;top:96px;display:flex;flex-direction:column;gap:16px;padding:30px 28px;border-radius:28px;background:#0F0F0F;color:#fff;overflow:hidden}
+.faq-side::after{content:"";position:absolute;right:-90px;bottom:-110px;width:260px;height:260px;border-radius:50%;background:radial-gradient(closest-side,rgba(212,242,90,.35),transparent);pointer-events:none}
+.faq-side .h-sec{color:#fff}.faq-side .hl{color:#0B0B0B}
+.faq-side p{margin:0;color:rgba(255,255,255,.68);font-size:15px;line-height:1.6}
+.faq-eb{align-self:flex-start;background:rgba(255,255,255,.08)!important;color:#fff!important;border-color:rgba(255,255,255,.12)!important}
+.faq-facts{list-style:none;margin:4px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.faq-facts li{display:flex;flex-direction:column;gap:2px;padding:12px 10px;border-radius:16px;background:rgba(255,255,255,.06)}
+.faq-facts b{font-size:20px;font-weight:700;letter-spacing:-.03em;color:#D4F25A}
+.faq-facts span{font-size:11.5px;line-height:1.3;color:rgba(255,255,255,.6)}
+.faq-cta{position:relative;z-index:1;margin-top:6px;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;border:0;border-radius:999px;background:#D4F25A;color:#0B0B0B;font:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:transform .25s,box-shadow .25s}
+.faq-cta .ic{width:18px;height:18px}
+.faq-cta:hover{transform:translateY(-2px);box-shadow:0 14px 30px -12px rgba(212,242,90,.7)}
+.faq-list{columns:2;column-gap:10px}
+.faq-list .faq{break-inside:avoid;margin-bottom:10px;display:block}
+.faq-list .faq summary{font-size:15px;padding:16px 14px 16px 18px}
+@media (max-width:1100px){.faq-list{columns:1}}
+@media (max-width:860px){.faq-v2{grid-template-columns:1fr}.faq-side{position:relative;top:0}}
+.faq-sec{position:relative;overflow:hidden;background:radial-gradient(60% 70% at 100% 0%,rgba(226,221,255,.75),transparent 60%),radial-gradient(50% 60% at 0% 100%,rgba(212,242,90,.32),transparent 60%),#F7F7F2!important}
+.faq-sec::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(11,11,11,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(11,11,11,.05) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(70% 70% at 60% 40%,#000,transparent 75%);mask-image:radial-gradient(70% 70% at 60% 40%,#000,transparent 75%);pointer-events:none}
+.faq-sec>.wrap{position:relative;z-index:1}
+.faq-deco{position:absolute;inset:0;pointer-events:none}
+.fq{position:absolute;display:grid;place-items:center;font-weight:700;line-height:1;border-radius:22px;letter-spacing:-.04em}
+.fq1{right:4%;top:6%;width:84px;height:84px;font-size:46px;background:#D4F25A;color:#0B0B0B;transform:rotate(12deg);box-shadow:0 18px 40px -18px rgba(11,11,11,.4);animation:fq-f 7s ease-in-out infinite}
+.fq2{left:3%;bottom:8%;width:64px;height:64px;font-size:34px;background:#0F0F0F;color:#D4F25A;transform:rotate(-10deg);animation:fq-f 8s ease-in-out infinite reverse}
+.fq3{right:9%;bottom:5%;width:52px;height:52px;font-size:28px;background:#E2DDFF;color:#0B0B0B;border-radius:50%;transform:rotate(8deg);animation:fq-f 6s ease-in-out infinite}
+.fd{position:absolute;border-radius:50%;border:2px dashed rgba(11,11,11,.12)}
+.fd1{width:220px;height:220px;right:-70px;top:30%}
+.fd2{width:140px;height:140px;left:-50px;top:12%}
+@keyframes fq-f{0%,100%{translate:0 0}50%{translate:0 -10px}}
+.faq-list .faq{background:rgba(255,255,255,.85);backdrop-filter:blur(6px)}
+@media (max-width:860px){.fq1{width:56px;height:56px;font-size:30px;top:2%}.fq2,.fd{display:none}}
+@media (prefers-reduced-motion:reduce){.fq{animation:none}}
+.faq-sec{background:radial-gradient(55% 65% at 100% 0%,rgba(150,130,255,.22),transparent 60%),radial-gradient(50% 60% at 0% 100%,rgba(212,242,90,.16),transparent 60%),#0B0B0B!important;color:#fff}
+.faq-sec::before{background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px)}
+.faq-sec .fd{border-color:rgba(255,255,255,.12)}
+.faq-sec .fq2{background:#1E1E1E;box-shadow:0 0 0 1px rgba(212,242,90,.35)}
+.faq-sec .faq-side{background:#151515;box-shadow:0 0 0 1px rgba(255,255,255,.08)}
+.faq-sec .faq-list .faq{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);backdrop-filter:none}
+.faq-sec .faq summary{color:#fff}
+.faq-sec .faq summary .pl{background:rgba(255,255,255,.1);color:#fff}
+.faq-sec .faq[open] summary .pl{background:#D4F25A;color:#0B0B0B}
+.faq-sec .faq p{color:rgba(255,255,255,.66)}
+.faq-sec .faq:hover{border-color:rgba(212,242,90,.45)}
+.faq-sec .faq[open]{background:rgba(255,255,255,.08);border-color:rgba(212,242,90,.35);box-shadow:none}
+.faq-sec .faq p a,.faq-sec .faq p b{color:#D4F25A}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -1430,15 +1476,17 @@ html.cv-off .lp>.sec,html.cv-off .lp>footer{content-visibility:visible}
 </section>
 
 <!-- ============ 10 · FAQ ============ -->
-<section class="sec white" id="duvidas">
-  <div class="wrap g-faq">
-    <div class="reveal" style="display: flex; flex-direction: column; gap: 18px">
-      <span class="eyebrow">FAQ</span>
-      <h2 class="h-sec">Dúvidas frequentes</h2>
-      <p class="mut" style="margin: 0; font-size: 16px; line-height: 1.6">Não encontrou sua resposta? Fale com a nossa equipe</p>
-      <div><button type="button" class="btn btn-s" data-wa="open" data-event="Contact">Falar com a equipe</button></div>
+<section class="sec white faq-sec" id="duvidas">
+  <div class="faq-deco" aria-hidden="true"><span class="fq fq1">?</span><span class="fq fq2">?</span><span class="fq fq3">!</span><span class="fd fd1"></span><span class="fd fd2"></span></div>
+  <div class="wrap g-faq faq-v2">
+    <div class="faq-side reveal">
+      <span class="eyebrow faq-eb">FAQ</span>
+      <h2 class="h-sec">Dúvidas <span class="hl">frequentes</span></h2>
+      <p>Tudo o que você precisa saber antes de contratar. Não encontrou sua resposta? Fale com a nossa equipe</p>
+      <ul class="faq-facts"><li><b>72h</b><span>para entrega</span></li><li><b>R$ 37</b><span>por mês</span></li><li><b>10+</b><span>anos de experiência</span></li></ul>
+      <button type="button" class="faq-cta" data-wa="open" data-event="Contact">Falar com a equipe <svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
     </div>
-    <div class="reveal">
+    <div class="faq-list reveal">
       <details class="faq"><summary>O que está incluso no plano de R$ 444 por ano?<span class="pl"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true" style="width: 14px; height: 14px"><path d="M12 5v14M5 12h14"></path></svg></span></summary><p>Site institucional moderno e responsivo, domínio .com.br, hospedagem anual, uma caixa de e-mail profissional, certificado SSL, configuração inicial de SEO, formulário de contato, integração com WhatsApp e redes sociais, suporte durante a vigência do plano, contrato, nota fiscal e bônus de 10 posts para Instagram ou Facebook</p></details>
       <details class="faq"><summary>Quais são as formas de pagamento?<span class="pl"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true" style="width: 14px; height: 14px"><path d="M12 5v14M5 12h14"></path></svg></span></summary><p>Você pode pagar o valor anual à vista via PIX ou parcelar em até 12x no cartão, com acréscimo das taxas da operadora</p></details>
       <details class="faq"><summary>O valor de R$ 37 é uma mensalidade?<span class="pl"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true" style="width: 14px; height: 14px"><path d="M12 5v14M5 12h14"></path></svg></span></summary><p>Não<br>O plano é anual, no valor de R$ 444,00, e R$ 37,00 é apenas o equivalente mensal desse valor</p></details>
