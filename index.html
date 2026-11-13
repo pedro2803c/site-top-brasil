@@ -718,6 +718,25 @@ html.lgm-open .neo-tag{display:none!important}
 @keyframes cl-mv{to{transform:translateX(calc(-50% - 7px))}}
 @media (max-width:640px){.cl-track li{width:66px;height:66px;border-radius:14px}.cl-track{gap:10px}@keyframes cl-mv{to{transform:translateX(calc(-50% - 5px))}}}
 @media (prefers-reduced-motion:reduce){.cl-track{animation:none}.cl-row{overflow-x:auto}}
+.xp-sec{padding-top:56px!important;padding-bottom:56px!important}
+.xp{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,4vw,48px);align-items:stretch}
+.xp-copy{display:flex;flex-direction:column;gap:14px;justify-content:center}
+.xp-copy .h-sec{margin:0}
+.xp-copy .mut{margin:0;font-size:16px;line-height:1.6}
+.xp-feats{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.xp-feats li{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:16px;background:#F4F4EF;border:1px solid rgba(11,11,11,.06);transition:transform .25s,box-shadow .25s,background .25s}
+.xp-feats li:hover{transform:translateY(-2px);background:#fff;box-shadow:0 14px 28px -18px rgba(11,11,11,.35)}
+.xp-ic{flex:none;width:40px;height:40px;border-radius:12px;background:#0B0B0B;color:#D4F25A;display:grid;place-items:center}
+.xp-ic .ic{width:20px;height:20px}
+.xp-feats b{display:block;font-size:14.5px;line-height:1.25}
+.xp-feats small{display:block;font-size:12.5px;color:#6B6B66;line-height:1.35;margin-top:2px}
+.xp-card{position:relative;overflow:hidden;border-radius:28px;background:radial-gradient(120% 90% at 100% 0%,#E6FF7A 0%,#D4F25A 45%,#C2E43F 100%);border:1px solid #0B0B0B;min-height:340px;display:flex;align-items:flex-end;padding:26px}
+.xp-card .exp-shots{right:-24px;top:26px;width:74%;max-width:330px}
+.xp-num{position:relative;z-index:1;display:flex;align-items:flex-end;gap:12px;background:rgba(255,255,255,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:14px 18px;border-radius:20px;box-shadow:0 18px 30px -20px rgba(11,11,11,.5)}
+.xp-num b{font-size:clamp(52px,5vw,72px);font-weight:800;letter-spacing:-.05em;line-height:.85}
+.xp-num span{font-size:14px;font-weight:600;line-height:1.3;padding-bottom:4px}
+@media (max-width:900px){.xp{grid-template-columns:1fr}.xp-card{min-height:280px}}
+@media (max-width:520px){.xp-feats{grid-template-columns:1fr}.xp-sec{padding-top:44px!important;padding-bottom:44px!important}.xp-card{min-height:250px;padding:18px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -1240,33 +1259,18 @@ html.lgm-open .neo-tag{display:none!important}
 </section>
 
 <!-- ============ 08 · EXPERIÊNCIA ============ -->
-<section class="sec white">
+<section class="sec white xp-sec">
   <div class="wrap">
-    <div class="g-exp reveal">
-      <div style="display: flex; flex-direction: column; gap: 14px; padding-right: 16px; align-self: center">
+    <div class="xp reveal">
+      <div class="xp-copy">
         <span class="eyebrow">Experiência</span>
         <h2 class="h-sec">Mais de 10 anos transformando negócios através da <span class="hl">internet</span></h2>
-        <p class="mut" style="margin: 0; font-size: 16px; line-height: 1.65">O Site Top Brasil nasceu para tornar a presença digital profissional mais acessível aos empreendedores brasileiros</p>
-        <p class="mut" style="margin: 0; font-size: 16px; line-height: 1.65">Nossa experiência no mercado digital permite oferecer uma solução objetiva, moderna e com foco no que realmente importa: apresentar sua empresa com profissionalismo</p>
+        <p class="mut">O Site Top Brasil nasceu para tornar a presença digital profissional acessível a quem empreende: uma solução objetiva e moderna, focada em apresentar sua empresa com profissionalismo</p>
+        <ul class="xp-feats"><li><span class="xp-ic"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2M4 14h3v5H4zM17 14h3v5h-3z"></path></svg></span><span><b>Atendimento humano</b><small>Fale direto com quem cuida do seu site</small></span></li><li><span class="xp-ic"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6"></path></svg></span><span><b>Contrato e nota fiscal</b><small>Tudo formalizado, com segurança</small></span></li><li><span class="xp-ic"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0"></path></svg></span><span><b>Pronto em até 72h</b><small>Do briefing ao site no ar, rápido</small></span></li><li><span class="xp-ic"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 6h16v10H4zM8 20h8M12 16v4"></path></svg></span><span><b>Visual moderno</b><small>Layout responsivo para celular e PC</small></span></li></ul>
       </div>
-      <div class="card" style="background: #D4F25A; border-color: #0B0B0B; color: #0B0B0B; padding: 24px; min-height: 250px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden">
+      <div class="xp-card">
         <span class="exp-shots" aria-hidden="true"><img src="modelos/hero/dentora-d.webp" alt="" width="600" height="400" loading="lazy" decoding="async" class="es1"><img src="modelos/hero/vellura-m.webp" alt="" width="240" height="520" loading="lazy" decoding="async" class="es2"></span>
-        <span class="icb" style="position: relative; z-index: 1; background: #0B0B0B; color: #D4F25A; border-color: #0B0B0B"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"></path></svg></span>
-        <div style="position: relative; z-index: 1">
-          <p style="margin: 0; font-size: clamp(64px, 6.4vw, 92px); font-weight: 800; letter-spacing: -0.05em; line-height: 0.9">+10</p>
-          <p style="margin: 10px 0 0; font-size: 17px; font-weight: 600">anos de experiência</p>
-        </div>
-      </div>
-      <div style="display: flex; flex-direction: column; gap: 14px">
-        <div class="card" style="padding: 22px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 18px">
-          <span class="icb"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2M4 14h3v5H4zM17 14h3v5h-3z"></path></svg></span>
-          <h3 class="h3" style="font-size: 20px">Atendimento profissional</h3>
-        </div>
-        <div class="card dk" style="padding: 22px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; background: #111111">
-          <svg class="wv" viewBox="0 0 300 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path id="stwB" d="M-30 70 C 50 30, 130 130, 210 70 S 320 40, 340 90"></path><use href="#stwB" y="12"></use><use href="#stwB" y="24"></use><use href="#stwB" y="36"></use><use href="#stwB" y="48"></use><use href="#stwB" y="60"></use><use href="#stwB" y="72"></use><use href="#stwB" y="84"></use><use href="#stwB" y="96"></use></svg>
-          <span class="icb" style="position: relative"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6"></path></svg></span>
-          <h3 class="h3" style="font-size: 20px; position: relative">Contrato e nota fiscal</h3>
-        </div>
+        <div class="xp-num"><b>+10</b><span>anos de experiência<br>criando sites que vendem</span></div>
       </div>
     </div>
   </div>
