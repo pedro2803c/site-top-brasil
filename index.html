@@ -445,7 +445,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
 .offer-cta .ic{width:30px;height:30px;padding:7px;border-radius:50%;background:#0B0B0B;color:var(--lime);transition:transform .25s}
 .offer-cta:hover{transform:translateY(-2px);box-shadow:0 24px 50px -14px rgba(212,242,90,.9),inset 0 1px 0 rgba(255,255,255,.6)}
 .offer-cta:hover .ic{transform:translateX(4px)}
-@keyframes offer-sweep{0%,55%{left:-40%}100%{left:120%}}
+@keyframes offer-sweep{0%,55%{transform:translateX(0) skewX(-20deg)}100%{transform:translateX(480%) skewX(-20deg)}}
 .offer-trust{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;font-size:13px;color:#A9A9A3}
 .offer-trust span{display:inline-flex;align-items:center;gap:6px}
 .offer-trust .ic{width:16px;height:16px;color:var(--lime)}
@@ -457,7 +457,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
 .hdr-cta .ic{width:32px;height:32px;padding:8px;border-radius:50%;background:#0B0B0B;color:var(--lime);transition:transform .25s}
 .hdr-cta:hover{transform:translateY(-1px);color:#0B0B0B}
 .hdr-cta:hover .ic{transform:translateX(3px) rotate(-8deg)}
-@keyframes hdr-pulse{0%{box-shadow:0 10px 26px -10px rgba(150,190,20,.9),inset 0 1px 0 rgba(255,255,255,.7),0 0 0 0 rgba(212,242,90,.75)}70%,100%{box-shadow:0 10px 26px -10px rgba(150,190,20,.9),inset 0 1px 0 rgba(255,255,255,.7),0 0 0 12px rgba(212,242,90,0)}}
+@keyframes hdr-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
 @media (prefers-reduced-motion:reduce){.hdr-cta,.hdr-cta::before{animation:none!important}}
 /* todos os CTAs principais · degradê lima + reflexo */
 .btn-p,.dark-sec .btn-p{position:relative;overflow:hidden;isolation:isolate;font-weight:600;color:#0B0B0B;background:linear-gradient(100deg,#D4F25A 0%,#EDFF9E 45%,#D4F25A 100%);box-shadow:0 12px 28px -12px rgba(150,190,20,.85),inset 0 1px 0 rgba(255,255,255,.7)}
@@ -638,7 +638,7 @@ html.dm-open.neo-on .dm,html.dm-open.neo-on .dm *{cursor:auto!important}
 .dp-vid img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
 .dp-vid::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.55))}
 .dp-vid:hover img{transform:scale(1.04)}
-.dp-play{position:absolute;left:50%;top:50%;z-index:2;width:68px;height:68px;margin:-34px 0 0 -34px;border-radius:50%;background:#D4F25A;display:grid;place-items:center;box-shadow:0 0 0 0 rgba(212,242,90,.6);animation:dp-pulse 2.2s ease-out infinite}
+.dp-play{isolation:isolate;position:absolute;left:50%;top:50%;z-index:2;width:68px;height:68px;margin:-34px 0 0 -34px;border-radius:50%;background:#D4F25A;display:grid;place-items:center;box-shadow:0 0 0 0 rgba(212,242,90,.6);animation:dp-pulse 2.2s ease-out infinite}
 .dp-play svg{width:28px;height:28px;fill:#0B0B0B;margin-left:3px}
 @keyframes dp-pulse{to{box-shadow:0 0 0 22px rgba(212,242,90,0)}}
 .dp-tag{position:absolute;left:12px;bottom:12px;z-index:2;font-size:12px;font-weight:600;color:#fff;background:rgba(11,11,11,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:6px 10px;border-radius:999px}
@@ -742,6 +742,11 @@ html.lgm-open .neo-tag{display:none!important}
 @media (max-width:900px){.xp{grid-template-columns:1fr}.xp-card{min-height:280px}}
 @media (max-width:520px){.xp-feats{grid-template-columns:1fr}.xp-sec{padding-top:44px!important;padding-bottom:44px!important}.xp-card{min-height:250px;padding:18px}}
 .tc-head .eyebrow{align-self:center}
+.lp>.sec:not(#topo):not(:nth-of-type(2)),.lp>footer{content-visibility:auto;contain-intrinsic-size:auto 900px}
+.dp-play{animation:none!important}
+.dp-play::before{content:"";position:absolute;inset:0;border-radius:50%;background:rgba(212,242,90,.55);animation:dp-ring 2.2s ease-out infinite;z-index:-1}
+@keyframes dp-ring{from{transform:scale(1);opacity:.7}to{transform:scale(1.65);opacity:0}}
+@media (prefers-reduced-motion:reduce){.dp-play::before{animation:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -750,7 +755,7 @@ html.lgm-open .neo-tag{display:none!important}
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 </head>
 <body>
-<div class="lp">
+<div class="lp" role="main">
 
 <!-- ============ 01 · HEADER ============ -->
 <header class="hdr">
@@ -1297,7 +1302,7 @@ html.lgm-open .neo-tag{display:none!important}
     </div>
     <div class="dp-grid">
         <figure class="dp-card reveal">
-          <button type="button" class="dp-vid" data-yt="HWajiuvWeXw" aria-label="Assistir ao depoimento de Valéria">
+          <button type="button" class="dp-vid" data-yt="HWajiuvWeXw" aria-label="Depoimento real: assistir ao vídeo de Valéria">
             <img src="modelos/depo/valeria.webp" alt="Valéria gravando depoimento sobre o site" width="360" height="640" loading="lazy" decoding="async">
             <span class="dp-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>
             <span class="dp-tag">▶ Depoimento real</span>
@@ -1305,7 +1310,7 @@ html.lgm-open .neo-tag{display:none!important}
           <figcaption><b>Valéria</b><small>Lavínia Imóveis · Imobiliária</small><a href="https://laviniaimoveis.com.br" target="_blank" rel="noopener nofollow">laviniaimoveis.com.br</a></figcaption>
         </figure>
         <figure class="dp-card reveal">
-          <button type="button" class="dp-vid" data-yt="TOCJ3Y4Sl4Q" aria-label="Assistir ao depoimento de Cinthia Melo">
+          <button type="button" class="dp-vid" data-yt="TOCJ3Y4Sl4Q" aria-label="Depoimento real: assistir ao vídeo de Cinthia Melo">
             <img src="modelos/depo/cinthia.webp" alt="Cinthia Melo gravando depoimento sobre o site" width="360" height="640" loading="lazy" decoding="async">
             <span class="dp-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>
             <span class="dp-tag">▶ Depoimento real</span>
