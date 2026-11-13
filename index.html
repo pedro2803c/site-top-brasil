@@ -759,6 +759,20 @@ html.cv-off .lp>.sec,html.cv-off .lp>footer{content-visibility:visible}
 .cl-track>li[aria-hidden="true"]{display:none}
 }
 .sec-pd{padding-top:48px!important;padding-bottom:48px!important}.sec-pd .g3{margin-top:28px!important}
+.pd{margin-top:32px;display:grid;grid-template-columns:repeat(3,1fr);background:#0F0F0F;border-radius:28px;padding:8px;gap:8px;position:relative;overflow:hidden}
+.pd::before{content:"";position:absolute;inset:auto -10% -60% 40%;height:120%;background:radial-gradient(closest-side,rgba(212,242,90,.18),transparent);pointer-events:none}
+.pd-i{position:relative;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:14px;row-gap:18px;align-items:center;padding:24px 26px;border-radius:22px;background:#181818;color:#fff}
+.pd-i:not(:last-child)::after{content:"";position:absolute;right:-13px;top:50%;width:18px;height:18px;margin-top:-9px;border-radius:50%;background:#D4F25A url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230B0B0B' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E") center/12px no-repeat;z-index:2;box-shadow:0 0 0 4px #0F0F0F}
+.pd-n{font-size:44px;line-height:1;font-weight:700;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1.2px rgba(212,242,90,.7)}
+.pd-ic{justify-self:end;width:42px;height:42px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.07);color:#D4F25A}
+.pd-ic .ic{width:20px;height:20px}
+.pd-i h3{grid-column:1/-1;margin:0;font-size:19px;line-height:1.35;font-weight:500;color:rgba(255,255,255,.82)}
+.pd-i h3 b{color:#fff;font-weight:600}
+.pd-hl{background:#D4F25A;color:#0B0B0B}
+.pd-hl .pd-n{-webkit-text-stroke-color:#0B0B0B}
+.pd-hl .pd-ic{background:#0B0B0B}
+.pd-hl h3{color:rgba(11,11,11,.75)}.pd-hl h3 b{color:#0B0B0B}
+@media (max-width:860px){.pd{grid-template-columns:1fr}.pd-i:not(:last-child)::after{right:50%;top:auto;bottom:-13px;margin:0 -9px 0 0;transform:rotate(90deg)}.pd-i{padding:20px 22px;row-gap:12px}.pd-n{font-size:36px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -847,29 +861,10 @@ html.cv-off .lp>.sec,html.cv-off .lp>footer{content-visibility:visible}
       <span class="eyebrow">Presença digital</span>
       <h2 class="h-sec" style="max-width: 860px">Sua empresa está na internet ou depende apenas das <span class="hl">redes sociais</span>?</h2>
     </div>
-    <div class="g3 reveal" style="margin-top: 36px; align-items: stretch">
-      <div class="card dk" style="padding: 22px 24px; gap: 22px; display: flex; flex-direction: column; justify-content: space-between; background: #111111">
-        <svg class="wv" viewBox="0 0 400 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path id="stwA" d="M-40 120 C 80 60, 180 220, 290 130 S 430 80, 460 150"></path><use href="#stwA" y="14"></use><use href="#stwA" y="28"></use><use href="#stwA" y="42"></use><use href="#stwA" y="56"></use><use href="#stwA" y="70"></use><use href="#stwA" y="84"></use><use href="#stwA" y="98"></use><use href="#stwA" y="112"></use><use href="#stwA" y="126"></use><use href="#stwA" y="140"></use><use href="#stwA" y="154"></use><use href="#stwA" y="168"></use><use href="#stwA" y="182"></use><use href="#stwA" y="196"></use></svg>
-        <div style="position: relative; display: flex; justify-content: space-between; align-items: flex-start">
-          <span class="icb"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14a7 7 0 1 0 0-14zM20 20l-4-4"></path></svg></span>
-          <span class="num" style="background: #0B0B0B; color: #FFFFFF">1</span>
-        </div>
-        <h3 class="h3" style="position: relative; font-size: 20px; max-width: 260px">Seus clientes pesquisam no Google antes de contratar</h3>
-      </div>
-      <div class="card" style="padding: 22px 24px; gap: 22px; display: flex; flex-direction: column; justify-content: space-between">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start">
-          <span class="icb"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"></path><path d="M9 12l2 2 4-4"></path></svg></span>
-          <span class="num" style="background: #E2DDFF; color: #0B0B0B">2</span>
-        </div>
-        <h3 class="h3" style="font-size: 20px; max-width: 260px">Um site profissional transmite mais confiança</h3>
-      </div>
-      <div class="card" style="padding: 22px 24px; gap: 22px; display: flex; flex-direction: column; justify-content: space-between; background: #D4F25A; border-color: #0B0B0B; color: #0B0B0B">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start">
-          <span class="icb" style="background: #0B0B0B; color: #D4F25A; border-color: #0B0B0B"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18zM3 12h18M12 3c2.5 2.5 3.8 5.5 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.5-3.8-9S9.5 5.5 12 3z"></path></svg></span>
-          <span class="num" style="background: #0B0B0B; color: #FFFFFF">3</span>
-        </div>
-        <h3 class="h3" style="font-size: 20px; max-width: 280px">Sua empresa precisa de um <span class="pill" style="background: #FFFFFF; font-size: 17px; padding: 2px 10px">endereço próprio</span> na internet</h3>
-      </div>
+    <div class="pd reveal">
+      <div class="pd-i"><span class="pd-n">01</span><span class="pd-ic"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14a7 7 0 1 0 0-14zM20 20l-4-4"></path></svg></span><h3>Seus clientes pesquisam no <b>Google</b> antes de contratar</h3></div>
+      <div class="pd-i"><span class="pd-n">02</span><span class="pd-ic"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"></path><path d="M9 12l2 2 4-4"></path></svg></span><h3>Um site profissional transmite mais <b>confiança</b></h3></div>
+      <div class="pd-i pd-hl"><span class="pd-n">03</span><span class="pd-ic"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18zM3 12h18M12 3c2.5 2.5 3.8 5.5 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.5-3.8-9S9.5 5.5 12 3z"></path></svg></span><h3>Sua empresa precisa de um <b>endereço próprio</b> na internet</h3></div>
     </div>
     <p class="reveal" style="margin: 44px auto 0; max-width: 720px; text-align: center; font-size: 18px; line-height: 1.6; color: #2B2B29">Não deixe seus potenciais clientes encontrarem apenas seus concorrentes<br>Tenha um espaço profissional para apresentar sua empresa, seus serviços e seus contatos</p>
   </div>
