@@ -743,6 +743,7 @@ html.lgm-open .neo-tag{display:none!important}
 @media (max-width:520px){.xp-feats{grid-template-columns:1fr}.xp-sec{padding-top:44px!important;padding-bottom:44px!important}.xp-card{min-height:250px;padding:18px}}
 .tc-head .eyebrow{align-self:center}
 .lp>.sec:not(#topo),.lp>footer{content-visibility:auto;contain-intrinsic-size:auto 900px}
+html.cv-off .lp>.sec,html.cv-off .lp>footer{content-visibility:visible}
 .dp-play{animation:none!important}
 .dp-play::before{content:"";position:absolute;inset:0;border-radius:50%;background:rgba(212,242,90,.55);animation:dp-ring 2.2s ease-out infinite;z-index:-1}
 @keyframes dp-ring{from{transform:scale(1);opacity:.7}to{transform:scale(1.65);opacity:0}}
@@ -2050,6 +2051,15 @@ html.lgm-open .neo-tag{display:none!important}
   $('#wa-cliente').addEventListener('click', function(){ mail('Já sou cliente', [['Nome','nome'],['Empresa','empresa'],['CPF/CNPJ','doc'],['E-mail','email'],['Motivo','motivo'],['Solicitação','desc']]); });
   upd();
 })();
+</script>
+<script>
+/* Renderização sob demanda só no carregamento inicial; depois a página fica completa (âncoras precisas) */
+(function(){var d=document.documentElement;
+function full(){d.classList.add('cv-off')}
+function go(id){var el=id&&document.getElementById(id);if(!el)return;void d.offsetHeight;el.scrollIntoView({behavior:'smooth',block:'start'});var k=0,t=setInterval(function(){var y=el.getBoundingClientRect().top,m=parseFloat(getComputedStyle(el).scrollMarginTop)||0;if(++k>12||(Math.abs(y-m)<3&&k>3)){clearInterval(t);if(Math.abs(y-m)>=3)el.scrollIntoView({behavior:'instant',block:'start'})}},150)}
+if(location.hash.length>1){full();addEventListener('load',function(){go(location.hash.slice(1))})}
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||e.defaultPrevented)return;var id=a.getAttribute('href').slice(1);if(d.classList.contains('cv-off')||!id)return;full();e.preventDefault();history.pushState(null,'','#'+id);go(id)});
+addEventListener('load',function(){setTimeout(function(){(window.requestIdleCallback||setTimeout)(full)},4000)});})();
 </script>
 </body>
 </html>
