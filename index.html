@@ -521,6 +521,32 @@ html.neo-on .neo-tag{display:inline-flex}
 .ig-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
 .ig-post{aspect-ratio:1;overflow:hidden;border-radius:6px;background:#f0f0ee}
 .ig-post img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.bonus-arts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.ba{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:10px;display:flex;flex-direction:column;justify-content:flex-end;padding:7px;box-shadow:0 8px 18px -10px rgba(11,11,11,.5)}
+.ba b{position:relative;font-size:clamp(9px,.85vw,12px);font-weight:700;line-height:1.1;letter-spacing:-.01em}
+.ba i{position:absolute;top:7px;left:7px;font-style:normal;font-size:8px;opacity:.7}
+.ba-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+.ba-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(11,11,11,.85))}
+.ba-img b{z-index:1;color:#fff}
+.ba-dk{background:#0B0B0B;color:#D4F25A}
+.ba-lt{background:#F7FCE3;color:#0B0B0B}
+@media (max-width:680px){.bonus-arts{gap:6px}.ba{padding:5px;border-radius:8px}.ba i,.ba-img b,.ba-img::after{display:none}.ba b{font-size:8.5px}}
+@media (max-width:900px){.g-inc>.c4{grid-template-columns:1fr!important}}
+.bonus-posts{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;height:380px;overflow:hidden;min-width:0;-webkit-mask-image:linear-gradient(180deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(180deg,transparent,#000 14%,#000 86%,transparent)}
+.bcol{overflow:hidden}
+.btrack{display:flex;flex-direction:column;gap:12px;animation:bp-up 18s linear infinite}
+.bc2 .btrack,.bc4 .btrack{animation-name:bp-down;animation-duration:22s}
+.bc3 .btrack{animation-duration:20s}
+.bonus-posts:hover .btrack{animation-play-state:paused}
+.bp{display:block;width:100%;height:auto;aspect-ratio:420/554;border-radius:14px;box-shadow:0 18px 30px -16px rgba(11,11,11,.55);transition:transform .35s}
+.bp:hover{transform:scale(1.04)}
+@keyframes bp-up{from{transform:translateY(0)}to{transform:translateY(calc(-50% - 6px))}}
+@keyframes bp-down{from{transform:translateY(calc(-50% - 6px))}to{transform:translateY(0)}}
+.bonus-chips{display:flex;flex-wrap:wrap;gap:8px}
+.bonus-chips span{font-size:12.5px;font-weight:600;padding:7px 12px;border-radius:999px;background:rgba(11,11,11,.08);border:1px solid rgba(11,11,11,.14)}
+.bonus-chips span:last-child{background:#0B0B0B;color:#D4F25A;border-color:#0B0B0B}
+@media (max-width:680px){.bonus-posts{height:300px;gap:8px;margin:0 -8px}.btrack{gap:8px}.bp{border-radius:10px}}
+@media (prefers-reduced-motion:reduce){.btrack{animation:none!important}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -706,24 +732,14 @@ html.neo-on .neo-tag{display:inline-flex}
           <li class="chk"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Bônus de 10 posts para Instagram ou Facebook</li>
         </ul>
       </div>
-      <div class="card c4" style="padding: 32px; background: #D4F25A; border-color: #D4F25A; color: #0B0B0B; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; align-items: center">
+      <div class="card c4" style="padding: 32px; background: #D4F25A; border-color: #D4F25A; color: #0B0B0B; display: grid; grid-template-columns: minmax(240px, .75fr) 1.6fr; gap: 28px; align-items: center">
         <div style="display: flex; flex-direction: column; gap: 14px">
           <span class="pill" style="background: #0B0B0B; color: #D4F25A; align-self: flex-start"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true" style="width: 14px; height: 14px"><path d="M4 10h16v10H4zM3 7h18v3H3zM12 7v13M12 7c-2-4-6-3-5 0M12 7c2-4 6-3 5 0"></path></svg>Bônus exclusivo</span>
           <p style="margin: 0; font-size: clamp(30px, 3vw, 40px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05">10 posts para Instagram ou Facebook</p>
           <p style="margin: 0; font-size: 15px; line-height: 1.5; max-width: 380px">Incluídos na contratação do plano anual para você começar a divulgar seu novo site</p>
+          <div class="bonus-chips"><span>Instagram</span><span>Facebook</span><span>Prontos para postar</span></div>
         </div>
-        <div aria-hidden="true" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px">
-          <span style="aspect-ratio: 1; border-radius: 10px; background: #0B0B0B"></span>
-          <span style="aspect-ratio: 1; border-radius: 10px; background: rgba(255,255,255,0.85)"></span>
-          <span style="aspect-ratio: 1; border-radius: 10px; background: #0B0B0B"></span>
-          <span style="aspect-ratio: 1; border-radius: 10px; background: rgba(11,11,11,0.25)"></span>
-          <span style="aspect-ratio: 1; border-radius: 10px; background: #0B0B0B"></span>
-          <span style="aspect-ratio: 1; border-radius: 10px; background: rgba(11,11,11,0.25)"></span>
-          <span style="aspect-ratio: 1; border-radius: 10px; background: #0B0B0B"></span>
-          <span style="aspect-ratio: 1; border-radius: 10px; background: rgba(255,255,255,0.85)"></span>
-          <span style="aspect-ratio: 1; border-radius: 10px; background: #0B0B0B"></span>
-          <span style="aspect-ratio: 1; border-radius: 10px; background: rgba(255,255,255,0.85)"></span>
-        </div>
+        <div class="bonus-posts"><div class="bcol bc1"><div class="btrack"><img class="bp" src="modelos/posts/post-3.webp" alt="Post: nosso site novo está no ar" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-5.webp" alt="Post de nutricionista" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-6.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-2.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-3.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-5.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-6.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-2.webp" alt="" width="420" height="554" loading="lazy" decoding="async"></div></div><div class="bcol bc2"><div class="btrack"><img class="bp" src="modelos/posts/post-8.webp" alt="Post de clínica odontológica" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-1.webp" alt="Post de dica sobre sites" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-7.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-4.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-8.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-1.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-7.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-4.webp" alt="" width="420" height="554" loading="lazy" decoding="async"></div></div><div class="bcol bc3"><div class="btrack"><img class="bp" src="modelos/posts/post-4.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-2.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-3.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-8.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-4.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-2.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-3.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-8.webp" alt="" width="420" height="554" loading="lazy" decoding="async"></div></div><div class="bcol bc4"><div class="btrack"><img class="bp" src="modelos/posts/post-6.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-7.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-5.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-1.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-6.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-7.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-5.webp" alt="" width="420" height="554" loading="lazy" decoding="async"><img class="bp" src="modelos/posts/post-1.webp" alt="" width="420" height="554" loading="lazy" decoding="async"></div></div></div>
       </div>
     </div>
   </div>
@@ -1329,7 +1345,7 @@ html.neo-on .neo-tag{display:inline-flex}
   /* Desempenho: pausa animações pesadas quando estão fora da tela */
   if ('IntersectionObserver' in window) {
     var offIO = new IntersectionObserver(function(es){ es.forEach(function(e){ e.target.classList.toggle('is-off', !e.isIntersecting); }); }, { rootMargin: '120px 0px' });
-    Array.prototype.forEach.call(document.querySelectorAll('.hero-3d, .mk3d, .offer-sec, .sec.dark-sec, .fab'), function(el){ offIO.observe(el); });
+    Array.prototype.forEach.call(document.querySelectorAll('.hero-3d, .mk3d, .offer-sec, .sec.dark-sec, .fab, .bonus-posts'), function(el){ offIO.observe(el); });
   }
   var $ = function(s, r){ return (r||document).querySelector(s); };
   var $$ = function(s, r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
