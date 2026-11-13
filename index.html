@@ -507,6 +507,11 @@ html.neo-on .neo-tag{display:inline-flex}
 /* desempenho: animações pausadas fora da tela */
 .is-off,.is-off *,.is-off *::before,.is-off *::after{animation-play-state:paused!important}
 @media (max-width:680px){.g-exp>.card{min-height:190px!important}}
+.exp-shots{position:absolute;right:-18px;top:18px;width:62%;max-width:300px;pointer-events:none}
+.exp-shots img{display:block;border-radius:12px;box-shadow:0 22px 40px -18px rgba(11,11,11,.55),0 0 0 1px rgba(11,11,11,.12)}
+.exp-shots .es1{width:100%;height:auto;transform:rotate(-6deg)}
+.exp-shots .es2{position:absolute;left:-14%;top:42%;width:34%;height:auto;border:3px solid #0B0B0B;border-radius:14px;transform:rotate(5deg)}
+@media (min-width:1061px){.exp-shots{width:72%;top:22px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -1048,9 +1053,10 @@ html.neo-on .neo-tag{display:inline-flex}
         <p class="mut" style="margin: 0; font-size: 16px; line-height: 1.65">O Site Top Brasil nasceu para tornar a presença digital profissional mais acessível aos empreendedores brasileiros</p>
         <p class="mut" style="margin: 0; font-size: 16px; line-height: 1.65">Nossa experiência no mercado digital permite oferecer uma solução objetiva, moderna e com foco no que realmente importa: apresentar sua empresa com profissionalismo</p>
       </div>
-      <div class="card" style="background: #D4F25A; border-color: #0B0B0B; color: #0B0B0B; padding: 24px; min-height: 250px; display: flex; flex-direction: column; justify-content: space-between">
-        <span class="icb" style="background: #0B0B0B; color: #D4F25A; border-color: #0B0B0B"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"></path></svg></span>
-        <div>
+      <div class="card" style="background: #D4F25A; border-color: #0B0B0B; color: #0B0B0B; padding: 24px; min-height: 250px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden">
+        <span class="exp-shots" aria-hidden="true"><img src="modelos/hero/dentora-d.webp" alt="" width="600" height="400" loading="lazy" decoding="async" class="es1"><img src="modelos/hero/vellura-m.webp" alt="" width="240" height="520" loading="lazy" decoding="async" class="es2"></span>
+        <span class="icb" style="position: relative; z-index: 1; background: #0B0B0B; color: #D4F25A; border-color: #0B0B0B"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"></path></svg></span>
+        <div style="position: relative; z-index: 1">
           <p style="margin: 0; font-size: clamp(64px, 6.4vw, 92px); font-weight: 800; letter-spacing: -0.05em; line-height: 0.9">+10</p>
           <p style="margin: 10px 0 0; font-size: 17px; font-weight: 600">anos de experiência</p>
         </div>
