@@ -874,6 +874,8 @@ html.cv-off .lp>.sec,html.cv-off .lp>footer{content-visibility:visible}
   </div>
 </section>
 
+<div id="lp-slot"></div>
+<template id="lp-below">
 <!-- ============ 04 · O QUE ESTÁ INCLUSO ============ -->
 <section class="sec" id="incluso">
   <div class="wrap">
@@ -1498,6 +1500,7 @@ html.cv-off .lp>.sec,html.cv-off .lp>footer{content-visibility:visible}
     </div>
   </div>
 </footer>
+</template>
 
 <!-- ============ CTA FIXO MOBILE ============ -->
 <div class="mbar">
@@ -1585,7 +1588,7 @@ html.cv-off .lp>.sec,html.cv-off .lp>footer{content-visibility:visible}
 <div class="neo-toast" aria-live="polite"><span class="neo-dot"></span><span class="neo-txt"></span></div>
 <div class="neo-invite" role="region" aria-label="Atalho para a oferta"><button type="button" class="neo-go" data-event="ViewContent"><span class="neo-dot"></span>Quer ver a oferta?<span class="neo-ar">Ver ↓</span></button><button type="button" class="neo-x" aria-label="Fechar">×</button></div>
 <div class="dm" id="dm" hidden role="dialog" aria-modal="true" aria-label="Demonstração do modelo"><div class="dm-bd" data-close></div><div class="dm-box"><button type="button" class="dm-x" data-close aria-label="Fechar demonstração">×</button><iframe id="dm-fr" title="Demonstração do modelo"></iframe></div></div>
-<div class="lgm" id="lgm" hidden role="dialog" aria-modal="true" aria-labelledby="lgm-t">
+<template id="lp-modals"><div class="lgm" id="lgm" hidden role="dialog" aria-modal="true" aria-labelledby="lgm-t">
   <div class="lgm-bd" data-lgm-close></div>
   <div class="lgm-box">
     <div class="lgm-top">
@@ -1660,7 +1663,9 @@ html.cv-off .lp>.sec,html.cv-off .lp>footer{content-visibility:visible}
     </div>
   </div>
 </div>
+</template>
 <script>
+window.__lpMain=function(){
 (function(){
   /* Configuração: preencha para trocar os links dos botões */
   var CONFIG = {
@@ -2061,6 +2066,20 @@ html.cv-off .lp>.sec,html.cv-off .lp>footer{content-visibility:visible}
   $('#wa-novo').addEventListener('click', function(){ mail('Novo cliente', [['Nome','nome'],['Empresa','empresa'],['Cidade/Estado','cidade'],['Segmento','segmento'],['Já possui site?','temSite'],['Principal dúvida','duvida']]); });
   $('#wa-cliente').addEventListener('click', function(){ mail('Já sou cliente', [['Nome','nome'],['Empresa','empresa'],['CPF/CNPJ','doc'],['E-mail','email'],['Motivo','motivo'],['Solicitação','desc']]); });
   upd();
+})();
+
+};
+</script>
+<script>
+(function(){var done=false;
+function ensure(){if(done)return;done=true;
+var tb=document.getElementById('lp-below'),sl=document.getElementById('lp-slot');if(tb&&sl)sl.replaceWith(tb.content);
+var tm=document.getElementById('lp-modals');if(tm)document.body.appendChild(tm.content);
+if(window.__lpMain)window.__lpMain();}
+window.lpEnsure=ensure;
+if(location.hash.length>1)ensure();
+['pointerdown','touchstart','keydown','wheel','scroll'].forEach(function(n){addEventListener(n,ensure,{once:true,passive:true,capture:true})});
+addEventListener('load',function(){setTimeout(function(){(window.requestIdleCallback||setTimeout)(ensure,{timeout:1500})},3000)});
 })();
 </script>
 <script>
