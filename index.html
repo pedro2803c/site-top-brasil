@@ -650,7 +650,8 @@ html.dm-open.neo-on .dm,html.dm-open.neo-on .dm *{cursor:auto!important}
 .dp-card figcaption small{color:#A3A39E}
 .dp-card figcaption a{color:#D4F25A;font-size:13px;text-decoration:none}
 .dp-card figcaption a:hover{text-decoration:underline}
-@media (max-width:900px){.g-dp{grid-template-columns:1fr}}
+@media (max-width:760px){.g-dp{grid-template-columns:1fr}.dp-grid{width:100%;max-width:460px;margin:0 auto}.dp-card:nth-child(2){margin-top:28px}}
+@media (min-width:761px) and (max-width:1020px){.g-dp{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}.dp-grid{gap:12px}.dp-card:nth-child(2){margin-top:32px}}
 @media (max-width:560px){.dp-grid{gap:12px}.dp-card:nth-child(2){margin-top:28px}.dp-play{width:54px;height:54px;margin:-27px 0 0 -27px}.dp-play svg{width:22px;height:22px}.dp-vid{border-radius:18px}}
 @media (prefers-reduced-motion:reduce){.dp-play{animation:none}}
 .lgm{position:fixed;inset:0;z-index:210;display:grid;place-items:center;padding:3vh 16px}
