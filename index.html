@@ -187,6 +187,23 @@ a{color:inherit}a:hover{color:inherit}
 .g-inc .c1{grid-row:span 2}
 .g-inc .c4{grid-column:span 2}
 .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;position:relative}
+/* Como funciona: destaque passo a passo em loop */
+.cf-steps .card{position:relative;overflow:hidden;transition:box-shadow .5s,border-color .5s}
+.cf-steps .card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,#D4F25A,#B9E33A);transform:scaleX(0);transform-origin:left}
+.cf-steps.cf-on .card{animation:cf-card 7.2s ease-in-out infinite;animation-delay:calc(var(--i)*1.2s)}
+.cf-steps.cf-on .card::after{animation:cf-bar 7.2s linear infinite;animation-delay:calc(var(--i)*1.2s)}
+.cf-steps.cf-on .card .icb{animation:cf-ic 7.2s ease-in-out infinite;animation-delay:calc(var(--i)*1.2s)}
+.cf-steps.cf-on .card .num{animation:cf-num 7.2s ease-in-out infinite;animation-delay:calc(var(--i)*1.2s)}
+@keyframes cf-card{0%,20%,100%{box-shadow:0 0 0 0 rgba(212,242,90,0)}4%,14%{box-shadow:0 18px 40px -18px rgba(120,150,20,.45),0 0 0 2px #D4F25A}}
+@keyframes cf-bar{0%{transform:scaleX(0)}16%{transform:scaleX(1)}19%,100%{transform:scaleX(0)}}
+@keyframes cf-ic{0%,20%,100%{transform:none}5%{transform:rotate(-10deg) scale(1.12)}10%{transform:rotate(6deg) scale(1.12)}15%{transform:none}}
+@keyframes cf-num{0%,20%,100%{transform:none}6%{transform:scale(1.25)}12%{transform:scale(1)}}
+.cf-cta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:28px}
+.cf-cta>.mut{font-size:14px}
+.cf-cta .btn-p{animation:hdr-pulse 2.4s ease-out infinite}
+.cf-cta .btn-p:hover{animation:none}
+@media (max-width:680px){.cf-cta{flex-direction:column;align-items:stretch;text-align:center}.cf-cta .btn{justify-content:center}}
+@media (prefers-reduced-motion:reduce){.cf-steps .card,.cf-steps .card::after,.cf-steps .icb,.cf-steps .num,.cf-cta .btn-p{animation:none!important}}
 .g-exp{display:grid;grid-template-columns:1.2fr .85fr .85fr;gap:14px}
 .g-meet{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch}
 .g-faq{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:start}
@@ -1363,38 +1380,39 @@ html.bkm-open .neo-tag{display:none!important}
   <div class="wrap">
     <div class="reveal" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 48px; max-width: 760px">
       <span class="eyebrow">Como funciona</span>
-      <h2 class="h-sec">Seu site profissional em <span class="hl">6 etapas</span> simples</h2>
+      <h2 class="h-sec">Seu site no ar em <span class="hl">6 passos</span>. Comece hoje</h2>
+      <p class="mut" style="margin: 0; font-size: 16px; line-height: 1.6; max-width: 620px">Você dá o primeiro passo e a nossa equipe cuida do resto. Do primeiro contato ao site publicado, sem complicação e com acompanhamento em cada etapa.</p>
     </div>
-    <ol class="steps reveal" style="list-style: none; margin: 0; padding: 0">
-      <li class="card" style="padding: 26px 22px">
+    <ol class="steps cf-steps reveal" style="list-style: none; margin: 0; padding: 0">
+      <li class="card" style="padding: 26px 22px; --i: 0">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px"><span class="icb" style="background: #F3F3F0"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M3 7h12v10H3zM15 10l6-3v10l-6-3"></path></svg></span><span class="num" style="background: #D4F25A; color: #0B0B0B">01</span></div>
-        <h3 class="h3">Reunião</h3>
-        <p class="mut" style="margin: 8px 0 0; font-size: 14px; line-height: 1.5">Vamos realizar uma reunião inicial para conhecer melhor o cliente, entender suas necessidades e alinhar os objetivos do projeto.</p>
+        <h3 class="h3">Agende sua reunião</h3>
+        <p class="mut" style="margin: 8px 0 0; font-size: 14px; line-height: 1.5">Conte sobre o seu negócio em uma conversa rápida e gratuita. Entendemos suas necessidades e alinhamos os objetivos do seu site.</p>
       </li>
-      <li class="card" style="padding: 26px 22px">
+      <li class="card" style="padding: 26px 22px; --i: 1">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px"><span class="icb" style="background: #F3F3F0"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M3 6h18v12H3zM3 10h18M7 15h3"></path></svg></span><span class="num" style="background: #0B0B0B; color: #FFFFFF">02</span></div>
-        <h3 class="h3">Contratação e pagamento</h3>
-        <p class="mut" style="margin: 8px 0 0; font-size: 14px; line-height: 1.5">Após a aprovação da proposta, formalizamos a contratação e alinhamos as condições de pagamento.</p>
+        <h3 class="h3">Feche seu plano</h3>
+        <p class="mut" style="margin: 8px 0 0; font-size: 14px; line-height: 1.5">Aprovou a proposta? Formalize a contratação e escolha a condição de pagamento que fica melhor para você.</p>
       </li>
-      <li class="card" style="padding: 26px 22px">
+      <li class="card" style="padding: 26px 22px; --i: 2">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px"><span class="icb" style="background: #F3F3F0"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 5h16v11H9l-5 4zM8 9h8M8 12h5"></path></svg></span><span class="num" style="background: #0B0B0B; color: #FFFFFF">03</span></div>
-        <h3 class="h3">Grupo de WhatsApp</h3>
-        <p class="mut" style="margin: 8px 0 0; font-size: 14px; line-height: 1.5">Criamos um grupo exclusivo de WhatsApp com o cliente para facilitar a comunicação, acompanhar o projeto e centralizar as informações.</p>
+        <h3 class="h3">Entre no seu grupo exclusivo</h3>
+        <p class="mut" style="margin: 8px 0 0; font-size: 14px; line-height: 1.5">Você ganha um grupo de WhatsApp só seu para falar direto com a equipe, tirar dúvidas e acompanhar cada passo do projeto.</p>
       </li>
-      <li class="card" style="padding: 26px 22px">
+      <li class="card" style="padding: 26px 22px; --i: 3">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px"><span class="icb" style="background: #F3F3F0"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M7 3h7l5 5v13H7zM14 3v5h5M10 13h6M10 17h6"></path></svg></span><span class="num" style="background: #0B0B0B; color: #FFFFFF">04</span></div>
-        <h3 class="h3">Materiais e briefing</h3>
-        <p class="mut" style="margin: 8px 0 0; font-size: 14px; line-height: 1.5">Solicitamos os materiais necessários e realizamos o briefing para entender todos os detalhes, referências e expectativas do projeto.</p>
+        <h3 class="h3">Envie seus materiais</h3>
+        <p class="mut" style="margin: 8px 0 0; font-size: 14px; line-height: 1.5">Mande logo, fotos e informações. Fazemos o briefing com você para captar cada detalhe, referência e expectativa.</p>
       </li>
-      <li class="card" style="padding: 26px 22px">
+      <li class="card" style="padding: 26px 22px; --i: 4">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px"><span class="icb" style="background: #F3F3F0"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13 6l-2 12"></path></svg></span><span class="num" style="background: #0B0B0B; color: #FFFFFF">05</span></div>
-        <h3 class="h3">Desenvolvimento</h3>
-        <p class="mut" style="margin: 8px 0 0; font-size: 14px; line-height: 1.5">Com todas as informações e materiais recebidos, iniciamos o desenvolvimento do projeto conforme o escopo aprovado.</p>
+        <h3 class="h3">Acompanhe a criação</h3>
+        <p class="mut" style="margin: 8px 0 0; font-size: 14px; line-height: 1.5">Com tudo em mãos, colocamos a mão na massa e desenvolvemos seu site seguindo o escopo aprovado.</p>
       </li>
-      <li class="card" style="padding: 26px 22px; border-color: rgba(170,205,40,0.4)">
+      <li class="card" style="padding: 26px 22px; border-color: rgba(170,205,40,0.4); --i: 5">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px"><span class="icb" style="background: #D4F25A; color: #0B0B0B; border-color: #0B0B0B"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 21V4h11l-2 4 2 4H5"></path></svg></span><span class="num" style="background: #E2DDFF; color: #0B0B0B">06</span></div>
-        <h3 class="h3">Entrega em até 72 horas</h3>
-        <p class="mut" style="margin: 8px 0 0; font-size: 14px; line-height: 1.5">Em até 72 horas, nossa equipe irá compreender sua necessidade e demanda, organizar as informações e dar andamento ao processo, respeitando o escopo e os prazos acordados.</p>
+        <h3 class="h3">Receba seu site em até 72h</h3>
+        <p class="mut" style="margin: 8px 0 0; font-size: 14px; line-height: 1.5">Em até 72 horas organizamos sua demanda e colocamos o projeto para andar, respeitando o escopo e os prazos combinados.</p>
       </li>
     </ol>
     <div class="card reveal" style="margin-top: 20px; padding: 22px 26px; display: flex; gap: 16px; align-items: flex-start; background: #EEEBFF; border-color: #D6CFFF">
@@ -1407,6 +1425,10 @@ html.bkm-open .neo-tag{display:none!important}
           <span class="pill" style="background: #FFFFFF; color: #0B0B0B; font-size: 13px">Intervalo: das 13h às 14h</span>
         </div>
       </div>
+    </div>
+    <div class="cf-cta reveal">
+      <a href="#reuniao" data-link="agenda" class="btn btn-p" data-event="Schedule">Dar o primeiro passo agora<svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      <span class="mut">Reunião gratuita de até 30 minutos · sem compromisso</span>
     </div>
   </div>
 </section>
@@ -2231,6 +2253,15 @@ window.__lpMain=function(){
     });
     function close(){ m.hidden = true; document.documentElement.classList.remove('lgm-open'); if (last && last.focus) last.focus(); }
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !m.hidden) close(); });
+  })();
+
+  /* Como funciona: liga o destaque em loop só com a seção visível */
+  (function(){
+    var st=document.querySelector('.cf-steps'); if(!st || !('IntersectionObserver' in window)) return;
+    if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var t; new IntersectionObserver(function(es){ clearTimeout(t);
+      if(es[0].isIntersecting) t=setTimeout(function(){ st.classList.add('cf-on'); },900); else st.classList.remove('cf-on');
+    },{threshold:.2}).observe(st);
   })();
 
   /* Carrossel de avaliações */
