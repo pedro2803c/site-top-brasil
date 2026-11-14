@@ -187,6 +187,33 @@ a{color:inherit}a:hover{color:inherit}
 .g-inc .c1{grid-row:span 2}
 .g-inc .c4{grid-column:span 2}
 .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;position:relative}
+/* Rodapé: faixa de segurança com selos */
+.ft-sec{margin-top:44px;padding:clamp(22px,3vw,32px);border-radius:24px;background:rgba(255,255,255,.72);border:1px solid rgba(11,11,11,.08);box-shadow:0 18px 40px -30px rgba(11,11,11,.35);display:grid;gap:22px}
+.ft-sec-head{display:flex;align-items:center;gap:14px}
+.ft-sec-ic{flex:none;width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:#0B0B0B;color:#D4F25A}
+.ft-sec-ic .ic{width:24px;height:24px}
+.ft-sec-t{margin:0;font-size:clamp(18px,2vw,22px);font-weight:600;letter-spacing:-.02em;color:#0B0B0B}
+.ft-sec-s{margin:2px 0 0;font-size:13px;color:#5E5E59}
+.ft-seals{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.ft-seals li{display:flex}
+.ft-seal{flex:1;display:flex;align-items:center;gap:12px;padding:12px 14px 12px 12px;border-radius:16px;background:#FFFFFF;border:1px solid rgba(11,11,11,.1);color:#0B0B0B;text-decoration:none;font:inherit;text-align:left;cursor:default;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s,border-color .25s}
+.ft-seal::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:#D4F25A}
+a.ft-seal,button.ft-seal{cursor:pointer}
+a.ft-seal:hover,button.ft-seal:hover{transform:translateY(-2px);border-color:rgba(11,11,11,.22);box-shadow:0 12px 24px -16px rgba(11,11,11,.4)}
+.ft-seal-ic{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#D4F25A,#B9E33A);color:#0B0B0B}
+.ft-seal-ic .ic{width:19px;height:19px;stroke-width:1.9}
+.ft-seal-tx{display:flex;flex-direction:column;min-width:0;line-height:1.25}
+.ft-seal-tx b{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.ft-seal-tx small{font-size:12.5px;color:#5E5E59;margin-top:2px}
+.ft-check{padding-top:18px;border-top:1px dashed rgba(11,11,11,.14)}
+.ft-check-t{margin:0 0 8px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#0B0B0B}
+.ft-check ul{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:13.5px;line-height:1.5;color:#4A4A46}
+.ft-check li{padding-left:16px;position:relative}
+.ft-check li::before{content:"";position:absolute;left:2px;top:.6em;width:6px;height:6px;border-radius:50%;background:#B9E33A}
+.ft-check b{color:#0B0B0B;font-weight:600}
+.ft-check a,.ft-check .linkbtn{color:#0B0B0B;font-size:inherit;padding:0;text-decoration:underline;text-decoration-color:#B9E33A;text-decoration-thickness:2px;text-underline-offset:3px}
+@media (max-width:1180px){.ft-seals{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.ft-seals{grid-template-columns:1fr}.ft-sec-head{align-items:flex-start}}
 /* Segurança e confiança */
 .sg-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(20px,3vw,40px);align-items:stretch}
 .sg-seal{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:14px;padding:clamp(28px,4vw,48px);color:#fff;border-color:rgba(255,255,255,.08);background:radial-gradient(90% 60% at 0% 0%,rgba(212,242,90,.16) 0%,rgba(212,242,90,0) 60%),radial-gradient(80% 60% at 100% 100%,rgba(155,140,255,.18) 0%,rgba(155,140,255,0) 70%),#0B0B0B}
@@ -1710,7 +1737,42 @@ html.bkm-open .neo-tag{display:none!important}
         <address class="mut" style="font-style: normal; line-height: 1.7; margin: 0">Av. Paulista, 1636 — Bela Vista — São Paulo/SP</address>
       </div>
     </div>
-    <div style="margin-top: 44px; padding-top: 22px; border-top: 1px solid rgba(11,11,11,0.1); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12px; color: #6B6B66">
+    <div class="ft-sec" aria-labelledby="ft-sec-t">
+      <div class="ft-sec-head">
+        <span class="ft-sec-ic" aria-hidden="true"><svg viewBox="0 0 24 24" class="ic"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6zM9 11.5V10a3 3 0 0 1 6 0v1.5M8.5 11.5h7v5h-7z"></path></svg></span>
+        <div>
+          <p class="ft-sec-t" id="ft-sec-t">Navegação segura e criptografada</p>
+          <p class="ft-sec-s">Conexão HTTPS ativa em todas as páginas do site</p>
+        </div>
+      </div>
+      <ul class="ft-seals">
+        <li><span class="ft-seal">
+          <span class="ft-seal-ic" aria-hidden="true"><svg viewBox="0 0 24 24" class="ic"><path d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3M12 14.5v2.5"></path></svg></span>
+          <span class="ft-seal-tx"><b>Site seguro</b><small>Conexão HTTPS</small></span>
+        </span></li>
+        <li><button type="button" class="ft-seal" data-legal="privacidade">
+          <span class="ft-seal-ic" aria-hidden="true"><svg viewBox="0 0 24 24" class="ic"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6zM9.5 12l2 2 3.5-4"></path></svg></span>
+          <span class="ft-seal-tx"><b>Dados protegidos</b><small>Política de Privacidade</small></span>
+        </button></li>
+        <li><a class="ft-seal" href="https://wa.me/5511943935206" target="_blank" rel="noopener" data-event="Contact">
+          <span class="ft-seal-ic" aria-hidden="true"><svg viewBox="0 0 24 24" class="ic"><path d="M4 5h16v11H9l-5 4zM8 9h8M8 12h5"></path></svg></span>
+          <span class="ft-seal-tx"><b>Atendimento oficial</b><small>WhatsApp +55 11 94393-5206</small></span>
+        </a></li>
+        <li><button type="button" class="ft-seal" data-legal="contratacao">
+          <span class="ft-seal-ic" aria-hidden="true"><svg viewBox="0 0 24 24" class="ic"><path d="M7 3h7l5 5v13H7zM14 3v5h5M10 13h6M10 17h4"></path></svg></span>
+          <span class="ft-seal-tx"><b>Contrato e nota fiscal</b><small>Em toda contratação</small></span>
+        </button></li>
+      </ul>
+      <div class="ft-check">
+        <p class="ft-check-t">Confira você mesmo</p>
+        <ul>
+          <li><b>Conexão segura:</b> veja o cadeado ao lado do endereço do site no seu navegador</li>
+          <li><b>Privacidade:</b> <button type="button" class="linkbtn" data-legal="privacidade">leia nossa Política de Privacidade</button>, com seus direitos pela LGPD</li>
+          <li><b>Canal oficial:</b> fale somente pelo WhatsApp <a href="https://wa.me/5511943935206" target="_blank" rel="noopener" data-event="Contact">+55 11 94393-5206</a></li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(11,11,11,0.1); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12px; color: #6B6B66">
       <span>© 2026 André Huhn – Soluções Digitais · Todos os direitos reservados</span>
       <span>Pagamento seguro · Contrato · Nota fiscal</span>
     </div>
