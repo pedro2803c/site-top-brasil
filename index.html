@@ -699,6 +699,13 @@ html.lgm-open .neo-tag{display:none!important}
 .tc-dots{display:flex;justify-content:center;gap:8px;margin-top:22px}
 .tc-dots i{width:8px;height:8px;border-radius:8px;background:rgba(255,255,255,.2);transition:all .3s}
 .tc-dots i.on{width:28px;background:#D4F25A}
+.tc-dots.auto i.on{position:relative;overflow:hidden;background:rgba(212,242,90,.28)}
+.tc-dots.auto i.on::after{content:"";position:absolute;inset:0;border-radius:inherit;background:#D4F25A;transform-origin:left;animation:tc-fill 5.5s linear forwards}
+.tc-dots.auto.hold i.on::after{animation-play-state:paused}
+@keyframes tc-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.tc-track.fx .tc-card{transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1),filter .7s ease}
+.tc-track.fx .tc-card:not(.in){opacity:.35;transform:scale(.94);filter:saturate(.6)}
+.tc-track.fx .tc-card.in{opacity:1;transform:none}
 @media (max-width:900px){.tc-card{flex-basis:calc((100% - 20px)/2)}}
 @media (max-width:640px){.tc-card{flex-basis:86%;padding:22px}.tc-nav{display:none}}
 .tc-g{margin-top:14px;width:100%;max-width:620px;padding:26px 24px;border-radius:22px;background:linear-gradient(160deg,#1a1a1a,#121212);border:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
@@ -2229,12 +2236,27 @@ window.__lpMain=function(){
     function pages(){ return cs.length - per() + 1; }
     function idx(){ return Math.round(tr.scrollLeft / (cs[1].offsetLeft - cs[0].offsetLeft)); }
     function draw(){ var n=pages(), i=Math.min(idx(), n-1); if(dots.children.length!==n){ dots.innerHTML=new Array(n+1).join('<i></i>'); }
-      for(var j=0;j<n;j++) dots.children[j].className = j===i?'on':''; pv.disabled = i<=0; nx.disabled = i>=n-1; }
+      for(var j=0;j<n;j++) dots.children[j].className = j===i?'on':''; pv.disabled = i<=0; nx.disabled = i>=n-1;
+      var p=per(); for(var k=0;k<cs.length;k++) cs[k].classList.toggle('in', k>=i && k<i+p); }
     function go(d){ var s=cs[1].offsetLeft - cs[0].offsetLeft; tr.scrollBy({left:d*s}); }
     pv.addEventListener('click',function(){go(-1)}); nx.addEventListener('click',function(){go(1)});
     tr.addEventListener('scroll',function(){ requestAnimationFrame(draw); },{passive:true});
     window.addEventListener('resize',function(){ if(tr.dataset.on) draw(); });
     if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ if(es[0].isIntersecting){ io.disconnect(); tr.dataset.on=1; draw(); } },{rootMargin:'300px'}); io.observe(tr); } else { tr.dataset.on=1; draw(); }
+
+    /* Autoplay: a barra do ponto ativo é o cronômetro; ao terminar, avança (volta ao início no fim) */
+    if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var wrap=tr.parentNode, st={hover:0,focus:0,touch:0,off:1}, tt;
+    function hold(){ dots.classList.toggle('hold', !!(st.hover||st.focus||st.touch||st.off)); }
+    tr.classList.add('fx'); dots.classList.add('auto'); hold();
+    dots.addEventListener('animationend',function(){ if(idx()>=pages()-1) tr.scrollTo({left:0}); else go(1); });
+    wrap.addEventListener('pointerenter',function(e){ if(e.pointerType==='mouse'){ st.hover=1; hold(); } });
+    wrap.addEventListener('pointerleave',function(e){ if(e.pointerType==='mouse'){ st.hover=0; hold(); } });
+    wrap.addEventListener('focusin',function(e){ var fv=true; try{ fv=e.target.matches(':focus-visible'); }catch(x){} if(fv){ st.focus=1; hold(); } });
+    wrap.addEventListener('focusout',function(){ st.focus=0; hold(); });
+    tr.addEventListener('touchstart',function(){ clearTimeout(tt); st.touch=1; hold(); },{passive:true});
+    tr.addEventListener('touchend',function(){ clearTimeout(tt); tt=setTimeout(function(){ st.touch=0; hold(); },2500); },{passive:true});
+    if('IntersectionObserver' in window){ new IntersectionObserver(function(es){ st.off=es[0].isIntersecting?0:1; hold(); },{threshold:.35}).observe(tr); } else { st.off=0; hold(); }
   })();
 
   /* Triagem WhatsApp */
