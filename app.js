@@ -28,8 +28,12 @@ window.lpSec = (function(){
                       Web3Forms: https://api.web3forms.com/submit · função serverless)
                       e o formulário mostra a confirmação sem abrir o WhatsApp.
        Web3Forms exige a chave: leadExtra: { access_key: 'SUA_CHAVE' }.
+       FormSubmit (padrão atual, grátis e sem conta): https://formsubmit.co/ajax/<destino>.
+       Troque o e-mail pelo ALIAS ALEATÓRIO que o FormSubmit envia no e-mail de ativação
+       (ex.: https://formsubmit.co/ajax/a1b2c3d4e5...) para não expor o endereço.
+       O FormSubmit só aceita envios do navegador (recusa servidores com 403).
        Endpoint de outro domínio: libere-o em "connect-src" da Content-Security-Policy
-       no vercel.json, senão o navegador bloqueia o envio. '/api/lead' já é liberado.
+       no vercel.json, senão o navegador bloqueia o envio.
    ============================================================================= */
 var CONFIG = {
   checkoutUrl: '',              /* link de pagamento (vazio: contratação segue no WhatsApp após o formulário) */
@@ -37,7 +41,7 @@ var CONFIG = {
   whatsapp: '5511943935206',
   metaPixelId: 'SEU_PIXEL_ID',  /* ex.: '123456789012345' */
   googleTagId: 'G-XXXXXXXXXX',  /* ex.: 'G-AB12CD34EF' (GA4) */
-  leadEndpoint: '/api/lead',   /* função da Vercel em api/lead.js (repassa por e-mail) */
+  leadEndpoint: 'https://formsubmit.co/ajax/sac@andrehuhn.com.br',  /* troque pelo alias do FormSubmit */
   leadExtra: {}
 };
 /* IDs só valem quando deixam de ser placeholder */
@@ -73,9 +77,23 @@ window.lpPost = function(data, keep){
   for (k in CONFIG.leadExtra) body[k] = CONFIG.leadExtra[k];
   body.origem = location.href; body.campanha = camp; body._honey = '';
   for (k in data) body[k] = data[k];
+  if (/formsubmit\.co/.test(CONFIG.leadEndpoint)) body = lpFormsubmit(body);
   return fetch(CONFIG.leadEndpoint, { method: 'POST', keepalive: !!keep, headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(body) })
-    .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r; });
+    .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json().catch(function(){ return {}; }); })
+    .then(function(j){ if (/formsubmit\.co/.test(CONFIG.leadEndpoint) && String(j.success) !== 'true') throw new Error('destino'); return j; });
 };
+/* Formato do e-mail do FormSubmit: tabela com rótulos, LGPD, datas ISO 8601 e campanha */
+function lpFormsubmit(b){
+  var R = { nome: 'Nome', whatsapp: 'WhatsApp', empresa: 'Empresa', necessidade: 'Necessidade', email: 'E-mail', data: 'Data', horario: 'Horário', doc: 'CPF/CNPJ', motivo: 'Motivo', solicitacao: 'Solicitação' };
+  var m = { _subject: 'SitePro Brasil — ' + b.tipo + ' — ' + (b.nome || ''), _template: 'table', _captcha: 'false', _honey: b._honey || '', Tipo: b.tipo }, k;
+  for (k in R) if (b[k]) m[R[k]] = b[k];
+  if (b.lgpd === true) { m['Consentimento LGPD (lgpd)'] = 'true'; m['Consentimento em (consentAt)'] = b.consentAt || new Date().toISOString(); }
+  m['Enviado em (ISO 8601)'] = new Date().toISOString();
+  m['Página de origem'] = b.origem || location.href;
+  for (k in (b.campanha || {})) m[k] = b.campanha[k];
+  if (b.email && lpSec.email(b.email)) m._replyto = b.email;
+  return m;
+}
 
 /* Formulário de orçamento: único caminho comercial até o WhatsApp */
 (function(){
