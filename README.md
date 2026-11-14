@@ -1,4 +1,4 @@
-# Site Top Brasil — Landing page
+# SitePro Brasil — Landing page
 
 Landing page estática da oferta **Site profissional por R$ 444/ano (R$ 37/mês)**, pronta para tráfego pago.
 
