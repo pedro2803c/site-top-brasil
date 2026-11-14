@@ -72,9 +72,13 @@ module.exports = async function handler(req, res) {
       signal: AbortSignal.timeout(8000)
     });
     const j = await r.json().catch(() => ({}));
-    if (!r.ok || String(j.success) !== 'true') return res.status(502).json({ ok: false, error: 'destino' });
+    if (!r.ok || String(j.success) !== 'true') {
+      console.error('lead destino recusou', r.status, String(j.message || '').slice(0, 200)); /* sem dados pessoais */
+      return res.status(502).json({ ok: false, error: 'destino' });
+    }
     return res.status(200).json({ ok: true });
   } catch (e) {
+    console.error('lead destino indisponível', String(e && e.name || e).slice(0, 80));
     return res.status(502).json({ ok: false, error: 'destino' });
   }
 };
