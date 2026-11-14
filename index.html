@@ -187,6 +187,34 @@ a{color:inherit}a:hover{color:inherit}
 .g-inc .c1{grid-row:span 2}
 .g-inc .c4{grid-column:span 2}
 .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;position:relative}
+/* Segurança e confiança */
+.sg-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(20px,3vw,40px);align-items:stretch}
+.sg-seal{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:14px;padding:clamp(28px,4vw,48px);color:#fff;border-color:rgba(255,255,255,.08);background:radial-gradient(90% 60% at 0% 0%,rgba(212,242,90,.16) 0%,rgba(212,242,90,0) 60%),radial-gradient(80% 60% at 100% 100%,rgba(155,140,255,.18) 0%,rgba(155,140,255,0) 70%),#0B0B0B}
+.sg-seal::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px) 0 0/18px 18px;-webkit-mask-image:linear-gradient(160deg,#000,transparent 60%);mask-image:linear-gradient(160deg,#000,transparent 60%)}
+.sg-seal>*{position:relative;z-index:1}
+.sg-badge{position:relative;width:76px;height:76px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#D4F25A,#B9E33A);color:#0B0B0B;box-shadow:0 14px 34px -14px rgba(212,242,90,.6);margin-bottom:6px}
+.sg-badge .ic{width:32px;height:32px;stroke-width:1.9}
+.sg-ring{position:absolute;inset:-9px;border-radius:50%;border:1px solid rgba(212,242,90,.45);animation:sg-pulse 2.8s ease-out infinite}
+@keyframes sg-pulse{0%{transform:scale(.92);opacity:.9}100%{transform:scale(1.18);opacity:0}}
+.sg-k{margin:0;font-size:clamp(24px,2.4vw,32px);font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.1}
+.sg-t{margin:0;font-size:16px;line-height:1.55;color:#CFCFC9;max-width:360px}
+.sg-facts{list-style:none;margin:8px 0 0;padding:16px 0 0;display:grid;gap:10px;border-top:1px solid rgba(255,255,255,.12);align-self:stretch}
+.sg-facts li{display:flex;align-items:center;gap:10px;font-size:14px;color:#E9E9E4}
+.sg-facts .ic{width:20px;height:20px;padding:4px;border-radius:50%;background:rgba(212,242,90,.14);color:#D4F25A;stroke-width:2.4}
+.sg-seal .sg-link{color:#D4F25A;font-size:14px;font-weight:500;padding:6px 0 0}
+.sg-seal .sg-link:hover{color:#fff}
+.sg-seal .sg-link .ic{width:16px;height:16px;transition:transform .25s}
+.sg-seal .sg-link:hover .ic{transform:translateX(3px)}
+.sg-side{display:flex;flex-direction:column;justify-content:center;gap:28px;min-width:0}
+.sg-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.sg-list .card{display:flex;gap:14px;align-items:flex-start;padding:20px}
+.sg-list .h3{font-size:16px}
+.sg-list p{margin:4px 0 0;font-size:14px;line-height:1.5}
+.sg-mini{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:7px 14px;font-size:12px;font-weight:500;letter-spacing:.02em;color:#E9E9E4;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+.sg-mini .ic{width:14px;height:14px;color:#D4F25A;stroke-width:2}
+@media (max-width:900px){.sg-grid{grid-template-columns:1fr}.sg-side{order:-1}}
+@media (max-width:560px){.sg-list{grid-template-columns:1fr}.sg-list .card{padding:18px}}
+@media (prefers-reduced-motion:reduce){.sg-ring{animation:none}}
 /* Como funciona: destaque passo a passo em loop */
 .cf-steps .card{position:relative;overflow:hidden;transition:box-shadow .5s,border-color .5s}
 .cf-steps .card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,#D4F25A,#B9E33A);transform:scaleX(0);transform-origin:left}
@@ -1603,6 +1631,50 @@ html.bkm-open .neo-tag{display:none!important}
   </div>
 </section>
 
+<!-- ============ 10b · SEGURANÇA E CONFIANÇA ============ -->
+<section class="sec sg-sec" id="seguranca">
+  <div class="wrap sg-grid">
+    <div class="card sg-seal reveal">
+      <div class="sg-badge" aria-hidden="true">
+        <span class="sg-ring"></span>
+        <svg viewBox="0 0 24 24" class="ic"><path d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3M12 14.5v2.5"></path></svg>
+      </div>
+      <p class="sg-k">Ambiente seguro</p>
+      <p class="sg-t">Sua segurança e privacidade são prioridades.</p>
+      <ul class="sg-facts">
+        <li><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Conexão protegida por HTTPS</li>
+        <li><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>WhatsApp oficial: +55 11 94393-5206</li>
+      </ul>
+      <button type="button" class="linkbtn sg-link" data-legal="privacidade">Ler a Política de Privacidade<svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+    </div>
+    <div class="sg-side">
+      <div class="reveal" style="display: flex; flex-direction: column; gap: 16px">
+        <span class="eyebrow">Segurança e confiança</span>
+        <h2 class="h-sec">Contrate com <span class="hl">tranquilidade</span></h2>
+        <p class="mut" style="margin: 0; font-size: 16px; line-height: 1.6; max-width: 560px">Cuidamos dos seus dados e mantemos canais oficiais e informações claras em todas as etapas do atendimento.</p>
+      </div>
+      <ul class="sg-list">
+        <li class="card">
+          <span class="icb"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6zM9.5 12l2 2 3.5-4"></path></svg></span>
+          <div><h3 class="h3">Privacidade protegida</h3><p class="mut">Seus dados pessoais são tratados com responsabilidade.</p></div>
+        </li>
+        <li class="card">
+          <span class="icb"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 5h16v11H9l-5 4zM8 9h8M8 12h5"></path></svg></span>
+          <div><h3 class="h3">Atendimento oficial</h3><p class="mut">Comunicação direta pelo nosso WhatsApp oficial.</p></div>
+        </li>
+        <li class="card">
+          <span class="icb"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M7 3h7l5 5v13H7zM14 3v5h5M10 13h6M10 17h4"></path></svg></span>
+          <div><h3 class="h3">Transparência</h3><p class="mut">Informações claras sobre contratação e pagamento.</p></div>
+        </li>
+        <li class="card">
+          <span class="icb"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3"></path></svg></span>
+          <div><h3 class="h3">Proteção de dados</h3><p class="mut">Respeitamos a privacidade e seguimos as boas práticas de segurança.</p></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <!-- ============ 11 · CTA FINAL ============ -->
 <section class="sec dark-sec" style="overflow: hidden; background: #0F0F0F">
   <svg class="wv" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="z-index: 0"><path id="stwC" d="M-60 330 C 260 230, 520 480, 820 350 S 1300 260, 1520 390"></path><use href="#stwC" y="16"></use><use href="#stwC" y="32"></use><use href="#stwC" y="48"></use><use href="#stwC" y="64"></use><use href="#stwC" y="80"></use><use href="#stwC" y="96"></use><use href="#stwC" y="112"></use><use href="#stwC" y="128"></use><use href="#stwC" y="144"></use><use href="#stwC" y="160"></use><use href="#stwC" y="176"></use><use href="#stwC" y="192"></use><use href="#stwC" y="208"></use></svg>
@@ -1611,6 +1683,7 @@ html.bkm-open .neo-tag{display:none!important}
     <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #D9D9D4; max-width: 620px">Não espere mais para profissionalizar sua presença digital<br>Por apenas <strong class="tq" style="font-weight: 700">R$ 444,00 por ano</strong>, tenha um site moderno, com domínio, hospedagem e suporte</p>
     <a href="#investimento" data-link="checkout" class="btn btn-p" style="min-height: 58px; padding: 0 34px; font-size: 15px" data-event="InitiateCheckout">Quero meu site profissional<svg viewBox="0 0 24 24" class="ic" aria-hidden="true" style="width: 18px; height: 18px"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
     <p class="mut" style="margin: 0; font-size: 13px">Atendimento iniciado em até 72 horas</p>
+    <span class="sg-mini"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3"></path></svg>Ambiente seguro · conexão HTTPS</span>
   </div>
 </section>
 
