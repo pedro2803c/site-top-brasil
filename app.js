@@ -15,16 +15,139 @@ window.lpSec = (function(){
   }
   return { clean: clean, email: email, allow: allow };
 })();
+/* =============================================================================
+   CONFIGURAÇÃO DO SITE
+   - whatsapp: número que recebe os contatos. O visitante só chega ao WhatsApp
+     depois de preencher o formulário de orçamento ou o agendamento.
+   - metaPixelId / googleTagId: troque os placeholders pelos IDs reais.
+     Enquanto estiverem como 'SEU_PIXEL_ID' / 'G-XXXXXXXXXX', nada é carregado.
+   - leadEndpoint (destino dos leads):
+       ''  (vazio)  -> o envio do formulário abre o WhatsApp com a mensagem pronta.
+       URL         -> formulário e agendamento enviam os dados por POST (JSON) para
+                      essa URL (Formspree: https://formspree.io/f/SEU_ID ·
+                      Web3Forms: https://api.web3forms.com/submit · função serverless)
+                      e o formulário mostra a confirmação sem abrir o WhatsApp.
+       Web3Forms exige a chave: leadExtra: { access_key: 'SUA_CHAVE' }.
+       IMPORTANTE: libere o domínio do endpoint em "connect-src" da
+       Content-Security-Policy no vercel.json, senão o navegador bloqueia o envio.
+   ============================================================================= */
+var CONFIG = {
+  checkoutUrl: '',              /* link de pagamento (vazio: contratação segue no WhatsApp após o formulário) */
+  agendaUrl: '',                /* link de agenda externa (vazio: usa o agendamento do próprio site) */
+  whatsapp: '5511943935206',
+  metaPixelId: 'SEU_PIXEL_ID',  /* ex.: '123456789012345' */
+  googleTagId: 'G-XXXXXXXXXX',  /* ex.: 'G-AB12CD34EF' (GA4) */
+  leadEndpoint: '',
+  leadExtra: {}
+};
+/* IDs só valem quando deixam de ser placeholder */
+var TRACK_IDS = {
+  pixel: /^\d{8,20}$/.test(CONFIG.metaPixelId) ? CONFIG.metaPixelId : '',
+  gtag: (/^(G|AW)-[A-Z0-9]{6,}$/.test(CONFIG.googleTagId) && !/^G-X+$/.test(CONFIG.googleTagId)) ? CONFIG.googleTagId : ''
+};
+/* Mapa de eventos Meta -> GA4 */
+window.lpTrack = function(name, label, extra){
+  var GA = { InitiateCheckout: 'begin_checkout', Lead: 'generate_lead', Schedule: 'schedule_meeting', Contact: 'contact', ViewContent: 'view_item' };
+  var p = {}, g = {}, k;
+  if (label) { p.content_name = label; g.event_label = label; }
+  for (k in (extra || {})) { p[k] = extra[k]; g[k] = extra[k]; }
+  try { if (window.fbq) fbq('track', name, p); } catch (e) {}
+  try { if (window.gtag) gtag('event', GA[name] || name, g); } catch (e) {}
+};
+/* Envio para o endpoint de leads (quando configurado) */
+window.lpPost = function(data){
+  var body = {}, k;
+  for (k in CONFIG.leadExtra) body[k] = CONFIG.leadExtra[k];
+  for (k in data) body[k] = data[k];
+  return fetch(CONFIG.leadEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(body) })
+    .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r; });
+};
+
+/* Formulário de orçamento: único caminho comercial até o WhatsApp */
+(function(){
+  var fm = document.getElementById('lf-form'); if (!fm) return;
+  var ok = document.getElementById('lf-ok'), fail = document.getElementById('lf-fail'), btn = fm.querySelector('.lf-send');
+  var FIELDS = ['nome', 'whats', 'empresa', 'necessidade', 'email', 'lgpd'], touched = {}, sent = false, waUrl = '';
+  function el(n){ return fm.elements[n]; }
+  function digits(v){ return String(v || '').replace(/\D/g, ''); }
+  function val(n){ return n === 'lgpd' ? el(n).checked : lpSec.clean(el(n).value, n === 'email' ? 120 : 100); }
+  function msgFor(n){
+    var v = val(n);
+    if (n === 'nome' && v.length < 2) return 'Informe seu nome';
+    if (n === 'empresa' && v.length < 2) return 'Informe o nome da empresa';
+    if (n === 'whats' && (digits(v).length < 10 || digits(v).length > 11)) return 'Informe um WhatsApp válido com DDD';
+    if (n === 'necessidade' && !v) return 'Escolha uma opção';
+    if (n === 'email' && v && !lpSec.email(v)) return 'Confira o e-mail ou deixe em branco';
+    if (n === 'lgpd' && !v) return 'Marque para autorizar o contato';
+    return '';
+  }
+  function check(n){
+    var m = msgFor(n), e = document.getElementById('lf-e-' + n);
+    e.textContent = m; e.hidden = !m; el(n).setAttribute('aria-invalid', m ? 'true' : 'false');
+    return !m;
+  }
+  /* máscara do telefone */
+  el('whats').addEventListener('input', function(){
+    var v = digits(this.value).slice(0, 11);
+    this.value = v.length > 6 ? '(' + v.slice(0, 2) + ') ' + v.slice(2, v.length - 4) + '-' + v.slice(-4) : v.length > 2 ? '(' + v.slice(0, 2) + ') ' + v.slice(2) : v;
+  });
+  FIELDS.forEach(function(n){
+    var f = el(n);
+    f.addEventListener('blur', function(){ touched[n] = true; if (n !== 'lgpd') check(n); });
+    f.addEventListener(n === 'lgpd' || n === 'necessidade' ? 'change' : 'input', function(){ if (touched[n] || f.getAttribute('aria-invalid') === 'true') check(n); });
+  });
+  function busy(on){ btn.disabled = on; btn.setAttribute('aria-busy', on ? 'true' : 'false'); btn.querySelector('.lf-t').textContent = on ? 'Enviando…' : 'Enviar e falar com a equipe'; }
+  function done(viaEndpoint){
+    sent = true; busy(false);
+    lpTrack('Lead', 'Formulário de orçamento', { value: 444, currency: 'BRL' });
+    fm.hidden = true; ok.hidden = false;
+    var link = document.getElementById('lf-ok-wa'), txt = document.getElementById('lf-ok-t');
+    if (viaEndpoint) { link.hidden = true; txt.textContent = 'Obrigado! Nossa equipe vai chamar você no WhatsApp informado, de segunda a sexta, das 10h às 20h'; }
+    else link.href = waUrl;
+    ok.focus();
+  }
+  fm.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (sent || btn.disabled) return;
+    fail.hidden = true;
+    var bad = FIELDS.filter(function(n){ touched[n] = true; return !check(n); });
+    if (bad.length) { el(bad[0]).focus(); return; }
+    var hp = fm.querySelector('[data-hp]');
+    if (hp && hp.value) { sent = true; fm.hidden = true; ok.hidden = false; document.getElementById('lf-ok-wa').hidden = true; return; } /* robô: finge sucesso, sem envio */
+    var d = { nome: val('nome'), whats: el('whats').value.trim(), empresa: val('empresa'), necessidade: val('necessidade'), email: val('email') };
+    var msg = 'Olá! Preenchi o formulário no site da SitePro Brasil e quero atendimento.\n\n' +
+      'Nome: ' + d.nome + '\nEmpresa: ' + d.empresa + '\nWhatsApp: ' + d.whats + '\nNecessidade: ' + d.necessidade + (d.email ? '\nE-mail: ' + d.email : '');
+    waUrl = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(msg);
+    busy(true);
+    if (!CONFIG.leadEndpoint) {
+      var w = window.open(waUrl, '_blank'); try { if (w) w.opener = null; } catch (er) {}
+      setTimeout(function(){ done(false); }, 250);
+      return;
+    }
+    var camp = {}; try { camp = JSON.parse(sessionStorage.getItem('stb_camp') || '{}'); } catch (er) {}
+    lpPost({ tipo: 'Orçamento', nome: d.nome, whatsapp: d.whats, empresa: d.empresa, necessidade: d.necessidade, email: d.email, consentimento_lgpd: true, origem: location.href, campanha: camp, _honey: '' })
+      .then(function(){ done(true); })
+      .catch(function(){ busy(false); document.getElementById('lf-fail-wa').href = waUrl; fail.hidden = false; });
+  });
+  /* CTAs que apontam para o formulário: rolam até ele e posicionam o cursor no primeiro campo */
+  window.lpGoForm = function(){
+    var sec = document.getElementById('orcamento'); if (!sec) return;
+    $$m('details.mnav[open]').forEach(function(x){ x.open = false; });
+    window.scrollTo({ top: sec.getBoundingClientRect().top + window.scrollY - 76, behavior: 'smooth' });
+    setTimeout(function(){ try { (sent ? ok : el('nome')).focus({ preventScroll: true }); } catch (er) {} }, 650);
+  };
+  function $$m(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); }
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href="#orcamento"]');
+    if (!a || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
+    e.preventDefault(); e.stopPropagation(); lpGoForm();
+    if (a.getAttribute('data-event') === 'InitiateCheckout') lpTrack('InitiateCheckout', (a.textContent || '').trim().slice(0, 60), { value: 444, currency: 'BRL' });
+  }, true);
+})();
+
 window.__lpMain=function(){
 (function(){
-  /* Configuração: preencha para trocar os links dos botões */
-  var CONFIG = {
-    checkoutUrl: '',     /* link de pagamento */
-    agendaUrl: '',       /* link da agenda (Google Agenda, Calendly...) */
-    whatsapp: '5511943935206',
-    metaPixelId: '',     /* ex.: '123456789012345' — carrega o Pixel da Meta */
-    googleTagId: ''      /* ex.: 'G-XXXXXXX' (GA4) ou 'AW-XXXXXXX' (Google Ads) */
-  };
+  /* CONFIG fica no topo do arquivo */
 
   /* Campanha: guarda UTMs/fbclid/gclid da URL e repassa para o checkout e a agenda */
   var TRACK_KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid'];
@@ -42,21 +165,23 @@ window.__lpMain=function(){
   if (CONFIG.agendaUrl) CONFIG.agendaUrl = withCamp(CONFIG.agendaUrl);
 
   /* Pixel da Meta e Google Tag: só carregam se o ID estiver preenchido */
-  if (CONFIG.metaPixelId) {
+  if (TRACK_IDS.pixel) {
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', CONFIG.metaPixelId); fbq('track', 'PageView');
+    fbq('init', TRACK_IDS.pixel); fbq('track', 'PageView');
   }
-  if (CONFIG.googleTagId) {
-    var gs = document.createElement('script'); gs.async = true; gs.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(CONFIG.googleTagId); document.head.appendChild(gs);
+  if (TRACK_IDS.gtag) {
+    var gs = document.createElement('script'); gs.async = true; gs.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(TRACK_IDS.gtag); document.head.appendChild(gs);
     window.dataLayer = window.dataLayer || []; window.gtag = function(){ dataLayer.push(arguments); };
-    gtag('js', new Date()); gtag('config', CONFIG.googleTagId);
+    gtag('js', new Date()); gtag('config', TRACK_IDS.gtag);
   }
-  var GA_EV = { InitiateCheckout: 'begin_checkout', Schedule: 'schedule_meeting', Contact: 'contact', Lead: 'generate_lead', ViewContent: 'view_item' };
+  if (window.fbq) fbq('track', 'ViewContent', { content_name: 'Site profissional · plano anual', value: 444, currency: 'BRL' });
+  if (window.gtag) gtag('event', 'view_item', { currency: 'BRL', value: 444, items: [{ item_id: 'plano-anual', item_name: 'Site profissional · plano anual', price: 444 }] });
+  /* Cliques com data-event (cada elemento dispara um único evento) */
   document.addEventListener('click', function(ev){
     var el = ev.target.closest && ev.target.closest('[data-event]'); if (!el) return;
     var name = el.getAttribute('data-event'), label = (el.textContent || '').trim().slice(0, 60);
-    if (window.fbq) fbq('track', name, { content_name: label });
-    if (window.gtag) gtag('event', GA_EV[name] || name, { event_label: label, value: name === 'InitiateCheckout' ? 444 : undefined, currency: 'BRL' });
+    if (name === 'Lead') return; /* Lead só no envio bem-sucedido do formulário */
+    lpTrack(name, label, name === 'InitiateCheckout' ? { value: 444, currency: 'BRL' } : undefined);
   });
 
   /* Desempenho: pausa animações pesadas quando estão fora da tela */
@@ -67,11 +192,6 @@ window.__lpMain=function(){
   var $ = function(s, r){ return (r||document).querySelector(s); };
   var $$ = function(s, r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
   if (CONFIG.checkoutUrl) $$('[data-link="checkout"]').forEach(function(a){ a.href = CONFIG.checkoutUrl; });
-  /* Sem link de pagamento: o botão da oferta abre o WhatsApp com a mensagem de contratação */
-  else $$('#investimento [data-link="checkout"]').forEach(function(a){
-    a.href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent('Olá! Quero contratar meu site profissional no plano anual de R$ 444,00 (R$ 37/mês).');
-    a.target = '_blank'; a.rel = 'noopener';
-  });
   if (CONFIG.agendaUrl) $$('[data-link="agenda"]').forEach(function(a){ a.href = CONFIG.agendaUrl; a.target = '_blank'; });
   /* Sem link de agenda: o botão abre a mesma janela do WhatsApp do botão flutuante */
   else $$('[data-link="agenda"]').forEach(function(a){
@@ -162,23 +282,34 @@ window.__lpMain=function(){
       var c = function(k){ return lpSec.clean(g(k), 120); };
       var data = { _subject: 'SitePro Brasil — Agendamento — ' + c('nome'), _template: 'table', _captcha: 'false', _honey: '', Tipo: 'Agendamento de reunião', Nome: c('nome'), Empresa: c('empresa'), WhatsApp: c('whats'), 'E-mail': c('email'), Data: fmt(sel), 'Horário': hora };
       if (lpSec.email(c('email'))) data._replyto = c('email');
+      if (CONFIG.leadEndpoint) lpPost({ tipo: 'Agendamento', nome: c('nome'), empresa: c('empresa'), whatsapp: c('whats'), email: c('email'), data: fmt(sel), horario: hora, origem: location.href }).catch(function(){});
       try { fetch('https://formsubmit.co/ajax/sac@andrehuhn.com.br', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) }).catch(function(){}); } catch (er) {}
       setTimeout(close, 400);
     });
   })();
 
-  /* Filtro do portfólio */
+  /* Filtro do portfólio: 3 modelos de início, "Ver todos" libera o resto */
+  var pfOpen = false, pfMore = $('#pf-more');
+  function pfApply(g){
+    $$('.pf-grid article').forEach(function(a, i){
+      var all = g === 'todos', show = all ? (pfOpen || i < 3) : a.getAttribute('data-grp') === g;
+      a.hidden = !show;
+      a.className = 'pf ' + (all && pfOpen ? a.getAttribute('data-size') : 'sm');
+    });
+    if (pfMore) pfMore.parentNode.hidden = g !== 'todos' || pfOpen;
+  }
   $$('.chip[data-grp]').forEach(function(btn){
     btn.addEventListener('click', function(){
       var g = btn.getAttribute('data-grp');
       $$('.chip[data-grp]').forEach(function(b){ var on = b === btn; b.className = on ? 'chip on' : 'chip'; b.setAttribute('aria-pressed', on); });
-      $$('.pf-grid article').forEach(function(a){
-        var show = g === 'todos' || a.getAttribute('data-grp') === g;
-        a.hidden = !show;
-        a.className = 'pf ' + (g === 'todos' ? a.getAttribute('data-size') : 'sm');
-      });
+      pfApply(g);
     });
   });
+  if (pfMore) pfMore.addEventListener('click', function(){
+    pfOpen = true; pfMore.setAttribute('aria-expanded', 'true'); pfApply('todos');
+    var n4 = $$('.pf-grid article')[3]; if (n4) { var l = n4.querySelector('a'); if (l) l.focus({ preventScroll: true }); }
+  });
+  pfApply('todos');
 
   /* Prévias: em telas touch, anima só os cards visíveis */
   if ('IntersectionObserver' in window) {
@@ -347,7 +478,7 @@ window.__lpMain=function(){
     window.addEventListener('message', function(e){
       if (e.origin !== location.origin) return;
       if (e.data === 'demo:close') close();
-      if (e.data === 'demo:offer') { close(); if (window.cvFull) { cvFull(); void document.documentElement.offsetHeight; } var o = document.getElementById('investimento'); if (o) window.scrollTo({ top: o.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); }
+      if (e.data === 'demo:offer') { close(); if (window.cvFull) { cvFull(); void document.documentElement.offsetHeight; } if (window.lpGoForm) lpGoForm(); }
     });
   })();
 
@@ -486,17 +617,11 @@ window.__lpMain=function(){
     var num = String(CONFIG.whatsapp).replace(/\D/g, '');
     var g = function(k){ return String(f[k] || '').trim(); };
     var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(g('email'));
-    var novoOk = ['nome','empresa','cidade','segmento','duvida'].every(function(k){ return ok(f[k]); }) && !!f.temSite;
     var clienteOk = ['nome','empresa','doc','desc'].every(function(k){ return ok(f[k]); }) && emailOk && !!f.motivo;
-    $('[data-blk="novoOk"]').hidden = !novoOk; $('[data-blk="novoPend"]').hidden = novoOk;
     $('[data-blk="clienteOk"]').hidden = !clienteOk; $('[data-blk="clientePend"]').hidden = clienteOk;
-    var msgNovo = 'Olá! Vim pelo site da SitePro Brasil e tenho interesse em contratar um site institucional.\n\n' +
-      'Nome: ' + g('nome') + '\nEmpresa: ' + g('empresa') + '\nCidade: ' + g('cidade') +
-      '\nSegmento: ' + g('segmento') + '\nJá possui site? ' + (f.temSite || '') + '\nPrincipal dúvida: ' + g('duvida');
     var msgCliente = 'Olá! Já sou cliente da SitePro Brasil e preciso de atendimento.\n\n' +
       'Nome: ' + g('nome') + '\nEmpresa: ' + g('empresa') + '\nCPF/CNPJ: ' + g('doc') +
       '\nE-mail cadastrado: ' + g('email') + '\nAssunto: ' + (f.motivo || '') + '\nDescrição da solicitação: ' + g('desc');
-    $('#wa-novo').href = 'https://wa.me/' + num + '?text=' + encodeURIComponent(msgNovo);
     $('#wa-cliente').href = 'https://wa.me/' + num + '?text=' + encodeURIComponent(msgCliente);
   }
   $$('[data-k]', wa).forEach(function(el){
@@ -508,19 +633,20 @@ window.__lpMain=function(){
     el.addEventListener('input', h); el.addEventListener('change', h);
   });
   document.addEventListener('click', function(e){
-    /* Links diretos do WhatsApp fora dos formulários abrem a mesma triagem do botão flutuante */
+    /* Segurança do funil: qualquer link direto de WhatsApp fora dos fluxos com dados leva ao formulário */
     var l = e.target.closest && e.target.closest('a[href^="https://wa.me/"]');
-    if (l && !l.closest('#wa, #bkm') && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.button) {
+    if (l && !l.closest('#wa, #bkm, #orcamento') && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.button) {
       e.preventDefault();
       var lg = document.getElementById('lgm');
       if (lg && !lg.hidden) { lg.hidden = true; document.documentElement.classList.remove('lgm-open'); }
-      wa.hidden = false; mode('modeNone'); return;
+      lpGoForm(); return;
     }
     var b = e.target.closest && e.target.closest('[data-wa]'); if (!b) return;
     var a = b.getAttribute('data-wa');
     if (a === 'open') { wa.hidden = false; mode('modeNone'); }
     else if (a === 'close') wa.hidden = true;
-    else if (a === 'novo') mode('modeNovo');
+    else if (a === 'novo') { wa.hidden = true; lpGoForm(); }
+    else if (a === 'cliente-open') { wa.hidden = false; mode('modeCliente'); var lg2 = document.getElementById('lgm'); if (lg2 && !lg2.hidden) { lg2.hidden = true; document.documentElement.classList.remove('lgm-open'); } }
     else if (a === 'cliente') mode('modeCliente');
     else if (a === 'back') mode('modeNone');
   });
@@ -534,7 +660,6 @@ window.__lpMain=function(){
     if (lpSec.email(g('email'))) d._replyto = g('email');
     try { fetch('https://formsubmit.co/ajax/' + FORM_EMAIL, { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(d) }).catch(function(){}); } catch (er) {}
   }
-  $('#wa-novo').addEventListener('click', function(){ mail('Novo cliente', [['Nome','nome'],['Empresa','empresa'],['Cidade/Estado','cidade'],['Segmento','segmento'],['Já possui site?','temSite'],['Principal dúvida','duvida']]); });
   $('#wa-cliente').addEventListener('click', function(){ mail('Já sou cliente', [['Nome','nome'],['Empresa','empresa'],['CPF/CNPJ','doc'],['E-mail','email'],['Motivo','motivo'],['Solicitação','desc']]); });
   upd();
 })();

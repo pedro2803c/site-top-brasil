@@ -18,4 +18,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://site-top-brasil.vercel.app/sitemap.xml
+Sitemap: https://www.siteprobrasil.com.br/sitemap.xml

@@ -25,7 +25,6 @@
     document.getElementById('ldn').textContent = m.name;
     document.getElementById('cnt').textContent = (i + 1) + ' / ' + M.length;
     document.getElementById('ext').href = m.url;
-    document.getElementById('wa').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent('Olá! Vi o modelo ' + m.name + ' e quero um site assim para minha empresa.');
     [].forEach.call(th.children, function(a, k2){ a.classList.toggle('on', k2 === i); });
     var on = th.children[i]; if (on) th.scrollTo({ left: on.offsetLeft - th.clientWidth / 2 + on.clientWidth / 2, behavior: first ? 'auto' : 'smooth' });
     ld.classList.remove('hide');
