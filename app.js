@@ -41,7 +41,9 @@ var CONFIG = {
   whatsapp: '5511943935206',
   metaPixelId: 'SEU_PIXEL_ID',  /* ex.: '123456789012345' */
   googleTagId: 'G-XXXXXXXXXX',  /* ex.: 'G-AB12CD34EF' (GA4) */
-  leadEndpoint: 'https://formsubmit.co/ajax/sac@andrehuhn.com.br',  /* troque pelo alias do FormSubmit */
+  /* PAUSADO até ativar o FormSubmit para www.siteprobrasil.com.br (link enviado ao sac@).
+     Depois da ativação, volte para: 'https://formsubmit.co/ajax/sac@andrehuhn.com.br' (ou o alias). */
+  leadEndpoint: '',
   leadExtra: {}
 };
 /* IDs só valem quando deixam de ser placeholder */
