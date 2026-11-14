@@ -508,6 +508,14 @@ window.__lpMain=function(){
     el.addEventListener('input', h); el.addEventListener('change', h);
   });
   document.addEventListener('click', function(e){
+    /* Links diretos do WhatsApp fora dos formulários abrem a mesma triagem do botão flutuante */
+    var l = e.target.closest && e.target.closest('a[href^="https://wa.me/"]');
+    if (l && !l.closest('#wa, #bkm') && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.button) {
+      e.preventDefault();
+      var lg = document.getElementById('lgm');
+      if (lg && !lg.hidden) { lg.hidden = true; document.documentElement.classList.remove('lgm-open'); }
+      wa.hidden = false; mode('modeNone'); return;
+    }
     var b = e.target.closest && e.target.closest('[data-wa]'); if (!b) return;
     var a = b.getAttribute('data-wa');
     if (a === 'open') { wa.hidden = false; mode('modeNone'); }
