@@ -28,8 +28,8 @@ window.lpSec = (function(){
                       Web3Forms: https://api.web3forms.com/submit · função serverless)
                       e o formulário mostra a confirmação sem abrir o WhatsApp.
        Web3Forms exige a chave: leadExtra: { access_key: 'SUA_CHAVE' }.
-       IMPORTANTE: libere o domínio do endpoint em "connect-src" da
-       Content-Security-Policy no vercel.json, senão o navegador bloqueia o envio.
+       Endpoint de outro domínio: libere-o em "connect-src" da Content-Security-Policy
+       no vercel.json, senão o navegador bloqueia o envio. '/api/lead' já é liberado.
    ============================================================================= */
 var CONFIG = {
   checkoutUrl: '',              /* link de pagamento (vazio: contratação segue no WhatsApp após o formulário) */
@@ -37,7 +37,7 @@ var CONFIG = {
   whatsapp: '5511943935206',
   metaPixelId: 'SEU_PIXEL_ID',  /* ex.: '123456789012345' */
   googleTagId: 'G-XXXXXXXXXX',  /* ex.: 'G-AB12CD34EF' (GA4) */
-  leadEndpoint: '',
+  leadEndpoint: '/api/lead',   /* função da Vercel em api/lead.js (repassa por e-mail) */
   leadExtra: {}
 };
 /* IDs só valem quando deixam de ser placeholder */
@@ -54,12 +54,26 @@ window.lpTrack = function(name, label, extra){
   try { if (window.fbq) fbq('track', name, p); } catch (e) {}
   try { if (window.gtag) gtag('event', GA[name] || name, g); } catch (e) {}
 };
+/* form_start: primeiro foco no formulário de orçamento e no agendamento (mede abandono; não é conversão) */
+(function(){
+  var seen = {};
+  document.addEventListener('focusin', function(e){
+    var f = e.target.closest && e.target.closest('#lf-form, #bkm'); if (!f || seen[f.id]) return;
+    if (!/^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName) || e.target.hasAttribute('data-hp')) return;
+    seen[f.id] = true;
+    var id = f.id === 'bkm' ? 'agendamento' : 'orcamento';
+    try { if (window.gtag) gtag('event', 'form_start', { form_id: id }); } catch (er) {}
+    try { if (window.fbq) fbq('trackCustom', 'FormStart', { form_id: id }); } catch (er) {}
+  });
+})();
 /* Envio para o endpoint de leads (quando configurado) */
-window.lpPost = function(data){
-  var body = {}, k;
+window.lpPost = function(data, keep){
+  var body = {}, k, camp = {};
+  try { camp = JSON.parse(sessionStorage.getItem('stb_camp') || '{}'); } catch (e) {}
   for (k in CONFIG.leadExtra) body[k] = CONFIG.leadExtra[k];
+  body.origem = location.href; body.campanha = camp; body._honey = '';
   for (k in data) body[k] = data[k];
-  return fetch(CONFIG.leadEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(body) })
+  return fetch(CONFIG.leadEndpoint, { method: 'POST', keepalive: !!keep, headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(body) })
     .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r; });
 };
 
@@ -124,8 +138,7 @@ window.lpPost = function(data){
       setTimeout(function(){ done(false); }, 250);
       return;
     }
-    var camp = {}; try { camp = JSON.parse(sessionStorage.getItem('stb_camp') || '{}'); } catch (er) {}
-    lpPost({ tipo: 'Orçamento', nome: d.nome, whatsapp: d.whats, empresa: d.empresa, necessidade: d.necessidade, email: d.email, consentimento_lgpd: true, origem: location.href, campanha: camp, _honey: '' })
+    lpPost({ tipo: 'Orçamento', nome: d.nome, whatsapp: d.whats, empresa: d.empresa, necessidade: d.necessidade, email: d.email, lgpd: true, consentAt: new Date().toISOString() })
       .then(function(){ done(true); })
       .catch(function(){ busy(false); document.getElementById('lf-fail-wa').href = waUrl; fail.hidden = false; });
   });
@@ -280,10 +293,7 @@ window.__lpMain=function(){
     $('#bkm-send').addEventListener('click', function(){
       if (!okDados() || !sel || !hora || !lpSec.allow('Agendamento', m)) { setTimeout(close, 400); return; }
       var c = function(k){ return lpSec.clean(g(k), 120); };
-      var data = { _subject: 'SitePro Brasil — Agendamento — ' + c('nome'), _template: 'table', _captcha: 'false', _honey: '', Tipo: 'Agendamento de reunião', Nome: c('nome'), Empresa: c('empresa'), WhatsApp: c('whats'), 'E-mail': c('email'), Data: fmt(sel), 'Horário': hora };
-      if (lpSec.email(c('email'))) data._replyto = c('email');
-      if (CONFIG.leadEndpoint) lpPost({ tipo: 'Agendamento', nome: c('nome'), empresa: c('empresa'), whatsapp: c('whats'), email: c('email'), data: fmt(sel), horario: hora, origem: location.href }).catch(function(){});
-      try { fetch('https://formsubmit.co/ajax/sac@andrehuhn.com.br', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) }).catch(function(){}); } catch (er) {}
+      if (CONFIG.leadEndpoint) lpPost({ tipo: 'Agendamento', nome: c('nome'), empresa: c('empresa'), whatsapp: c('whats'), email: c('email'), data: fmt(sel), horario: hora }, true).catch(function(){});
       setTimeout(close, 400);
     });
   })();
@@ -651,16 +661,12 @@ window.__lpMain=function(){
     else if (a === 'back') mode('modeNone');
   });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !wa.hidden) wa.hidden = true; });
-  /* Cópia de cada formulário por e-mail (FormSubmit) — o WhatsApp continua abrindo normalmente */
-  var FORM_EMAIL = 'sac@andrehuhn.com.br';
-  function mail(tipo, campos){
-    if (!lpSec.allow(tipo, wa)) return;
-    var g = function(k){ return lpSec.clean(f[k], (k === 'duvida' || k === 'desc') ? 1000 : 120); }, d = { _subject: 'SitePro Brasil — ' + tipo + ' — ' + g('nome'), _template: 'table', _captcha: 'false', _honey: '', Tipo: tipo };
-    campos.forEach(function(c){ d[c[0]] = g(c[1]); });
-    if (lpSec.email(g('email'))) d._replyto = g('email');
-    try { fetch('https://formsubmit.co/ajax/' + FORM_EMAIL, { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(d) }).catch(function(){}); } catch (er) {}
-  }
-  $('#wa-cliente').addEventListener('click', function(){ mail('Já sou cliente', [['Nome','nome'],['Empresa','empresa'],['CPF/CNPJ','doc'],['E-mail','email'],['Motivo','motivo'],['Solicitação','desc']]); });
+  /* Registro do pedido de suporte (o WhatsApp abre normalmente pelo link) */
+  $('#wa-cliente').addEventListener('click', function(){
+    if (!CONFIG.leadEndpoint || !lpSec.allow('Suporte', wa)) return;
+    var g = function(k){ return lpSec.clean(f[k], k === 'desc' ? 1000 : 120); };
+    lpPost({ tipo: 'Suporte', nome: g('nome'), empresa: g('empresa'), doc: g('doc'), email: g('email'), motivo: g('motivo'), solicitacao: g('desc') }, true).catch(function(){});
+  });
   upd();
 })();
 
