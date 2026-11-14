@@ -240,11 +240,24 @@ window.__lpMain=function(){
     var hoje = new Date(); hoje.setHours(0,0,0,0);
     var lim = new Date(hoje); lim.setDate(lim.getDate() + 45);
     function g(k){ return String(d[k] || '').trim(); }
-    function okDados(){ return g('nome').length > 1 && g('empresa').length > 1 && g('whats').replace(/\D/g,'').length >= 10 && (!g('email') || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(g('email'))); }
+    var BKF = ['nome', 'empresa', 'whats', 'email', 'lgpd'], consentAt = '';
+    function bkMsg(k){
+      if (k === 'nome' && g('nome').length < 2) return 'Informe seu nome';
+      if (k === 'empresa' && g('empresa').length < 2) return 'Informe o nome da empresa';
+      if (k === 'whats' && g('whats').replace(/\D/g,'').length < 10) return 'Informe um WhatsApp válido com DDD';
+      if (k === 'email' && g('email') && !lpSec.email(g('email'))) return 'Confira o e-mail ou deixe em branco';
+      if (k === 'lgpd' && !d.lgpd) return 'Marque para autorizar o contato';
+      return '';
+    }
+    function bkCheck(k){
+      var t = bkMsg(k), e = document.getElementById('bk-e-' + k), f = document.getElementById('bk-' + k);
+      if (e) { e.textContent = t; e.hidden = !t; } if (f) f.setAttribute('aria-invalid', t ? 'true' : 'false');
+      return !t;
+    }
+    function okDados(){ return BKF.every(function(k){ return !bkMsg(k); }); }
     function fmt(x){ return SEM[x.getDay()] + ', ' + x.getDate() + ' de ' + MES[x.getMonth()]; }
     function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
     function btns(){
-      $('.bkm-pane[data-pane="1"] .bkm-go', m).disabled = !okDados();
       $('.bkm-pane[data-pane="2"] .bkm-go', m).disabled = !(sel && hora);
     }
     function go(n){
@@ -291,8 +304,12 @@ window.__lpMain=function(){
     }
     function open(){ m.hidden = false; document.documentElement.classList.add('bkm-open'); go(1); var f = $('[data-bkk="nome"]', m); if (f) setTimeout(function(){ f.focus(); }, 50); }
     function close(){ m.hidden = true; document.documentElement.classList.remove('bkm-open'); }
-    $$('[data-bkk]', m).forEach(function(el){ el.addEventListener('input', function(){
-      if (el.getAttribute('data-bkk') === 'whats') { var v = el.value.replace(/\D/g,'').slice(0,11); el.value = v.length > 6 ? '(' + v.slice(0,2) + ') ' + v.slice(2, v.length - 4) + '-' + v.slice(-4) : v.length > 2 ? '(' + v.slice(0,2) + ') ' + v.slice(2) : v; }
+    $$('[data-bkk]', m).forEach(function(el){ var k = el.getAttribute('data-bkk');
+      if (k === 'lgpd') { el.addEventListener('change', function(){ d.lgpd = el.checked; consentAt = el.checked ? new Date().toISOString() : ''; bkCheck('lgpd'); }); return; }
+      el.addEventListener('blur', function(){ if (el.value) bkCheck(k); });
+      el.addEventListener('input', function(){
+      if (el.getAttribute('aria-invalid') === 'true') setTimeout(function(){ bkCheck(k); });
+      if (k === 'whats') { var v = el.value.replace(/\D/g,'').slice(0,11); el.value = v.length > 6 ? '(' + v.slice(0,2) + ') ' + v.slice(2, v.length - 4) + '-' + v.slice(-4) : v.length > 2 ? '(' + v.slice(0,2) + ') ' + v.slice(2) : v; }
       d[el.getAttribute('data-bkk')] = el.value; btns();
     }); });
     document.addEventListener('click', function(e){
@@ -302,16 +319,20 @@ window.__lpMain=function(){
       var a = b.getAttribute('data-bk');
       if (a === 'open') { e.preventDefault(); open(); }
       else if (a === 'close') close();
-      else if (a === 'next') { if (!b.disabled) go(st + 1); }
+      else if (a === 'next') {
+        if (st === 1) { var bad = BKF.filter(function(k){ return !bkCheck(k); }); if (bad.length) { var f0 = document.getElementById('bk-' + bad[0]); if (f0) f0.focus(); return; } }
+        if (!b.disabled) go(st + 1);
+      }
       else if (a === 'back') go(st - 1);
       else if (a === 'prev') { view.setMonth(view.getMonth() - 1); cal(); }
       else if (a === 'nextm') { view.setMonth(view.getMonth() + 1); cal(); }
     });
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !m.hidden) close(); });
-    $('#bkm-send').addEventListener('click', function(){
-      if (!okDados() || !sel || !hora || !lpSec.allow('Agendamento', m)) { setTimeout(close, 400); return; }
+    $('#bkm-send').addEventListener('click', function(e){
+      if (!okDados() || !sel || !hora) { e.preventDefault(); go(okDados() ? 2 : 1); return; }
+      if (!lpSec.allow('Agendamento', m)) { setTimeout(close, 400); return; }
       var c = function(k){ return lpSec.clean(g(k), 120); };
-      if (CONFIG.leadEndpoint) lpPost({ tipo: 'Agendamento', nome: c('nome'), empresa: c('empresa'), whatsapp: c('whats'), email: c('email'), data: fmt(sel), horario: hora }, true).catch(function(){});
+      if (CONFIG.leadEndpoint) lpPost({ tipo: 'Agendamento', nome: c('nome'), empresa: c('empresa'), whatsapp: c('whats'), email: c('email'), data: fmt(sel), horario: hora, lgpd: true, consentAt: consentAt || new Date().toISOString() }, true).catch(function(){});
       setTimeout(close, 400);
     });
   })();
