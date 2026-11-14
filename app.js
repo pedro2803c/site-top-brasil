@@ -41,7 +41,7 @@ var CONFIG = {
   whatsapp: '5511943935206',
   metaPixelId: 'SEU_PIXEL_ID',  /* ex.: '123456789012345' */
   googleTagId: 'G-XXXXXXXXXX',  /* ex.: 'G-AB12CD34EF' (GA4) */
-  leadEndpoint: 'https://formsubmit.co/ajax/pedrotecandrehuhn@gmail.com',  /* troque pelo alias do FormSubmit */
+  leadEndpoint: 'https://formsubmit.co/ajax/1b48b570aacae35a6aa375e741964f04',  /* alias do FormSubmit (não expõe o e-mail) */
   leadExtra: {}
 };
 /* IDs só valem quando deixam de ser placeholder */
