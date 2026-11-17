@@ -211,8 +211,8 @@ window.__lpMain=function(){
   document.addEventListener('click', function(ev){
     var el = ev.target.closest && ev.target.closest('[data-event]'); if (!el) return;
     var name = el.getAttribute('data-event'), label = (el.textContent || '').trim().slice(0, 60);
-    if (name === 'Lead') return; /* Lead só no envio bem-sucedido do formulário */
-    lpTrack(name, label, name === 'InitiateCheckout' ? { value: 444, currency: 'BRL' } : undefined);
+    /* Botões 'Quero meu site' disparam Lead no clique */
+    lpTrack(name, label, (name === 'InitiateCheckout' || name === 'Lead') ? { value: 444, currency: 'BRL' } : undefined);
   });
 
   /* Desempenho: pausa animações pesadas quando estão fora da tela */
