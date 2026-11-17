@@ -172,7 +172,7 @@ function lpFormsubmit(b){
     var a = e.target.closest && e.target.closest('a[href="#orcamento"]');
     if (!a || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
     e.preventDefault(); e.stopPropagation(); lpGoForm();
-    if (a.getAttribute('data-event') === 'InitiateCheckout') lpTrack('InitiateCheckout', (a.textContent || '').trim().slice(0, 60), { value: 444, currency: 'BRL' });
+    if (a.getAttribute('data-event') === 'Lead') lpTrack('Lead', (a.textContent || '').trim().slice(0, 60), { value: 444, currency: 'BRL' });
   }, true);
 })();
 
