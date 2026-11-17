@@ -39,7 +39,7 @@ var CONFIG = {
   checkoutUrl: '',              /* link de pagamento (vazio: contratação segue no WhatsApp após o formulário) */
   agendaUrl: '',                /* link de agenda externa (vazio: usa o agendamento do próprio site) */
   whatsapp: '5511943935206',
-  metaPixelId: 'SEU_PIXEL_ID',  /* ex.: '123456789012345' */
+  metaPixelId: '2911388072568330',
   googleTagId: 'G-XXXXXXXXXX',  /* ex.: 'G-AB12CD34EF' (GA4) */
   leadEndpoint: 'https://formsubmit.co/ajax/1b48b570aacae35a6aa375e741964f04',  /* alias do FormSubmit (não expõe o e-mail) */
   leadExtra: {}
