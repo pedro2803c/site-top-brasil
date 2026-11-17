@@ -51,7 +51,9 @@ var TRACK_IDS = {
 };
 /* Mapa de eventos Meta -> GA4 */
 window.lpTrack = function(name, label, extra){
-  var GA = { InitiateCheckout: 'begin_checkout', Lead: 'generate_lead', Schedule: 'schedule_meeting', Contact: 'contact', ViewContent: 'view_item' };
+  var GA = { InitiateCheckout: 'begin_checkout', Lead: 'generate_lead', Schedule: 'schedule_meeting', Contact: 'contact', ViewContent: 'view_item', SubmitApplication: 'form_submit' };
+  /* Lead conta uma vez por visita (clique em 'Quero meu site') */
+  if (name === 'Lead') { try { if (sessionStorage.getItem('stb_lead')) return; sessionStorage.setItem('stb_lead', '1'); } catch (e) {} }
   var p = {}, g = {}, k;
   if (label) { p.content_name = label; g.event_label = label; }
   for (k in (extra || {})) { p[k] = extra[k]; g[k] = extra[k]; }
@@ -131,7 +133,7 @@ function lpFormsubmit(b){
   function busy(on){ btn.disabled = on; btn.setAttribute('aria-busy', on ? 'true' : 'false'); btn.querySelector('.lf-t').textContent = on ? 'Enviando…' : 'Enviar e falar com a equipe'; }
   function done(viaEndpoint){
     sent = true; busy(false);
-    lpTrack('Lead', 'Formulário de orçamento', { value: 444, currency: 'BRL' });
+    lpTrack('SubmitApplication', 'Formulário de orçamento', { value: 444, currency: 'BRL' });
     fm.hidden = true; ok.hidden = false;
     var link = document.getElementById('lf-ok-wa'), txt = document.getElementById('lf-ok-t');
     if (viaEndpoint) { link.hidden = true; txt.textContent = 'Obrigado! Nossa equipe vai chamar você no WhatsApp informado, de segunda a sexta, das 10h às 20h'; }
