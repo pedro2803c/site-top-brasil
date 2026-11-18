@@ -60,6 +60,14 @@ window.lpTrack = function(name, label, extra){
   try { if (window.fbq) fbq(META_STD[name] ? 'track' : 'trackCustom', name, p); } catch (e) {}
   try { if (window.gtag) gtag('event', GA[name] || name, g); } catch (e) {}
 };
+/* Funil em 3 etapas separadas:
+   1) entrou no site      -> PageView (só isso)
+   2) abriu um formulário -> InitiateCheckout (1x por visita, qualquer botão que leva ao formulário ou à agenda)
+   3) enviou os dados e seguiu para o WhatsApp -> Lead (conversão) */
+window.lpOpenForm = (function(){
+  var fired = false;
+  return function(label){ if (fired) return; fired = true; lpTrack('InitiateCheckout', label, { value: 444, currency: 'BRL' }); };
+})();
 /* form_start: primeiro foco no formulário de orçamento e no agendamento (mede abandono; não é conversão) */
 (function(){
   var seen = {};
@@ -69,7 +77,7 @@ window.lpTrack = function(name, label, extra){
     seen[f.id] = true;
     var id = f.id === 'bkm' ? 'agendamento' : 'orcamento';
     try { if (window.gtag) gtag('event', 'form_start', { form_id: id }); } catch (er) {}
-    try { if (window.fbq) fbq('trackCustom', 'FormStart', { form_id: id }); } catch (er) {}
+    /* FormStart removido do pixel: o foco é automático ao abrir o formulário e duplicaria a etapa 2 (InitiateCheckout) */
   });
 })();
 /* Envio para o endpoint de leads (quando configurado) */
@@ -174,8 +182,7 @@ function lpFormsubmit(b){
     var a = e.target.closest && e.target.closest('a[href="#orcamento"]');
     if (!a || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
     e.preventDefault(); e.stopPropagation(); lpGoForm();
-    var evName = a.getAttribute('data-event');
-    if (evName) lpTrack(evName, (a.textContent || '').trim().slice(0, 60), evName === 'InitiateCheckout' ? { value: 444, currency: 'BRL' } : undefined);
+    lpOpenForm((a.textContent || '').trim().slice(0, 60) || 'Formulário de orçamento');
   }, true);
 })();
 
@@ -208,14 +215,19 @@ window.__lpMain=function(){
     window.dataLayer = window.dataLayer || []; window.gtag = function(){ dataLayer.push(arguments); };
     gtag('js', new Date()); gtag('config', TRACK_IDS.gtag);
   }
-  if (window.fbq) fbq('track', 'ViewContent', { content_name: 'Site profissional · plano anual', value: 444, currency: 'BRL' });
-  if (window.gtag) gtag('event', 'view_item', { currency: 'BRL', value: 444, items: [{ item_id: 'plano-anual', item_name: 'Site profissional · plano anual', price: 444 }] });
+  /* Entrada no site: só PageView (disparado acima). Sem ViewContent automático. */
   /* Cliques com data-event (cada elemento dispara um único evento) */
   document.addEventListener('click', function(ev){
     var el = ev.target.closest && ev.target.closest('[data-event]'); if (!el) return;
     var name = el.getAttribute('data-event'), label = (el.textContent || '').trim().slice(0, 60);
-    /* CTA de orçamento = intenção (InitiateCheckout); Lead só no envio bem-sucedido */
-    lpTrack(name, label, name === 'InitiateCheckout' ? { value: 444, currency: 'BRL' } : undefined);
+    if (name === 'InitiateCheckout') { lpOpenForm(label); return; } /* abrir formulário: etapa 2 */
+    if (name === 'Lead') return; /* Lead só no envio dos dados */
+    lpTrack(name, label);
+  });
+  /* Etapa 2 também quando abre a agenda ou o formulário pela janela do WhatsApp */
+  document.addEventListener('click', function(ev){
+    var el = ev.target.closest && ev.target.closest('[data-bk="open"], [data-link="agenda"], [data-wa="novo"]'); if (!el) return;
+    lpOpenForm(el.getAttribute('data-wa') === 'novo' ? 'Formulário de orçamento' : 'Agendamento');
   });
 
   /* Desempenho: pausa animações pesadas quando estão fora da tela */
@@ -336,7 +348,7 @@ window.__lpMain=function(){
       if (!lpSec.allow('Agendamento', m)) { setTimeout(close, 400); return; }
       var c = function(k){ return lpSec.clean(g(k), 120); };
       if (CONFIG.leadEndpoint) lpPost({ tipo: 'Agendamento', nome: c('nome'), empresa: c('empresa'), whatsapp: c('whats'), email: c('email'), data: fmt(sel), horario: hora, lgpd: true, consentAt: consentAt || new Date().toISOString() }, true).catch(function(){});
-      lpTrack('Schedule', 'Agendamento confirmado · ' + fmt(sel) + ' ' + hora, { value: 444, currency: 'BRL' });
+      lpTrack('Lead', 'Agendamento enviado ao WhatsApp', { value: 444, currency: 'BRL' }); /* etapa 3: conversão */
       setTimeout(close, 400);
     });
   })();
@@ -715,7 +727,7 @@ window.__lpMain=function(){
     var l = e.target.closest && e.target.closest('a[href^="https://wa.me/"]'); if (!l || !window.lpTrack) return;
     if (l.id === 'wa-cliente') { lpTrack('SuporteWhatsApp', 'Suporte cliente · WhatsApp'); return; } /* cliente atual: fora da otimização */
     if (l.id === 'lf-fail-wa') { lpTrack('Lead', 'Formulário via WhatsApp (envio falhou)', { value: 444, currency: 'BRL' }); return; } /* lead que não foi contado no envio */
-    if (l.closest('#orcamento, #bkm')) lpTrack('Contact', (l.textContent || '').trim().slice(0, 60) || 'WhatsApp');
+    /* lf-ok-wa e bkm-send: o Lead já foi contado no envio; não duplicar */
   });
   upd();
 })();
