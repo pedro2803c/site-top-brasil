@@ -51,13 +51,13 @@ var TRACK_IDS = {
 };
 /* Mapa de eventos Meta -> GA4 */
 window.lpTrack = function(name, label, extra){
-  var GA = { InitiateCheckout: 'begin_checkout', Lead: 'generate_lead', Schedule: 'schedule_meeting', Contact: 'contact', ViewContent: 'view_item', SubmitApplication: 'form_submit' };
-  /* Lead conta uma vez por visita (clique em 'Quero meu site') */
-  if (name === 'Lead') { try { if (sessionStorage.getItem('stb_lead')) return; sessionStorage.setItem('stb_lead', '1'); } catch (e) {} }
+  var GA = { InitiateCheckout: 'begin_checkout', Lead: 'generate_lead', Schedule: 'schedule_meeting', Contact: 'contact', ViewContent: 'view_item', OfferClick: 'offer_click' };
+  /* Eventos padrão da Meta usam 'track'; os demais viram evento personalizado */
+  var META_STD = { ViewContent: 1, InitiateCheckout: 1, Lead: 1, Schedule: 1, Contact: 1, PageView: 1 };
   var p = {}, g = {}, k;
   if (label) { p.content_name = label; g.event_label = label; }
   for (k in (extra || {})) { p[k] = extra[k]; g[k] = extra[k]; }
-  try { if (window.fbq) fbq('track', name, p); } catch (e) {}
+  try { if (window.fbq) fbq(META_STD[name] ? 'track' : 'trackCustom', name, p); } catch (e) {}
   try { if (window.gtag) gtag('event', GA[name] || name, g); } catch (e) {}
 };
 /* form_start: primeiro foco no formulário de orçamento e no agendamento (mede abandono; não é conversão) */
@@ -133,7 +133,7 @@ function lpFormsubmit(b){
   function busy(on){ btn.disabled = on; btn.setAttribute('aria-busy', on ? 'true' : 'false'); btn.querySelector('.lf-t').textContent = on ? 'Enviando…' : 'Enviar e falar com a equipe'; }
   function done(viaEndpoint){
     sent = true; busy(false);
-    lpTrack('SubmitApplication', 'Formulário de orçamento', { value: 444, currency: 'BRL' });
+    lpTrack('Lead', 'Formulário de orçamento', { value: 444, currency: 'BRL' });
     fm.hidden = true; ok.hidden = false;
     var link = document.getElementById('lf-ok-wa'), txt = document.getElementById('lf-ok-t');
     if (viaEndpoint) { link.hidden = true; txt.textContent = 'Obrigado! Nossa equipe vai chamar você no WhatsApp informado, de segunda a sexta, das 10h às 20h'; }
@@ -174,7 +174,8 @@ function lpFormsubmit(b){
     var a = e.target.closest && e.target.closest('a[href="#orcamento"]');
     if (!a || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
     e.preventDefault(); e.stopPropagation(); lpGoForm();
-    if (a.getAttribute('data-event') === 'Lead') lpTrack('Lead', (a.textContent || '').trim().slice(0, 60), { value: 444, currency: 'BRL' });
+    var evName = a.getAttribute('data-event');
+    if (evName) lpTrack(evName, (a.textContent || '').trim().slice(0, 60), evName === 'InitiateCheckout' ? { value: 444, currency: 'BRL' } : undefined);
   }, true);
 })();
 
@@ -214,7 +215,7 @@ window.__lpMain=function(){
     var el = ev.target.closest && ev.target.closest('[data-event]'); if (!el) return;
     var name = el.getAttribute('data-event'), label = (el.textContent || '').trim().slice(0, 60);
     /* Botões 'Quero meu site' disparam Lead no clique */
-    lpTrack(name, label, (name === 'InitiateCheckout' || name === 'Lead') ? { value: 444, currency: 'BRL' } : undefined);
+    lpTrack(name, label, name === 'InitiateCheckout' ? { value: 444, currency: 'BRL' } : undefined);
   });
 
   /* Desempenho: pausa animações pesadas quando estão fora da tela */
@@ -335,6 +336,7 @@ window.__lpMain=function(){
       if (!lpSec.allow('Agendamento', m)) { setTimeout(close, 400); return; }
       var c = function(k){ return lpSec.clean(g(k), 120); };
       if (CONFIG.leadEndpoint) lpPost({ tipo: 'Agendamento', nome: c('nome'), empresa: c('empresa'), whatsapp: c('whats'), email: c('email'), data: fmt(sel), horario: hora, lgpd: true, consentAt: consentAt || new Date().toISOString() }, true).catch(function(){});
+      lpTrack('Schedule', 'Agendamento confirmado · ' + fmt(sel) + ' ' + hora, { value: 444, currency: 'BRL' });
       setTimeout(close, 400);
     });
   })();
