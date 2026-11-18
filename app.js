@@ -710,6 +710,13 @@ window.__lpMain=function(){
     var g = function(k){ return lpSec.clean(f[k], k === 'desc' ? 1000 : 120); };
     lpPost({ tipo: 'Suporte', nome: g('nome'), empresa: g('empresa'), doc: g('doc'), email: g('email'), motivo: g('motivo'), solicitacao: g('desc') }, true).catch(function(){});
   });
+  /* Rastreamento dos cliques que abrem o WhatsApp (um evento por clique) */
+  document.addEventListener('click', function(e){
+    var l = e.target.closest && e.target.closest('a[href^="https://wa.me/"]'); if (!l || !window.lpTrack) return;
+    if (l.id === 'wa-cliente') { lpTrack('SuporteWhatsApp', 'Suporte cliente · WhatsApp'); return; } /* cliente atual: fora da otimização */
+    if (l.id === 'lf-fail-wa') { lpTrack('Lead', 'Formulário via WhatsApp (envio falhou)', { value: 444, currency: 'BRL' }); return; } /* lead que não foi contado no envio */
+    if (l.closest('#orcamento, #bkm')) lpTrack('Contact', (l.textContent || '').trim().slice(0, 60) || 'WhatsApp');
+  });
   upd();
 })();
 
