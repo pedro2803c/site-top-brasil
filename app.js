@@ -214,7 +214,7 @@ window.__lpMain=function(){
   document.addEventListener('click', function(ev){
     var el = ev.target.closest && ev.target.closest('[data-event]'); if (!el) return;
     var name = el.getAttribute('data-event'), label = (el.textContent || '').trim().slice(0, 60);
-    /* Botões 'Quero meu site' disparam Lead no clique */
+    /* CTA de orçamento = intenção (InitiateCheckout); Lead só no envio bem-sucedido */
     lpTrack(name, label, name === 'InitiateCheckout' ? { value: 444, currency: 'BRL' } : undefined);
   });
 
