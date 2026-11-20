@@ -109,14 +109,13 @@ function lpFormsubmit(b){
 (function(){
   var fm = document.getElementById('lf-form'); if (!fm) return;
   var ok = document.getElementById('lf-ok'), fail = document.getElementById('lf-fail'), btn = fm.querySelector('.lf-send');
-  var FIELDS = ['nome', 'whats', 'empresa', 'necessidade', 'email', 'lgpd'], touched = {}, sent = false, waUrl = '';
+  var FIELDS = ['nome', 'whats', 'empresa', 'necessidade', 'email', 'lgpd'], touched = {}, sent = false, waUrl = '', leadFired = false;
   function el(n){ return fm.elements[n]; }
   function digits(v){ return String(v || '').replace(/\D/g, ''); }
   function val(n){ return n === 'lgpd' ? el(n).checked : lpSec.clean(el(n).value, n === 'email' ? 120 : 100); }
   function msgFor(n){
     var v = val(n);
     if (n === 'nome' && v.length < 2) return 'Informe seu nome';
-    if (n === 'empresa' && v.length < 2) return 'Informe o nome da empresa';
     if (n === 'whats' && (digits(v).length < 10 || digits(v).length > 11)) return 'Informe um WhatsApp válido com DDD';
     if (n === 'necessidade' && !v) return 'Escolha uma opção';
     if (n === 'email' && v && !lpSec.email(v)) return 'Confira o e-mail ou deixe em branco';
@@ -138,10 +137,15 @@ function lpFormsubmit(b){
     f.addEventListener('blur', function(){ touched[n] = true; if (n !== 'lgpd') check(n); });
     f.addEventListener(n === 'lgpd' || n === 'necessidade' ? 'change' : 'input', function(){ if (touched[n] || f.getAttribute('aria-invalid') === 'true') check(n); });
   });
-  function busy(on){ btn.disabled = on; btn.setAttribute('aria-busy', on ? 'true' : 'false'); btn.querySelector('.lf-t').textContent = on ? 'Enviando…' : 'Enviar e falar com a equipe'; }
+  function busy(on){ btn.disabled = on; btn.setAttribute('aria-busy', on ? 'true' : 'false'); btn.querySelector('.lf-t').textContent = on ? 'Enviando…' : 'Quero meu atendimento'; }
+  /* Lead no envio válido, sem depender do retorno do FormSubmit (uma vez por envio) */
+  function fireLead(){
+    if (leadFired) return;
+    leadFired = true;
+    lpTrack('Lead', 'Formulário de orçamento', { value: 444, currency: 'BRL' });
+  }
   function done(viaEndpoint){
     sent = true; busy(false);
-    lpTrack('Lead', 'Formulário de orçamento', { value: 444, currency: 'BRL' });
     fm.hidden = true; ok.hidden = false;
     var link = document.getElementById('lf-ok-wa'), txt = document.getElementById('lf-ok-t');
     if (viaEndpoint) { link.hidden = true; txt.textContent = 'Obrigado! Nossa equipe vai chamar você no WhatsApp informado, de segunda a sexta, das 10h às 20h'; }
@@ -158,8 +162,9 @@ function lpFormsubmit(b){
     if (hp && hp.value) { sent = true; fm.hidden = true; ok.hidden = false; document.getElementById('lf-ok-wa').hidden = true; return; } /* robô: finge sucesso, sem envio */
     var d = { nome: val('nome'), whats: el('whats').value.trim(), empresa: val('empresa'), necessidade: val('necessidade'), email: val('email') };
     var msg = 'Olá! Preenchi o formulário no site da SitePro Brasil e quero atendimento.\n\n' +
-      'Nome: ' + d.nome + '\nEmpresa: ' + d.empresa + '\nWhatsApp: ' + d.whats + '\nNecessidade: ' + d.necessidade + (d.email ? '\nE-mail: ' + d.email : '');
+      'Nome: ' + d.nome + (d.empresa ? '\nEmpresa: ' + d.empresa : '') + '\nWhatsApp: ' + d.whats + '\nNecessidade: ' + d.necessidade + (d.email ? '\nE-mail: ' + d.email : '');
     waUrl = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(msg);
+    fireLead();
     busy(true);
     if (!CONFIG.leadEndpoint) {
       var w = window.open(waUrl, '_blank'); try { if (w) w.opener = null; } catch (er) {}
@@ -726,7 +731,7 @@ window.__lpMain=function(){
   document.addEventListener('click', function(e){
     var l = e.target.closest && e.target.closest('a[href^="https://wa.me/"]'); if (!l || !window.lpTrack) return;
     if (l.id === 'wa-cliente') { lpTrack('SuporteWhatsApp', 'Suporte cliente · WhatsApp'); return; } /* cliente atual: fora da otimização */
-    if (l.id === 'lf-fail-wa') { lpTrack('Lead', 'Formulário via WhatsApp (envio falhou)', { value: 444, currency: 'BRL' }); return; } /* lead que não foi contado no envio */
+    if (l.id === 'lf-fail-wa') return; /* Lead já contado no submit válido; não duplicar */
     /* lf-ok-wa e bkm-send: o Lead já foi contado no envio; não duplicar */
   });
   upd();
