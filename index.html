@@ -290,7 +290,7 @@ a.ft-seal:hover,button.ft-seal:hover{transform:translateY(-2px);border-color:rgb
 .g-exp{display:grid;grid-template-columns:1.2fr .85fr .85fr;gap:14px}
 .g-meet{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch}
 .g-faq{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:start}
-.g-foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
+.g-foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
 /* faq */
 .faq{background:var(--panel);border-radius:20px;margin-bottom:8px;border:1px solid var(--line)}
 .faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 18px 18px 22px;font-size:16px;font-weight:500;line-height:1.4;letter-spacing:-.01em}
@@ -724,6 +724,15 @@ html.dm-open.neo-on .dm,html.dm-open.neo-on .dm *{cursor:auto!important}
 .foot-lt .mut{color:#5E5E59}
 .foot-lt .linkbtn{color:#4A4A46}
 .foot-lt a:hover,.foot-lt .linkbtn:hover{color:#0B0B0B!important}
+.soc-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:2px}
+.soc-lbl{font-size:13px;font-weight:500;color:#5E5E59;margin:0}
+.soc-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.soc-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:40px;height:40px;border-radius:12px;background:#fff;border:1px solid rgba(11,11,11,.12);color:#0B0B0B;text-decoration:none;transition:transform .2s,background-color .2s,border-color .2s,box-shadow .2s}
+.soc-btn svg{width:18px;height:18px;fill:currentColor;flex:none}
+.soc-btn:hover{background:#D4F25A;border-color:#0B0B0B;color:#0B0B0B!important;transform:translateY(-2px);box-shadow:0 8px 18px -10px rgba(11,11,11,.35)}
+.soc-btn.pill{width:auto;height:34px;padding:0 12px;border-radius:999px;font-size:12.5px;font-weight:600;background:#F4F4EF;border-color:rgba(11,11,11,.1)}
+.soc-btn.pill svg{width:15px;height:15px}
+.soc-ok{margin-top:8px;padding-top:16px;border-top:1px solid rgba(11,11,11,.1);display:flex;flex-direction:column;align-items:center;gap:10px;width:100%}
 @media (max-width:680px){.foot-lt .lg-img{height:48px}}
 .g-dp{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,5vw,64px);align-items:center}
 .dp-copy{display:flex;flex-direction:column;gap:18px}
@@ -1053,6 +1062,15 @@ html.bkm-open .neo-tag{display:none!important}
         <a href="#orcamento" data-link="checkout" class="btn btn-p btn-dk" data-event="InitiateCheckout">Quero meu site profissional<svg viewBox="0 0 24 24" class="ic" aria-hidden="true" style="width: 18px; height: 18px"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
         <a href="#reuniao" class="btn btn-s">Prefiro conversar antes</a>
       </div>
+      <div class="soc-bar" aria-label="Redes sociais da SitePro Brasil">
+        <span class="soc-lbl">Acompanhe nossas dicas:</span>
+        <div class="soc-row">
+          <a class="soc-btn pill" href="https://www.youtube.com/channel/UCCDF5BGCwcfkWEOCloYxChA" target="_blank" rel="noopener noreferrer" aria-label="Inscreva-se no YouTube da SitePro Brasil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg><span>YouTube</span></a>
+          <a class="soc-btn pill" href="https://www.instagram.com/site.probrasil/" target="_blank" rel="noopener noreferrer" aria-label="Siga a SitePro Brasil no Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zm5.2-3.3a1.1 1.1 0 1 1-1.1 1.1 1.1 1.1 0 0 1 1.1-1.1z"/></svg><span>Instagram</span></a>
+          <a class="soc-btn pill" href="https://www.tiktok.com/@sitepro_brasil" target="_blank" rel="noopener noreferrer" aria-label="Siga a SitePro Brasil no TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.4h-3.3v13.2a2.9 2.9 0 1 1-2-2.7V9.4a6.2 6.2 0 1 0 5.3 6.1V8.8a8.1 8.1 0 0 0 4.7 1.5V7a4.9 4.9 0 0 1-.9-.3z"/></svg><span>TikTok</span></a>
+          <a class="soc-btn pill" href="https://www.facebook.com/profile.php?id=61596411577415" target="_blank" rel="noopener noreferrer" aria-label="Siga a SitePro Brasil no Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 13.5h2.5l1-4H14v-2c0-1 0-2 2-2h1.5V2.1c-.3 0-1.5-.1-2.8-.1-2.8 0-4.7 1.7-4.7 4.8v2.7H7v4h3V22h4v-8.5z"/></svg><span>Facebook</span></a>
+        </div>
+      </div>
       <ul class="list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px 20px; margin-top: 4px">
         <li class="chk" style="font-size: 14px"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Profissional com mais de 10 anos de experiência</li>
         <li class="chk" style="font-size: 14px"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Contrato de prestação de serviços</li>
@@ -1127,6 +1145,15 @@ html.bkm-open .neo-tag{display:none!important}
         <h3 class="h3" style="font-size: 22px">Dados recebidos!</h3>
         <p class="mut" id="lf-ok-t" style="margin: 0; font-size: 15px; line-height: 1.6">Abrimos o WhatsApp com sua mensagem pronta. Se ele não abriu, toque no botão abaixo</p>
         <a class="btn btn-p" id="lf-ok-wa" href="#" target="_blank" rel="noopener">Abrir o WhatsApp<svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        <div class="soc-ok">
+          <p class="soc-lbl">Enquanto aguarda, inscreva-se e acompanhe nossas dicas:</p>
+          <div class="soc-row">
+            <a class="soc-btn" href="https://www.youtube.com/channel/UCCDF5BGCwcfkWEOCloYxChA" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
+            <a class="soc-btn" href="https://www.instagram.com/site.probrasil/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zm5.2-3.3a1.1 1.1 0 1 1-1.1 1.1 1.1 1.1 0 0 1 1.1-1.1z"/></svg></a>
+            <a class="soc-btn" href="https://www.tiktok.com/@sitepro_brasil" target="_blank" rel="noopener noreferrer" aria-label="TikTok" title="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.4h-3.3v13.2a2.9 2.9 0 1 1-2-2.7V9.4a6.2 6.2 0 1 0 5.3 6.1V8.8a8.1 8.1 0 0 0 4.7 1.5V7a4.9 4.9 0 0 1-.9-.3z"/></svg></a>
+            <a class="soc-btn" href="https://www.facebook.com/profile.php?id=61596411577415" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 13.5h2.5l1-4H14v-2c0-1 0-2 2-2h1.5V2.1c-.3 0-1.5-.1-2.8-.1-2.8 0-4.7 1.7-4.7 4.8v2.7H7v4h3V22h4v-8.5z"/></svg></a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1806,6 +1833,16 @@ html.bkm-open .neo-tag{display:none!important}
         <span style="color: #0B0B0B; font-weight: 600">HUHN TECNOLOGIA E AUTOMAÇÃO LTDA</span>
         <span class="mut">CNPJ 68.426.644/0001-80</span>
         <address class="mut" style="font-style: normal; line-height: 1.7; margin: 0">Av. Paulista, 1636 — Bela Vista — São Paulo/SP</address>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; font-size: 14px">
+        <p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #0B0B0B">Redes sociais</p>
+        <p class="mut" style="margin: 0; font-size: 13.5px; line-height: 1.5">Inscreva-se e acompanhe nossos vídeos e novidades:</p>
+        <div class="soc-row">
+          <a class="soc-btn" href="https://www.youtube.com/channel/UCCDF5BGCwcfkWEOCloYxChA" target="_blank" rel="noopener noreferrer" aria-label="YouTube da SitePro Brasil" title="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
+          <a class="soc-btn" href="https://www.instagram.com/site.probrasil/" target="_blank" rel="noopener noreferrer" aria-label="Instagram da SitePro Brasil" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zm5.2-3.3a1.1 1.1 0 1 1-1.1 1.1 1.1 1.1 0 0 1 1.1-1.1z"/></svg></a>
+          <a class="soc-btn" href="https://www.tiktok.com/@sitepro_brasil" target="_blank" rel="noopener noreferrer" aria-label="TikTok da SitePro Brasil" title="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.4h-3.3v13.2a2.9 2.9 0 1 1-2-2.7V9.4a6.2 6.2 0 1 0 5.3 6.1V8.8a8.1 8.1 0 0 0 4.7 1.5V7a4.9 4.9 0 0 1-.9-.3z"/></svg></a>
+          <a class="soc-btn" href="https://www.facebook.com/profile.php?id=61596411577415" target="_blank" rel="noopener noreferrer" aria-label="Facebook da SitePro Brasil" title="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 13.5h2.5l1-4H14v-2c0-1 0-2 2-2h1.5V2.1c-.3 0-1.5-.1-2.8-.1-2.8 0-4.7 1.7-4.7 4.8v2.7H7v4h3V22h4v-8.5z"/></svg></a>
+        </div>
       </div>
     </div>
     <div class="ft-sec" aria-labelledby="ft-sec-t">
