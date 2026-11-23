@@ -731,7 +731,7 @@ html.dm-open.neo-on .dm,html.dm-open.neo-on .dm *{cursor:auto!important}
 .dp-rate b{font-size:40px;letter-spacing:-.04em;line-height:1}
 .dp-rate span{color:#D4F25A;letter-spacing:2px;font-size:18px}
 .dp-rate small{color:#A3A39E;font-size:13px}
-.dp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.dp-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;width:100%;max-width:340px;justify-self:center}
 .dp-card{margin:0;display:flex;flex-direction:column;gap:12px}
 .dp-card:nth-child(2){margin-top:48px}
 .dp-vid{position:relative;display:block;width:100%;aspect-ratio:9/16;padding:0;border:0;border-radius:24px;overflow:hidden;cursor:pointer;background:#1a1a1a;box-shadow:0 30px 60px -28px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.1)}
@@ -749,7 +749,7 @@ html.dm-open.neo-on .dm,html.dm-open.neo-on .dm *{cursor:auto!important}
 .dp-card figcaption small{color:#A3A39E}
 .dp-card figcaption a{color:#D4F25A;font-size:13px;text-decoration:none}
 .dp-card figcaption a:hover{text-decoration:underline}
-@media (max-width:760px){.g-dp{grid-template-columns:1fr}.dp-grid{width:100%;max-width:460px;margin:0 auto}.dp-card:nth-child(2){margin-top:28px}}
+@media (max-width:760px){.g-dp{grid-template-columns:1fr}.dp-grid{width:100%;max-width:340px;margin:0 auto}.dp-card:nth-child(2){margin-top:28px}}
 @media (min-width:761px) and (max-width:1020px){.g-dp{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}.dp-grid{gap:12px}.dp-card:nth-child(2){margin-top:32px}}
 @media (max-width:560px){.dp-grid{gap:12px}.dp-card:nth-child(2){margin-top:28px}.dp-play{width:54px;height:54px;margin:-27px 0 0 -27px}.dp-play svg{width:22px;height:22px}.dp-vid{border-radius:18px}}
 @media (prefers-reduced-motion:reduce){.dp-play{animation:none}}
@@ -1587,14 +1587,6 @@ html.bkm-open .neo-tag{display:none!important}
       <a href="#orcamento" data-link="checkout" class="btn btn-p" data-event="InitiateCheckout" style="align-self: flex-start">Quero meu site também<svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
     </div>
     <div class="dp-grid">
-        <figure class="dp-card reveal">
-          <button type="button" class="dp-vid" data-yt="HWajiuvWeXw" aria-label="Depoimento real: assistir ao vídeo de Valéria">
-            <img src="modelos/depo/valeria.webp" alt="Valéria gravando depoimento sobre o site" width="360" height="640" loading="lazy" decoding="async">
-            <span class="dp-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>
-            <span class="dp-tag">▶ Depoimento real</span>
-          </button>
-          <figcaption><b>Valéria</b><small>Lavínia Imóveis · Imobiliária</small><a href="https://laviniaimoveis.com.br" target="_blank" rel="noopener nofollow">laviniaimoveis.com.br</a></figcaption>
-        </figure>
         <figure class="dp-card reveal">
           <button type="button" class="dp-vid" data-yt="TOCJ3Y4Sl4Q" aria-label="Depoimento real: assistir ao vídeo de Cinthia Melo">
             <img src="modelos/depo/cinthia.webp" alt="Cinthia Melo gravando depoimento sobre o site" width="360" height="640" loading="lazy" decoding="async">
