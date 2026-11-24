@@ -258,7 +258,7 @@ a.ft-seal:hover,button.ft-seal:hover{transform:translateY(-2px);border-color:rgb
 .g-exp{display:grid;grid-template-columns:1.2fr .85fr .85fr;gap:14px}
 .g-meet{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch}
 .g-faq{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:start}
-.g-foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+.g-foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
 /* faq */
 .faq{background:var(--panel);border-radius:20px;margin-bottom:8px;border:1px solid var(--line)}
 .faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 18px 18px 22px;font-size:16px;font-weight:500;line-height:1.4;letter-spacing:-.01em}
@@ -692,15 +692,6 @@ html.dm-open.neo-on .dm,html.dm-open.neo-on .dm *{cursor:auto!important}
 .foot-lt .mut{color:#5E5E59}
 .foot-lt .linkbtn{color:#4A4A46}
 .foot-lt a:hover,.foot-lt .linkbtn:hover{color:#0B0B0B!important}
-.soc-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:2px}
-.soc-lbl{font-size:13px;font-weight:500;color:#5E5E59;margin:0}
-.soc-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.soc-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:40px;height:40px;border-radius:12px;background:#fff;border:1px solid rgba(11,11,11,.12);color:#0B0B0B;text-decoration:none;transition:transform .2s,background-color .2s,border-color .2s,box-shadow .2s}
-.soc-btn svg{width:18px;height:18px;fill:currentColor;flex:none}
-.soc-btn:hover{background:#D4F25A;border-color:#0B0B0B;color:#0B0B0B!important;transform:translateY(-2px);box-shadow:0 8px 18px -10px rgba(11,11,11,.35)}
-.soc-btn.pill{width:auto;height:34px;padding:0 12px;border-radius:999px;font-size:12.5px;font-weight:600;background:#F4F4EF;border-color:rgba(11,11,11,.1)}
-.soc-btn.pill svg{width:15px;height:15px}
-.soc-ok{margin-top:8px;padding-top:16px;border-top:1px solid rgba(11,11,11,.1);display:flex;flex-direction:column;align-items:center;gap:10px;width:100%}
 @media (max-width:680px){.foot-lt .lg-img{height:48px}}
 .g-dp{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,5vw,64px);align-items:center}
 .dp-copy{display:flex;flex-direction:column;gap:18px}
