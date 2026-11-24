@@ -82,15 +82,18 @@ window.lpOpenForm = (function(){
 })();
 /* Envio para o endpoint de leads (quando configurado) */
 window.lpPost = function(data, keep){
-  var body = {}, k, camp = {};
+  var body = {}, k, camp = {}, isFS = /formsubmit\.co/.test(CONFIG.leadEndpoint);
   try { camp = JSON.parse(sessionStorage.getItem('stb_camp') || '{}'); } catch (e) {}
   for (k in CONFIG.leadExtra) body[k] = CONFIG.leadExtra[k];
   body.origem = location.href; body.campanha = camp; body._honey = '';
   for (k in data) body[k] = data[k];
-  if (/formsubmit\.co/.test(CONFIG.leadEndpoint)) body = lpFormsubmit(body);
-  return fetch(CONFIG.leadEndpoint, { method: 'POST', keepalive: !!keep, headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(body) })
+  if (isFS) body = lpFormsubmit(body);
+  var req = isFS
+    ? { method: 'POST', keepalive: !!keep, headers: { 'Accept': 'application/json' }, body: new URLSearchParams(body) }
+    : { method: 'POST', keepalive: !!keep, headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(body) };
+  return fetch(CONFIG.leadEndpoint, req)
     .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json().catch(function(){ return {}; }); })
-    .then(function(j){ if (/formsubmit\.co/.test(CONFIG.leadEndpoint) && String(j.success) !== 'true') throw new Error('destino'); return j; });
+    .then(function(j){ if (isFS && String(j.success) !== 'true') throw new Error('destino'); return j; });
 };
 /* Formato do e-mail do FormSubmit: tabela com rótulos, LGPD, datas ISO 8601 e campanha */
 function lpFormsubmit(b){
@@ -148,8 +151,8 @@ function lpFormsubmit(b){
     sent = true; busy(false);
     fm.hidden = true; ok.hidden = false;
     var link = document.getElementById('lf-ok-wa'), txt = document.getElementById('lf-ok-t');
-    if (viaEndpoint) { link.hidden = true; txt.textContent = 'Obrigado! Nossa equipe vai chamar você no WhatsApp informado, de segunda a sexta, das 10h às 20h'; }
-    else link.href = waUrl;
+    link.hidden = false; link.href = waUrl;
+    if (viaEndpoint) { txt.textContent = 'Obrigado! Nossa equipe vai chamar você no WhatsApp informado, de segunda a sexta, das 10h às 20h. Se preferir adiantar, toque abaixo para falar agora no WhatsApp'; }
     ok.focus();
   }
   fm.addEventListener('submit', function(e){
@@ -171,9 +174,9 @@ function lpFormsubmit(b){
       setTimeout(function(){ done(false); }, 250);
       return;
     }
-    lpPost({ tipo: 'Orçamento', nome: d.nome, whatsapp: d.whats, empresa: d.empresa, necessidade: d.necessidade, email: d.email, lgpd: true, consentAt: new Date().toISOString() })
-      .then(function(){ done(true); })
-      .catch(function(){ busy(false); document.getElementById('lf-fail-wa').href = waUrl; fail.hidden = false; });
+    lpPost({ tipo: 'Orçamento', nome: d.nome, whatsapp: d.whats, empresa: d.empresa, necessidade: d.necessidade, email: d.email, lgpd: true, consentAt: new Date().toISOString() }, true)
+      .catch(function(){});
+    done(true);
   });
   /* CTAs que apontam para o formulário: rolam até ele e posicionam o cursor no primeiro campo */
   window.lpGoForm = function(){
